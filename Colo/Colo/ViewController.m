@@ -72,7 +72,8 @@ static NSString *JSHandler;
         NSString *htmlString = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
         self.HTML = htmlString;
         //[self saveDataToUserDefault:htmlString];
-        NSLog(@"self.html : %@",self.HTML);
+        //NSLog(@"self.html : %@",self.HTML);
+        [Parser parseWithHTMLString:self.HTML];
         return NO;
     }
     return YES;
@@ -80,11 +81,11 @@ static NSString *JSHandler;
 
 #pragma mark - Private Method
 //开始解析
-- (void)startParse
-{
-    //[Parser groupedTheArray:[Parser createData]];
-    [Parser groupedTheArray:[Parser parseWithHTMLString]];
-}
+//- (void)startParse
+//{
+//    //[Parser groupedTheArray:[Parser createData]];
+//    [Parser groupedTheArray:[Parser parseWithHTMLString]];
+//}
 
 //重载
 - (void)reloadTheWebpage

@@ -16,23 +16,35 @@
 #import "DetailViewController.h"
 #import "SettingsViewController.h"
 #import "BaseNavigationController.h"
+#import "MMPickerView.h"
 
+#define kDeviceWidth  self.view.frame.size.width
+#define kDeviceHeight self.view.frame.size.height
+#define CocoaJSHandler       @"mpAjaxHandler"
+static NSString *JSHandler;
 static NSString *CellIdentifier = @"ColorCell";
 
-@interface CollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UIViewControllerTransitioningDelegate, ModalViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface CollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UIViewControllerTransitioningDelegate, ModalViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIWebViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView    *tableView;
-@property (strong, nonatomic) IBOutlet UIView         *bottomView;
-@property (strong, nonatomic) IBOutlet UIButton    *settingsButton;
-@property (strong, nonatomic) IBOutlet UIButton    *chooseButton;
+@property (strong, nonatomic)  UITableView    *tableView;
+@property (strong, nonatomic)  UIView         *bottomView;
+@property (strong, nonatomic)  UIButton    *settingsButton;
+@property (strong, nonatomic)  UIButton    *chooseButton;
 
-@property (strong, nonatomic)          NSMutableArray *objectArray;
-@property (strong, nonatomic)          NSMutableArray *titleArray;
-@property (strong, nonatomic)          NSMutableArray *likesArray;
+@property (copy, nonatomic)    NSMutableArray *objectArray;
+@property (copy, nonatomic)    NSMutableArray *titleArray;
+@property (copy, nonatomic)    NSMutableArray *likesArray;
+@property (copy, nonatomic)    NSArray        *pickerArray;
+@property (copy, nonatomic)    NSString       *selectedString;
 
 @property (strong, nonatomic) BouncePresentAnimation *presentAnimation;
 @property (strong, nonatomic) NormalDismissAnimation *dismissAnimation;
 @property (strong, nonatomic) SwipeUpInteractionTransition *transitionController;
+
+@property (nonatomic, strong)  UIWebView *webView;
+@property (nonatomic, strong)  NSString *HTML;
+@property (nonatomic, strong)  UIButton *parseButton;
+@property (nonatomic, strong)  UIButton *reloadButton;
 
 @end
 
@@ -58,6 +70,11 @@ static NSString *CellIdentifier = @"ColorCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //inner
+
+    
+    //outer
     self.tableView = [UITableView new];
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.delegate = self;
@@ -85,13 +102,29 @@ static NSString *CellIdentifier = @"ColorCell";
     [self.chooseButton setImage:[UIImage imageNamed:@"star.png"] forState:UIControlStateNormal];
     self.chooseButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.bottomView addSubview:self.chooseButton];
-    [self.chooseButton addTarget:self action:@selector(choose) forControlEvents:UIControlEventTouchUpInside];
+    [self.chooseButton addTarget:self action:@selector(triggerUIPickerView) forControlEvents:UIControlEventTouchUpInside];
     
-    _objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString]]];
-    _titleArray  = [[NSMutableArray alloc] initWithArray:[Parser parsewithTitle]];
-    _likesArray  = [[NSMutableArray alloc] initWithArray:[Parser parsewithLikes]];
     
     [self addConstraints];
+    
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, kDeviceWidth, kDeviceHeight - 69)];
+    self.webView.backgroundColor = [UIColor yellowColor];
+    self.webView.delegate = self;
+    [self.view addSubview:self.webView];
+    
+    self.parseButton = [[UIButton alloc] initWithFrame:CGRectMake(0, kDeviceHeight - 69, 20, 20)];
+    [self.parseButton addTarget:self action:@selector(startParse) forControlEvents:UIControlEventTouchUpInside];
+    self.parseButton.backgroundColor = [UIColor redColor];
+    [self.view addSubview:self.parseButton];
+    
+    self.reloadButton = [[UIButton alloc] initWithFrame:CGRectMake(20, kDeviceHeight - 69, 20, 20)];
+    [self.reloadButton addTarget:self action:@selector(reloadTheWebpage) forControlEvents:UIControlEventTouchUpInside];
+    self.reloadButton.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:self.reloadButton];
+    
+    NSURL *url = [[NSURL alloc] initWithString:@"https://color.adobe.com/zh/explore/most-popular/?time=all"];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    [self.webView loadRequest:urlRequest];
 }
 
 - (void)settings
@@ -105,14 +138,24 @@ static NSString *CellIdentifier = @"ColorCell";
     [self presentViewController:nav animated:YES completion:nil];
 }
 
-- (void)choose
+- (void)triggerUIPickerView
 {
-    UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 300)];
-    pickerView.dataSource = self;
-    pickerView.delegate = self;
-    pickerView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:pickerView];
-    pickerView.showsSelectionIndicator = YES;
+    self.pickerArray = @[@"Dansk", @"Deutsch", @"English", @"Español", @"Français", @"Italiano", @"Nederlands", @"Norsk", @"Polski", @"Português", @"Suomi", @"Svenska", @"Türkçe", @"Pусский", @"繁體中文", @"日本語", @"한국어"];
+    
+    [MMPickerView showPickerViewInView:self.view
+                           withStrings:self.pickerArray
+                           withOptions:@{MMbackgroundColor: [UIColor blackColor],
+                                         MMtextColor: [UIColor whiteColor],
+                                         MMtoolbarColor: [UIColor blackColor],
+                                         MMbuttonColor: [UIColor whiteColor],
+                                         MMfont: [UIFont systemFontOfSize:18],
+                                         MMvalueY: @3,
+                                         MMselectedObject:_selectedString}
+                            completion:^(NSString *selectedString) {
+                                
+                                //_label.text = selectedString;
+                                _selectedString = selectedString;
+                            }];
 }
 
 - (void)addConstraints
@@ -307,5 +350,41 @@ static NSString *CellIdentifier = @"ColorCell";
     }
     return string;
 }
+
+#pragma mark - UIWebViewDelegate
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    JSHandler = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"parser"
+                                                                          withExtension:@"js"]
+                                         encoding:NSUTF8StringEncoding
+                                            error:nil];
+    [self.webView stringByEvaluatingJavaScriptFromString:JSHandler];
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if ([[[[request URL] scheme] lowercaseString] isEqual:@"mpajaxhandler"]) {
+        
+        UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"OK"
+                                                     message:@"已经获得"
+                                                    delegate:self
+                                           cancelButtonTitle:@"取消"
+                                           otherButtonTitles:nil, nil];
+        [al show];
+        NSString *htmlString = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
+        self.HTML = htmlString;
+        //[self saveDataToUserDefault:htmlString];
+        //NSLog(@"self.html : %@",self.HTML);
+
+        
+        _objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString:self.HTML]]];
+        _titleArray  = [[NSMutableArray alloc] initWithArray:[Parser parsewithTitle:self.HTML]];
+        _likesArray  = [[NSMutableArray alloc] initWithArray:[Parser parsewithLikes:self.HTML]];
+        [self.tableView reloadData];
+        return NO;
+    }
+    return YES;
+}
+
 
 @end

@@ -10,23 +10,22 @@
 
 @interface ColorCell : UITableViewCell
 
-@property (strong, nonatomic) IBOutlet UIView *firstColor;
-@property (strong, nonatomic) IBOutlet UIView *secondColor;
-@property (strong, nonatomic) IBOutlet UIView *thirdColor;
-@property (strong, nonatomic) IBOutlet UIView *fourthColor;
-@property (strong, nonatomic) IBOutlet UIView *fifthColor;
-@property (strong, nonatomic) IBOutlet UIView *background;
-@property (strong, nonatomic) IBOutlet UILabel *title;
+@property (strong, nonatomic)   UIView *firstColor;
+@property (strong, nonatomic)   UIView *secondColor;
+@property (strong, nonatomic)   UIView *thirdColor;
+@property (strong, nonatomic)   UIView *fourthColor;
+@property (strong, nonatomic)   UIView *fifthColor;
+@property (strong, nonatomic)   UIView *background;
+@property (strong, nonatomic)   UILabel *title;
+@property (strong, nonatomic)   UILabel *favourites;
+@property (strong, nonatomic)   UIView *top;
+@property (strong, nonatomic)   UIView *bottom;
+@property (strong, nonatomic)   UIImageView *stars;
 
-@property (strong, nonatomic) IBOutlet UILabel *favourites;
-@property (strong, nonatomic) IBOutlet UIView *top;
-@property (strong, nonatomic) IBOutlet UIView *bottom;
-@property (strong, nonatomic) IBOutlet UIImageView *stars;
-
-@property (nonatomic, strong) NSString *first;
-@property (nonatomic, strong) NSString *second;
-@property (nonatomic, strong) NSString *third;
-@property (nonatomic, strong) NSString *fourth;
-@property (nonatomic, strong) NSString *fifth;
+@property (copy, nonatomic)     NSString *first;
+@property (copy, nonatomic)     NSString *second;
+@property (copy, nonatomic)     NSString *third;
+@property (copy, nonatomic)     NSString *fourth;
+@property (copy, nonatomic)     NSString *fifth;
 
 @end

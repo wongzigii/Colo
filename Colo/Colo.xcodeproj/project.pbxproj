@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E00A43F71A7A79F0006E51D2 /* MMPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E00A43F61A7A79F0006E51D2 /* MMPickerView.m */; };
 		E0E039C81A7A5F2700609DEB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E039C71A7A5F2700609DEB /* main.m */; };
 		E0E039CB1A7A5F2700609DEB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E039CA1A7A5F2700609DEB /* AppDelegate.m */; };
 		E0E039D31A7A5F2700609DEB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0E039D21A7A5F2700609DEB /* Images.xcassets */; };
@@ -51,6 +52,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E00A43F51A7A79F0006E51D2 /* MMPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPickerView.h; sourceTree = "<group>"; };
+		E00A43F61A7A79F0006E51D2 /* MMPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPickerView.m; sourceTree = "<group>"; };
 		E0E039C21A7A5F2700609DEB /* Colo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Colo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0E039C61A7A5F2700609DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E0E039C71A7A5F2700609DEB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -156,6 +159,8 @@
 		E0E039C41A7A5F2700609DEB /* Colo */ = {
 			isa = PBXGroup;
 			children = (
+				E00A43F51A7A79F0006E51D2 /* MMPickerView.h */,
+				E00A43F61A7A79F0006E51D2 /* MMPickerView.m */,
 				E0E039C91A7A5F2700609DEB /* AppDelegate.h */,
 				E0E039CA1A7A5F2700609DEB /* AppDelegate.m */,
 				E0E039EB1A7A5F7300609DEB /* BaseNavigationController.h */,
@@ -174,6 +179,8 @@
 				E0E039F81A7A5F7300609DEB /* NormalDismissAnimation.m */,
 				E0E039F91A7A5F7300609DEB /* BouncePresentAnimation.h */,
 				E0E039FA1A7A5F7300609DEB /* BouncePresentAnimation.m */,
+				E0E03A311A7A634800609DEB /* Parser.h */,
+				E0E03A321A7A634800609DEB /* Parser.m */,
 				E0E03A111A7A5FF700609DEB /* View */,
 				E0E03A121A7A600400609DEB /* Model */,
 				E0E039D21A7A5F2700609DEB /* Images.xcassets */,
@@ -190,8 +197,6 @@
 				E0E03A361A7A641000609DEB /* gear.png */,
 				E0E03A341A7A63FA00609DEB /* index.html */,
 				E0E03A2F1A7A633B00609DEB /* parser.js */,
-				E0E03A311A7A634800609DEB /* Parser.h */,
-				E0E03A321A7A634800609DEB /* Parser.m */,
 				E0E03A221A7A60A300609DEB /* TFHpple */,
 				E0E03A2C1A7A60BF00609DEB /* Reachability */,
 				E0E039C61A7A5F2700609DEB /* Info.plist */,
@@ -367,6 +372,7 @@
 				E0E03A021A7A5F7300609DEB /* BouncePresentAnimation.m in Sources */,
 				E0E039FE1A7A5F7300609DEB /* ViewController.m in Sources */,
 				E0E03A001A7A5F7300609DEB /* SwipeUpInteractionTransition.m in Sources */,
+				E00A43F71A7A79F0006E51D2 /* MMPickerView.m in Sources */,
 				E0E039FC1A7A5F7300609DEB /* CollectionViewController.m in Sources */,
 				E0E03A101A7A5FA000609DEB /* ColorModel.m in Sources */,
 				E0E03A011A7A5F7300609DEB /* NormalDismissAnimation.m in Sources */,

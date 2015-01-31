@@ -11,13 +11,13 @@
 @implementation Parser
 
 //Color Array
-+ (NSMutableArray *)parseWithHTMLString
++ (NSMutableArray *)parseWithHTMLString:(NSString *)webContent
 {
-    NSString *string = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-    NSString *content = [[NSString  alloc] initWithContentsOfFile:string encoding:NSUTF8StringEncoding error:nil];
+//    NSString *string = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
+//    NSString *content = [[NSString  alloc] initWithContentsOfFile:string encoding:NSUTF8StringEncoding error:nil];
     
     //伪造数据
-    NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [webContent dataUsingEncoding:NSUTF8StringEncoding];
     TFHpple *parser = [TFHpple hppleWithData:data isXML:NO];
     
     //Color Array
@@ -46,13 +46,13 @@
 }
 
 //Title
-+ (NSMutableArray *)parsewithTitle
++ (NSMutableArray *)parsewithTitle:(NSString *)webContent
 {
-    NSString *string = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-    NSString *content = [[NSString  alloc] initWithContentsOfFile:string encoding:NSUTF8StringEncoding error:nil];
+//    NSString *string = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
+//    NSString *content = [[NSString  alloc] initWithContentsOfFile:string encoding:NSUTF8StringEncoding error:nil];
     
     //伪造数据
-    NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [webContent dataUsingEncoding:NSUTF8StringEncoding];
     TFHpple *parser = [TFHpple hppleWithData:data isXML:NO];
     
     NSString *XpathQueryColorTitle = @"//a[@class='ctooltip']";
@@ -68,13 +68,13 @@
 }
 
 //Likes
-+ (NSMutableArray *)parsewithLikes
++ (NSMutableArray *)parsewithLikes:(NSString *)webContent
 {
-    NSString *string = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-    NSString *content = [[NSString  alloc] initWithContentsOfFile:string encoding:NSUTF8StringEncoding error:nil];
+//    NSString *string = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
+//    NSString *content = [[NSString  alloc] initWithContentsOfFile:string encoding:NSUTF8StringEncoding error:nil];
     
     //伪造数据
-    NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [webContent dataUsingEncoding:NSUTF8StringEncoding];
     TFHpple *parser = [TFHpple hppleWithData:data isXML:NO];
     
     NSString *XpathQueryColorLikes = @"//li[@class='likes-count']";

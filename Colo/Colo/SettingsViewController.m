@@ -11,7 +11,6 @@
 
 @interface SettingsViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
-
 @end
 
 @implementation SettingsViewController
