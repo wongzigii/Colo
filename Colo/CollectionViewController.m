@@ -72,7 +72,24 @@ static NSString *CellIdentifier = @"ColorCell";
     [super viewDidLoad];
     
     //inner
-
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight - 49)];
+    self.webView.backgroundColor = [UIColor yellowColor];
+    self.webView.delegate = self;
+    [self.view addSubview:self.webView];
+    
+    self.parseButton = [[UIButton alloc] initWithFrame:CGRectMake(0, kDeviceHeight - 69, 20, 20)];
+    [self.parseButton addTarget:self action:@selector(startParse) forControlEvents:UIControlEventTouchUpInside];
+    self.parseButton.backgroundColor = [UIColor redColor];
+    [self.view addSubview:self.parseButton];
+    
+    self.reloadButton = [[UIButton alloc] initWithFrame:CGRectMake(20, kDeviceHeight - 69, 20, 20)];
+    [self.reloadButton addTarget:self action:@selector(reloadTheWebpage) forControlEvents:UIControlEventTouchUpInside];
+    self.reloadButton.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:self.reloadButton];
+    
+    NSURL *url = [[NSURL alloc] initWithString:@"https://color.adobe.com/zh/explore/most-popular/?time=all"];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    [self.webView loadRequest:urlRequest];
     
     //outer
     self.tableView = [UITableView new];
@@ -107,24 +124,6 @@ static NSString *CellIdentifier = @"ColorCell";
     
     [self addConstraints];
     
-    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, kDeviceWidth, kDeviceHeight - 69)];
-    self.webView.backgroundColor = [UIColor yellowColor];
-    self.webView.delegate = self;
-    [self.view addSubview:self.webView];
-    
-    self.parseButton = [[UIButton alloc] initWithFrame:CGRectMake(0, kDeviceHeight - 69, 20, 20)];
-    [self.parseButton addTarget:self action:@selector(startParse) forControlEvents:UIControlEventTouchUpInside];
-    self.parseButton.backgroundColor = [UIColor redColor];
-    [self.view addSubview:self.parseButton];
-    
-    self.reloadButton = [[UIButton alloc] initWithFrame:CGRectMake(20, kDeviceHeight - 69, 20, 20)];
-    [self.reloadButton addTarget:self action:@selector(reloadTheWebpage) forControlEvents:UIControlEventTouchUpInside];
-    self.reloadButton.backgroundColor = [UIColor greenColor];
-    [self.view addSubview:self.reloadButton];
-    
-    NSURL *url = [[NSURL alloc] initWithString:@"https://color.adobe.com/zh/explore/most-popular/?time=all"];
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-    [self.webView loadRequest:urlRequest];
 }
 
 - (void)settings
