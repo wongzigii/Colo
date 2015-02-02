@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ColorModel.h"
 
 @interface ColorCell : UITableViewCell
 
@@ -27,5 +28,7 @@
 @property (copy, nonatomic)     NSString *third;
 @property (copy, nonatomic)     NSString *fourth;
 @property (copy, nonatomic)     NSString *fifth;
+
+- (void)configureForColor:(ColorModel *)model;
 
 @end

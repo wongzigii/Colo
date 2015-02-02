@@ -13,10 +13,6 @@
 //Color Array
 + (NSMutableArray *)parseWithHTMLString:(NSString *)webContent
 {
-//    NSString *string = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-//    NSString *content = [[NSString  alloc] initWithContentsOfFile:string encoding:NSUTF8StringEncoding error:nil];
-    
-    //伪造数据
     NSData *data = [webContent dataUsingEncoding:NSUTF8StringEncoding];
     TFHpple *parser = [TFHpple hppleWithData:data isXML:NO];
     
@@ -50,8 +46,7 @@
 {
 //    NSString *string = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
 //    NSString *content = [[NSString  alloc] initWithContentsOfFile:string encoding:NSUTF8StringEncoding error:nil];
-    
-    //伪造数据
+
     NSData *data = [webContent dataUsingEncoding:NSUTF8StringEncoding];
     TFHpple *parser = [TFHpple hppleWithData:data isXML:NO];
     
@@ -70,10 +65,6 @@
 //Likes
 + (NSMutableArray *)parsewithLikes:(NSString *)webContent
 {
-//    NSString *string = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-//    NSString *content = [[NSString  alloc] initWithContentsOfFile:string encoding:NSUTF8StringEncoding error:nil];
-    
-    //伪造数据
     NSData *data = [webContent dataUsingEncoding:NSUTF8StringEncoding];
     TFHpple *parser = [TFHpple hppleWithData:data isXML:NO];
     
@@ -90,11 +81,11 @@
 }
 
 //grouped
-+ (NSMutableArray *)groupedTheArray:(NSMutableArray *)array
++ (NSMutableArray *)groupedTheArray:(NSMutableArray *)array andTitleArray:(NSMutableArray *)title andLikeArray:(NSMutableArray *)like
 {
     NSMutableArray *outer = [[NSMutableArray alloc] init];
     NSMutableArray *inner = [[NSMutableArray alloc] initWithCapacity:5];
-    int i = 0;
+    int i = 0, j = 0;
     for (id object in array)
     {
         if (inner == nil) {
@@ -103,10 +94,13 @@
         [inner addObject:object];
         i ++;
         if (i % 5 == 0) {
-            ColorModel *model = [[ColorModel alloc] initWithArray:inner andTitle:nil andStars:nil andFavoutite:nil];
+            NSString *titles = [title objectAtIndex:j];
+            NSString *stars = [like objectAtIndex:j];
+            ColorModel *model = [[ColorModel alloc] initWithArray:inner andTitle:titles andStars:stars andFavoutite:nil];
             [outer addObject:model];
             inner = nil;
             i = 0;
+            j ++;
         }
     }
     return outer;
@@ -129,5 +123,6 @@
     UIColor *color = [UIColor colorWithRed:red / 255.0f green:green / 255.0f blue:blue / 255.0f alpha:1];
     return color;
 }
+
 
 @end

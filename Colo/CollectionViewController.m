@@ -28,8 +28,8 @@ static NSString *CellIdentifier = @"ColorCell";
 
 @property (strong, nonatomic)  UITableView    *tableView;
 @property (strong, nonatomic)  UIView         *bottomView;
-@property (strong, nonatomic)  UIButton    *settingsButton;
-@property (strong, nonatomic)  UIButton    *chooseButton;
+@property (strong, nonatomic)  UIButton       *settingsButton;
+@property (strong, nonatomic)  UIButton       *chooseButton;
 
 @property (copy, nonatomic)    NSMutableArray *objectArray;
 @property (copy, nonatomic)    NSMutableArray *titleArray;
@@ -46,6 +46,7 @@ static NSString *CellIdentifier = @"ColorCell";
 @property (nonatomic, strong)  UIButton *parseButton;
 @property (nonatomic, strong)  UIButton *reloadButton;
 @property (nonatomic, strong)  UIActivityIndicatorView *activityView;
+@property (nonatomic, strong)  UIView *dimBackgroundView;
 
 @end
 
@@ -78,16 +79,6 @@ static NSString *CellIdentifier = @"ColorCell";
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
     
-    self.parseButton = [[UIButton alloc] initWithFrame:CGRectMake(0, kDeviceHeight - 69, 20, 20)];
-    [self.parseButton addTarget:self action:@selector(startParse) forControlEvents:UIControlEventTouchUpInside];
-    self.parseButton.backgroundColor = [UIColor redColor];
-    [self.view addSubview:self.parseButton];
-    
-    self.reloadButton = [[UIButton alloc] initWithFrame:CGRectMake(20, kDeviceHeight - 69, 20, 20)];
-    [self.reloadButton addTarget:self action:@selector(reloadTheWebpage) forControlEvents:UIControlEventTouchUpInside];
-    self.reloadButton.backgroundColor = [UIColor greenColor];
-    [self.view addSubview:self.reloadButton];
-    
     NSURL *url = [[NSURL alloc] initWithString:@"https://color.adobe.com/zh/explore/most-popular/?time=all"];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:urlRequest];
@@ -105,7 +96,12 @@ static NSString *CellIdentifier = @"ColorCell";
     [self.tableView registerClass:[ColorCell class] forCellReuseIdentifier:CellIdentifier];
     [self.view addSubview:self.tableView];
     
-    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.dimBackgroundView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
+    self.dimBackgroundView.backgroundColor = [UIColor blackColor];
+    self.dimBackgroundView.layer.opacity = 0.3;
+    [self.tableView addSubview:self.dimBackgroundView];
+    
+    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     self.activityView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.tableView addSubview:self.activityView];
     [self.activityView startAnimating];
@@ -126,8 +122,6 @@ static NSString *CellIdentifier = @"ColorCell";
     self.chooseButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.bottomView addSubview:self.chooseButton];
     [self.chooseButton addTarget:self action:@selector(triggerUIPickerView) forControlEvents:UIControlEventTouchUpInside];
-    
-
     
     [self addConstraints];
     
@@ -259,15 +253,9 @@ static NSString *CellIdentifier = @"ColorCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ColorCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    NSUInteger index  = [indexPath row];
-    ColorModel *model = [_objectArray objectAtIndex:index];
-    cell.title.text   = [_titleArray objectAtIndex:index];
-    cell.favourites.text   = [_likesArray objectAtIndex:index];
-    cell.firstColor.backgroundColor  = [model.colorArray objectAtIndex:0];
-    cell.secondColor.backgroundColor = [model.colorArray objectAtIndex:1];
-    cell.thirdColor.backgroundColor  = [model.colorArray objectAtIndex:2];
-    cell.fourthColor.backgroundColor = [model.colorArray objectAtIndex:3];
-    cell.fifthColor.backgroundColor  = [model.colorArray objectAtIndex:4];
+    
+    //http://objccn.io/issue-1-2/#separatingconcerns
+    [cell configureForColor:[_objectArray objectAtIndex:indexPath.row]];
     
     //Auto Layout
     [cell setNeedsUpdateConstraints];
@@ -390,23 +378,17 @@ static NSString *CellIdentifier = @"ColorCell";
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     if ([[[[request URL] scheme] lowercaseString] isEqual:@"mpajaxhandler"]) {
-        
-        UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"OK"
-                                                     message:@"已经获得"
-                                                    delegate:self
-                                           cancelButtonTitle:@"取消"
-                                           otherButtonTitles:nil, nil];
-        [al show];
         NSString *htmlString = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
         self.HTML = htmlString;
         //[self saveDataToUserDefault:htmlString];
         //NSLog(@"self.html : %@",self.HTML);
 
-        
-        _objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString:self.HTML]]];
-        _titleArray  = [[NSMutableArray alloc] initWithArray:[Parser parsewithTitle:self.HTML]];
-        _likesArray  = [[NSMutableArray alloc] initWithArray:[Parser parsewithLikes:self.HTML]];
+        _objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString:self.HTML]
+                                                                       andTitleArray:[Parser parsewithTitle:self.HTML]
+                                                                        andLikeArray:[Parser parsewithLikes:self.HTML]]];
+
         [self.tableView reloadData];
+        [self.dimBackgroundView removeFromSuperview];
         [self.activityView stopAnimating];
         return NO;
     }

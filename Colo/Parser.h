@@ -16,8 +16,8 @@
 
 + (NSMutableArray *)parsewithTitle:(NSString *)webContent;
 
-+ (NSMutableArray *)groupedTheArray:(NSMutableArray *)array;
-
 + (NSMutableArray *)parsewithLikes:(NSString *)webContent;
+
++ (NSMutableArray *)groupedTheArray:(NSMutableArray *)array andTitleArray:(NSMutableArray *)title andLikeArray:(NSMutableArray *)like;
 
 @end

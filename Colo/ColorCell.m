@@ -172,4 +172,20 @@
     [super setSelected:selected animated:NO];
 }
 
+
+@end
+
+@implementation ColorCell (ConfigureForPhoto)
+
+- (void)configureForColor:(ColorModel *)model
+{
+    self.title.text = model.title;
+    self.favourites.text = model.stars;
+    self.firstColor.backgroundColor  = [model.colorArray objectAtIndex:0];
+    self.secondColor.backgroundColor = [model.colorArray objectAtIndex:1];
+    self.thirdColor.backgroundColor  = [model.colorArray objectAtIndex:2];
+    self.fourthColor.backgroundColor = [model.colorArray objectAtIndex:3];
+    self.fifthColor.backgroundColor  = [model.colorArray objectAtIndex:4];
+}
+
 @end
