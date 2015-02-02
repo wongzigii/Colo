@@ -45,6 +45,7 @@ static NSString *CellIdentifier = @"ColorCell";
 @property (nonatomic, strong)  NSString *HTML;
 @property (nonatomic, strong)  UIButton *parseButton;
 @property (nonatomic, strong)  UIButton *reloadButton;
+@property (nonatomic, strong)  UIActivityIndicatorView *activityView;
 
 @end
 
@@ -103,7 +104,12 @@ static NSString *CellIdentifier = @"ColorCell";
     self.tableView.bounces = YES;
     [self.tableView registerClass:[ColorCell class] forCellReuseIdentifier:CellIdentifier];
     [self.view addSubview:self.tableView];
-
+    
+    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.activityView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.tableView addSubview:self.activityView];
+    [self.activityView startAnimating];
+    
     self.bottomView = [UIView new];
     self.bottomView.translatesAutoresizingMaskIntoConstraints = NO;
     self.bottomView.backgroundColor = [UIColor blackColor];
@@ -121,6 +127,7 @@ static NSString *CellIdentifier = @"ColorCell";
     [self.bottomView addSubview:self.chooseButton];
     [self.chooseButton addTarget:self action:@selector(triggerUIPickerView) forControlEvents:UIControlEventTouchUpInside];
     
+
     
     [self addConstraints];
     
@@ -159,7 +166,7 @@ static NSString *CellIdentifier = @"ColorCell";
 
 - (void)addConstraints
 {
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_tableView, _bottomView, _settingsButton, _chooseButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_tableView, _bottomView, _settingsButton, _chooseButton, _activityView);
     
     NSString *format;
     NSArray *constraintsArray;
@@ -176,6 +183,26 @@ static NSString *CellIdentifier = @"ColorCell";
     constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
     [self.view addConstraints:constraintsArray];
     
+    [_tableView addConstraint:[NSLayoutConstraint constraintWithItem:_activityView
+                                                           attribute:NSLayoutAttributeCenterX
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:_tableView
+                                                           attribute:NSLayoutAttributeCenterX
+                                                          multiplier:1.0f
+                                                            constant:0.0f]];
+    
+    [_tableView addConstraint:[NSLayoutConstraint constraintWithItem:_activityView
+                                                           attribute:NSLayoutAttributeCenterY
+                                                           relatedBy:NSLayoutRelationEqual
+                                                              toItem:_tableView
+                                                           attribute:NSLayoutAttributeCenterY
+                                                          multiplier:1.0f
+                                                            constant:0.0f]];
+
+    
+    format = @"V:|[_activityView]|";
+    constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:NSLayoutFormatAlignAllCenterY metrics:nil views:viewsDictionary];
+    [_tableView addConstraints:constraintsArray];
     
     //settings button
     format = @"V:[_settingsButton(20)]";
@@ -380,6 +407,7 @@ static NSString *CellIdentifier = @"ColorCell";
         _titleArray  = [[NSMutableArray alloc] initWithArray:[Parser parsewithTitle:self.HTML]];
         _likesArray  = [[NSMutableArray alloc] initWithArray:[Parser parsewithLikes:self.HTML]];
         [self.tableView reloadData];
+        [self.activityView stopAnimating];
         return NO;
     }
     return YES;
