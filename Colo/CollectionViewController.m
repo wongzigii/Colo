@@ -74,14 +74,7 @@ static NSString *CellIdentifier = @"ColorCell";
     [super viewDidLoad];
     
     //inner
-    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, kDeviceWidth, kDeviceHeight - 49)];
-    self.webView.backgroundColor = [UIColor yellowColor];
-    self.webView.delegate = self;
-    [self.view addSubview:self.webView];
-    
-    NSURL *url = [[NSURL alloc] initWithString:@"https://color.adobe.com/zh/explore/most-popular/?time=all"];
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-    [self.webView loadRequest:urlRequest];
+
     
     //outer
     self.tableView = [UITableView new];
@@ -124,6 +117,15 @@ static NSString *CellIdentifier = @"ColorCell";
     [self.chooseButton addTarget:self action:@selector(triggerUIPickerView) forControlEvents:UIControlEventTouchUpInside];
     
     [self addConstraints];
+    
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 30, kDeviceWidth, kDeviceHeight - 49)];
+    self.webView.backgroundColor = [UIColor yellowColor];
+    self.webView.delegate = self;
+    [self.view addSubview:self.webView];
+    
+    NSURL *url = [[NSURL alloc] initWithString:@"https://color.adobe.com/zh/explore/most-popular/?time=all"];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    [self.webView loadRequest:urlRequest];
     
 }
 
@@ -194,9 +196,6 @@ static NSString *CellIdentifier = @"ColorCell";
                                                             constant:0.0f]];
 
     
-    format = @"V:|[_activityView]|";
-    constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:NSLayoutFormatAlignAllCenterY metrics:nil views:viewsDictionary];
-    [_tableView addConstraints:constraintsArray];
     
     //settings button
     format = @"V:[_settingsButton(20)]";
@@ -386,7 +385,8 @@ static NSString *CellIdentifier = @"ColorCell";
         _objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString:self.HTML]
                                                                        andTitleArray:[Parser parsewithTitle:self.HTML]
                                                                         andLikeArray:[Parser parsewithLikes:self.HTML]]];
-
+        
+        
         [self.tableView reloadData];
         [self.dimBackgroundView removeFromSuperview];
         [self.activityView stopAnimating];

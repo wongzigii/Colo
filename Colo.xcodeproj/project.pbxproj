@@ -22,7 +22,6 @@
 		E0E03A011A7A5F7300609DEB /* NormalDismissAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E039F81A7A5F7300609DEB /* NormalDismissAnimation.m */; };
 		E0E03A021A7A5F7300609DEB /* BouncePresentAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E039FA1A7A5F7300609DEB /* BouncePresentAnimation.m */; };
 		E0E03A081A7A5F8C00609DEB /* ColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E03A061A7A5F8C00609DEB /* ColorCell.m */; };
-		E0E03A0E1A7A5FA000609DEB /* SettingsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E03A0A1A7A5FA000609DEB /* SettingsModel.m */; };
 		E0E03A0F1A7A5FA000609DEB /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E03A0B1A7A5FA000609DEB /* star.png */; };
 		E0E03A101A7A5FA000609DEB /* ColorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E03A0D1A7A5FA000609DEB /* ColorModel.m */; };
 		E0E03A141A7A602C00609DEB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0E03A131A7A602C00609DEB /* CoreGraphics.framework */; };
@@ -82,8 +81,6 @@
 		E0E039FA1A7A5F7300609DEB /* BouncePresentAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BouncePresentAnimation.m; sourceTree = "<group>"; };
 		E0E03A051A7A5F8C00609DEB /* ColorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorCell.h; sourceTree = "<group>"; };
 		E0E03A061A7A5F8C00609DEB /* ColorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorCell.m; sourceTree = "<group>"; };
-		E0E03A091A7A5FA000609DEB /* SettingsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsModel.h; sourceTree = "<group>"; };
-		E0E03A0A1A7A5FA000609DEB /* SettingsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsModel.m; sourceTree = "<group>"; };
 		E0E03A0B1A7A5FA000609DEB /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		E0E03A0C1A7A5FA000609DEB /* ColorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorModel.h; sourceTree = "<group>"; };
 		E0E03A0D1A7A5FA000609DEB /* ColorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorModel.m; sourceTree = "<group>"; };
@@ -159,8 +156,6 @@
 		E0E039C41A7A5F2700609DEB /* Colo */ = {
 			isa = PBXGroup;
 			children = (
-				E00A43F51A7A79F0006E51D2 /* MMPickerView.h */,
-				E00A43F61A7A79F0006E51D2 /* MMPickerView.m */,
 				E0E039C91A7A5F2700609DEB /* AppDelegate.h */,
 				E0E039CA1A7A5F2700609DEB /* AppDelegate.m */,
 				E0E039EB1A7A5F7300609DEB /* BaseNavigationController.h */,
@@ -193,6 +188,7 @@
 		E0E039C51A7A5F2700609DEB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E0E9D81C1A80C02F00A5FED8 /* MMPickerView */,
 				E0E03A0B1A7A5FA000609DEB /* star.png */,
 				E0E03A361A7A641000609DEB /* gear.png */,
 				E0E03A341A7A63FA00609DEB /* index.html */,
@@ -234,8 +230,6 @@
 		E0E03A121A7A600400609DEB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E0E03A091A7A5FA000609DEB /* SettingsModel.h */,
-				E0E03A0A1A7A5FA000609DEB /* SettingsModel.m */,
 				E0E03A0C1A7A5FA000609DEB /* ColorModel.h */,
 				E0E03A0D1A7A5FA000609DEB /* ColorModel.m */,
 			);
@@ -253,7 +247,7 @@
 				E0E03A281A7A60A300609DEB /* XPathQuery.m */,
 			);
 			name = TFHpple;
-			path = Classes;
+			path = ../3rd/TFHpple;
 			sourceTree = "<group>";
 		};
 		E0E03A2C1A7A60BF00609DEB /* Reachability */ = {
@@ -263,6 +257,17 @@
 				E0E03A201A7A608200609DEB /* Reachability.m */,
 			);
 			name = Reachability;
+			path = ../3rd/Reachability;
+			sourceTree = "<group>";
+		};
+		E0E9D81C1A80C02F00A5FED8 /* MMPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				E00A43F51A7A79F0006E51D2 /* MMPickerView.h */,
+				E00A43F61A7A79F0006E51D2 /* MMPickerView.m */,
+			);
+			name = MMPickerView;
+			path = ../3rd/MMPickerView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -368,7 +373,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0E03A0E1A7A5FA000609DEB /* SettingsModel.m in Sources */,
 				E0E03A021A7A5F7300609DEB /* BouncePresentAnimation.m in Sources */,
 				E0E039FE1A7A5F7300609DEB /* ViewController.m in Sources */,
 				E0E03A001A7A5F7300609DEB /* SwipeUpInteractionTransition.m in Sources */,
