@@ -25,6 +25,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 }
@@ -111,6 +112,7 @@
         default:
             break;
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark - UITableViewDataSource
@@ -179,7 +181,7 @@
             }
             break;
         case 3:
-            cell.textLabel.text = @"Wongzigii";
+            cell.textLabel.text = @"献给曾经帮助我和支持我的人";
             break;
         default:
             break;

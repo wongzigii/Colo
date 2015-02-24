@@ -16,7 +16,6 @@
 		E0E039FB1A7A5F7300609DEB /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E039EC1A7A5F7300609DEB /* BaseNavigationController.m */; };
 		E0E039FC1A7A5F7300609DEB /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E039EE1A7A5F7300609DEB /* CollectionViewController.m */; };
 		E0E039FD1A7A5F7300609DEB /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E039F01A7A5F7300609DEB /* SettingsViewController.m */; };
-		E0E039FE1A7A5F7300609DEB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E039F21A7A5F7300609DEB /* ViewController.m */; };
 		E0E039FF1A7A5F7300609DEB /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E039F41A7A5F7300609DEB /* DetailViewController.m */; };
 		E0E03A001A7A5F7300609DEB /* SwipeUpInteractionTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E039F61A7A5F7300609DEB /* SwipeUpInteractionTransition.m */; };
 		E0E03A011A7A5F7300609DEB /* NormalDismissAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E039F81A7A5F7300609DEB /* NormalDismissAnimation.m */; };
@@ -28,7 +27,6 @@
 		E0E03A161A7A603300609DEB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0E03A151A7A603300609DEB /* UIKit.framework */; };
 		E0E03A181A7A603E00609DEB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0E03A171A7A603E00609DEB /* Foundation.framework */; };
 		E0E03A1A1A7A604A00609DEB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0E03A191A7A604A00609DEB /* SystemConfiguration.framework */; };
-		E0E03A1E1A7A605C00609DEB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0E03A1D1A7A605C00609DEB /* WebKit.framework */; };
 		E0E03A211A7A608200609DEB /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E03A201A7A608200609DEB /* Reachability.m */; };
 		E0E03A291A7A60A300609DEB /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E03A241A7A60A300609DEB /* TFHpple.m */; };
 		E0E03A2A1A7A60A300609DEB /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E03A261A7A60A300609DEB /* TFHppleElement.m */; };
@@ -38,6 +36,13 @@
 		E0E03A331A7A634800609DEB /* Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E03A321A7A634800609DEB /* Parser.m */; };
 		E0E03A351A7A63FA00609DEB /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = E0E03A341A7A63FA00609DEB /* index.html */; };
 		E0E03A371A7A641000609DEB /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E03A361A7A641000609DEB /* gear.png */; };
+		E0E446481A9C421500DA13FC /* thumbnail_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E4463E1A9C421500DA13FC /* thumbnail_normal@2x.png */; };
+		E0E446491A9C421500DA13FC /* thumbnail_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E4463F1A9C421500DA13FC /* thumbnail_selected@2x.png */; };
+		E0E4464A1A9C421500DA13FC /* XHTwitterPaggingViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E446421A9C421500DA13FC /* XHTwitterPaggingViewer.m */; };
+		E0E4464B1A9C421500DA13FC /* XHPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E446451A9C421500DA13FC /* XHPageControl.m */; };
+		E0E4464C1A9C421500DA13FC /* XHPaggingNavbar.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E446471A9C421500DA13FC /* XHPaggingNavbar.m */; };
+		E0E4464F1A9C435300DA13FC /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E4464E1A9C435300DA13FC /* SelectViewController.m */; };
+		E0E446511A9C453D00DA13FC /* SelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0E446501A9C453D00DA13FC /* SelectViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,8 +74,6 @@
 		E0E039EE1A7A5F7300609DEB /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
 		E0E039EF1A7A5F7300609DEB /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		E0E039F01A7A5F7300609DEB /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
-		E0E039F11A7A5F7300609DEB /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		E0E039F21A7A5F7300609DEB /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E0E039F31A7A5F7300609DEB /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		E0E039F41A7A5F7300609DEB /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		E0E039F51A7A5F7300609DEB /* SwipeUpInteractionTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeUpInteractionTransition.h; sourceTree = "<group>"; };
@@ -88,7 +91,6 @@
 		E0E03A151A7A603300609DEB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E0E03A171A7A603E00609DEB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E0E03A191A7A604A00609DEB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		E0E03A1D1A7A605C00609DEB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		E0E03A1F1A7A608200609DEB /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		E0E03A201A7A608200609DEB /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		E0E03A231A7A60A300609DEB /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
@@ -103,6 +105,17 @@
 		E0E03A321A7A634800609DEB /* Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Parser.m; sourceTree = "<group>"; };
 		E0E03A341A7A63FA00609DEB /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		E0E03A361A7A641000609DEB /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
+		E0E4463E1A9C421500DA13FC /* thumbnail_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbnail_normal@2x.png"; sourceTree = "<group>"; };
+		E0E4463F1A9C421500DA13FC /* thumbnail_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbnail_selected@2x.png"; sourceTree = "<group>"; };
+		E0E446411A9C421500DA13FC /* XHTwitterPaggingViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHTwitterPaggingViewer.h; sourceTree = "<group>"; };
+		E0E446421A9C421500DA13FC /* XHTwitterPaggingViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHTwitterPaggingViewer.m; sourceTree = "<group>"; };
+		E0E446441A9C421500DA13FC /* XHPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHPageControl.h; sourceTree = "<group>"; };
+		E0E446451A9C421500DA13FC /* XHPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHPageControl.m; sourceTree = "<group>"; };
+		E0E446461A9C421500DA13FC /* XHPaggingNavbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHPaggingNavbar.h; sourceTree = "<group>"; };
+		E0E446471A9C421500DA13FC /* XHPaggingNavbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHPaggingNavbar.m; sourceTree = "<group>"; };
+		E0E4464D1A9C435300DA13FC /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
+		E0E4464E1A9C435300DA13FC /* SelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController.m; sourceTree = "<group>"; };
+		E0E446501A9C453D00DA13FC /* SelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +124,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0E03A2E1A7A619700609DEB /* libxml2.dylib in Frameworks */,
-				E0E03A1E1A7A605C00609DEB /* WebKit.framework in Frameworks */,
 				E0E03A1A1A7A604A00609DEB /* SystemConfiguration.framework in Frameworks */,
 				E0E03A181A7A603E00609DEB /* Foundation.framework in Frameworks */,
 				E0E03A161A7A603300609DEB /* UIKit.framework in Frameworks */,
@@ -133,7 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				E0E03A2D1A7A619700609DEB /* libxml2.dylib */,
-				E0E03A1D1A7A605C00609DEB /* WebKit.framework */,
 				E0E03A191A7A604A00609DEB /* SystemConfiguration.framework */,
 				E0E03A171A7A603E00609DEB /* Foundation.framework */,
 				E0E03A151A7A603300609DEB /* UIKit.framework */,
@@ -156,16 +167,18 @@
 		E0E039C41A7A5F2700609DEB /* Colo */ = {
 			isa = PBXGroup;
 			children = (
+				E0E4463C1A9C421500DA13FC /* XHTwitterPaggingViewer */,
 				E0E039C91A7A5F2700609DEB /* AppDelegate.h */,
 				E0E039CA1A7A5F2700609DEB /* AppDelegate.m */,
+				E0E4464D1A9C435300DA13FC /* SelectViewController.h */,
+				E0E4464E1A9C435300DA13FC /* SelectViewController.m */,
+				E0E446501A9C453D00DA13FC /* SelectViewController.xib */,
 				E0E039EB1A7A5F7300609DEB /* BaseNavigationController.h */,
 				E0E039EC1A7A5F7300609DEB /* BaseNavigationController.m */,
 				E0E039ED1A7A5F7300609DEB /* CollectionViewController.h */,
 				E0E039EE1A7A5F7300609DEB /* CollectionViewController.m */,
 				E0E039EF1A7A5F7300609DEB /* SettingsViewController.h */,
 				E0E039F01A7A5F7300609DEB /* SettingsViewController.m */,
-				E0E039F11A7A5F7300609DEB /* ViewController.h */,
-				E0E039F21A7A5F7300609DEB /* ViewController.m */,
 				E0E039F31A7A5F7300609DEB /* DetailViewController.h */,
 				E0E039F41A7A5F7300609DEB /* DetailViewController.m */,
 				E0E039F51A7A5F7300609DEB /* SwipeUpInteractionTransition.h */,
@@ -260,6 +273,45 @@
 			path = ../3rd/Reachability;
 			sourceTree = "<group>";
 		};
+		E0E4463C1A9C421500DA13FC /* XHTwitterPaggingViewer */ = {
+			isa = PBXGroup;
+			children = (
+				E0E4463D1A9C421500DA13FC /* Assets */,
+				E0E446401A9C421500DA13FC /* Controllers */,
+				E0E446431A9C421500DA13FC /* Views */,
+			);
+			path = XHTwitterPaggingViewer;
+			sourceTree = "<group>";
+		};
+		E0E4463D1A9C421500DA13FC /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E0E4463E1A9C421500DA13FC /* thumbnail_normal@2x.png */,
+				E0E4463F1A9C421500DA13FC /* thumbnail_selected@2x.png */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		E0E446401A9C421500DA13FC /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E0E446411A9C421500DA13FC /* XHTwitterPaggingViewer.h */,
+				E0E446421A9C421500DA13FC /* XHTwitterPaggingViewer.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E0E446431A9C421500DA13FC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E0E446441A9C421500DA13FC /* XHPageControl.h */,
+				E0E446451A9C421500DA13FC /* XHPageControl.m */,
+				E0E446461A9C421500DA13FC /* XHPaggingNavbar.h */,
+				E0E446471A9C421500DA13FC /* XHPaggingNavbar.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		E0E9D81C1A80C02F00A5FED8 /* MMPickerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,8 +403,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0E03A371A7A641000609DEB /* gear.png in Resources */,
+				E0E446511A9C453D00DA13FC /* SelectViewController.xib in Resources */,
 				E0E03A351A7A63FA00609DEB /* index.html in Resources */,
+				E0E446491A9C421500DA13FC /* thumbnail_selected@2x.png in Resources */,
 				E0E039D61A7A5F2800609DEB /* LaunchScreen.xib in Resources */,
+				E0E446481A9C421500DA13FC /* thumbnail_normal@2x.png in Resources */,
 				E0E03A301A7A633B00609DEB /* parser.js in Resources */,
 				E0E03A0F1A7A5FA000609DEB /* star.png in Resources */,
 				E0E039D31A7A5F2700609DEB /* Images.xcassets in Resources */,
@@ -373,8 +428,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0E4464F1A9C435300DA13FC /* SelectViewController.m in Sources */,
 				E0E03A021A7A5F7300609DEB /* BouncePresentAnimation.m in Sources */,
-				E0E039FE1A7A5F7300609DEB /* ViewController.m in Sources */,
 				E0E03A001A7A5F7300609DEB /* SwipeUpInteractionTransition.m in Sources */,
 				E00A43F71A7A79F0006E51D2 /* MMPickerView.m in Sources */,
 				E0E039FC1A7A5F7300609DEB /* CollectionViewController.m in Sources */,
@@ -386,7 +441,10 @@
 				E0E039FD1A7A5F7300609DEB /* SettingsViewController.m in Sources */,
 				E0E03A291A7A60A300609DEB /* TFHpple.m in Sources */,
 				E0E03A211A7A608200609DEB /* Reachability.m in Sources */,
+				E0E4464B1A9C421500DA13FC /* XHPageControl.m in Sources */,
 				E0E039C81A7A5F2700609DEB /* main.m in Sources */,
+				E0E4464A1A9C421500DA13FC /* XHTwitterPaggingViewer.m in Sources */,
+				E0E4464C1A9C421500DA13FC /* XHPaggingNavbar.m in Sources */,
 				E0E039FB1A7A5F7300609DEB /* BaseNavigationController.m in Sources */,
 				E0E039FF1A7A5F7300609DEB /* DetailViewController.m in Sources */,
 				E0E03A331A7A634800609DEB /* Parser.m in Sources */,
@@ -504,6 +562,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Wei feng Hou (MJ5ZYKMG5Q)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,

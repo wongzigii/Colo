@@ -8,7 +8,6 @@
 
 
 #import "ColorCell.h"
-#import <QuartzCore/QuartzCore.h>
 
 @interface ColorCell()
 
@@ -22,6 +21,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.background  = [UIView new];
         self.firstColor  = [UIView new];
         self.secondColor = [UIView new];
@@ -34,7 +34,6 @@
         self.top         = [UIView new];
         self.bottom      = [UIView new];
         
-        self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
         self.background.translatesAutoresizingMaskIntoConstraints  = NO;
         self.firstColor.translatesAutoresizingMaskIntoConstraints  = NO;
         self.secondColor.translatesAutoresizingMaskIntoConstraints = NO;
@@ -58,22 +57,19 @@
         [self.bottom     addSubview:self.title];
         [self.bottom     addSubview:self.stars];
         [self.bottom     addSubview:self.favourites];
-        
-        self.background.layer.cornerRadius = 10;
-        [self.background setClipsToBounds:YES];
-        
+       
         self.favourites.layer.cornerRadius = 3;
         self.favourites.layer.masksToBounds = YES;
         [self.favourites setFont:[UIFont boldSystemFontOfSize:13.0f]];
         self.favourites.textAlignment= NSTextAlignmentCenter;
         
-        self.title.textColor = [UIColor whiteColor];
+        //self.title.textColor = [UIColor whiteColor];
         [self.title setFont:[UIFont boldSystemFontOfSize:15.0f]];
-        self.stars.image = [UIImage imageNamed:@"star-8x"];
-        
+        //self.stars.image = [UIImage imageNamed:@"star"];
+        self.top.backgroundColor        = [UIColor purpleColor];
         self.bottom.backgroundColor     = [UIColor blackColor];
         self.title.backgroundColor      = [UIColor clearColor];
-        self.favourites.backgroundColor = [UIColor whiteColor];
+        //self.favourites.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }
@@ -87,14 +83,14 @@
         
         NSString *format;
         NSArray *constraintsArray;
-        NSDictionary *metrics = @{@"topHeight":@100.0, @"bottomHeight":@50};
+        NSDictionary *metrics = @{@"topHeight":@100.0, @"bottomHeight":@25};
         
         format = @"V:|[_background]|";
-        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
+        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:NSLayoutFormatAlignAllCenterX metrics:nil views:viewsDictionary];
         [self.contentView addConstraints:constraintsArray];
         
         format = @"H:|[_background]|";
-        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
+        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:NSLayoutFormatAlignAllCenterX metrics:nil views:viewsDictionary];
         [self.contentView addConstraints:constraintsArray];
         
         format = @"V:|[_top(topHeight)][_bottom(bottomHeight)]|";
@@ -110,7 +106,7 @@
         [_background addConstraints:constraintsArray];
         
 
-//
+
         //Top
         format = @"H:|[_firstColor][_secondColor(==_firstColor)][_thirdColor(==_firstColor)][_fourthColor(==_firstColor)][_fifthColor(==_firstColor)]|";
         constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
@@ -135,7 +131,7 @@
         format = @"V:|[_fifthColor]|";
         constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
         [_top addConstraints:constraintsArray];
-//
+
         //Bottom
         format = @"V:|-[_title]-|";
         constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
@@ -158,12 +154,13 @@
         constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
         [_bottom addConstraints:constraintsArray];
         
-        format = @"H:|-[_title(240)]-[_stars(17)]-[_favourites(35)]-|";
+        format = @"H:|-[_title]-[_stars(17)]-[_favourites(35)]-|";
         constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
         [_bottom addConstraints:constraintsArray];
 //
         self.didSetupConstraints = YES;
     }
+    
 }
 
 
@@ -172,15 +169,10 @@
     [super setSelected:selected animated:NO];
 }
 
-
-@end
-
-@implementation ColorCell (ConfigureForPhoto)
-
 - (void)configureForColor:(ColorModel *)model
 {
-    self.title.text = model.title;
-    self.favourites.text = model.stars;
+//    self.title.text = model.title;
+//    self.favourites.text = model.stars;
     self.firstColor.backgroundColor  = [model.colorArray objectAtIndex:0];
     self.secondColor.backgroundColor = [model.colorArray objectAtIndex:1];
     self.thirdColor.backgroundColor  = [model.colorArray objectAtIndex:2];

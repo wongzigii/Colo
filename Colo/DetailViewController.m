@@ -34,7 +34,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self createBlurBackground];
+    [super viewWillAppear:animated];
+    if (!self.effectView) {
+        [self createBlurBackground];
+    }
 }
 
 - (void)createBlurBackground

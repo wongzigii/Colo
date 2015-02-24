@@ -45,8 +45,9 @@ static NSString *CellIdentifier = @"ColorCell";
 @property (nonatomic, strong)  NSString *HTML;
 @property (nonatomic, strong)  UIButton *parseButton;
 @property (nonatomic, strong)  UIButton *reloadButton;
-@property (nonatomic, strong)  UIActivityIndicatorView *activityView;
-@property (nonatomic, strong)  UIView *dimBackgroundView;
+@property (nonatomic, strong)  UIPanGestureRecognizer *pan;
+//@property (nonatomic, strong)  UIActivityIndicatorView *activityView;
+//@property (nonatomic, strong)  UIView *dimBackgroundView;
 
 @end
 
@@ -66,6 +67,7 @@ static NSString *CellIdentifier = @"ColorCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
 }
@@ -74,8 +76,7 @@ static NSString *CellIdentifier = @"ColorCell";
     [super viewDidLoad];
     
     //inner
-
-    
+    self.view.backgroundColor = [UIColor redColor];
     //outer
     self.tableView = [UITableView new];
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -85,19 +86,19 @@ static NSString *CellIdentifier = @"ColorCell";
     self.tableView.showsVerticalScrollIndicator = YES;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 144.0;
-    self.tableView.bounces = YES;
     [self.tableView registerClass:[ColorCell class] forCellReuseIdentifier:CellIdentifier];
     [self.view addSubview:self.tableView];
     
-    self.dimBackgroundView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    self.dimBackgroundView.backgroundColor = [UIColor blackColor];
-    self.dimBackgroundView.layer.opacity = 0.3;
-    [self.tableView addSubview:self.dimBackgroundView];
-    
-    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    self.activityView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.tableView addSubview:self.activityView];
-    [self.activityView startAnimating];
+    self.pan = [[UIPanGestureRecognizer alloc] initWithTarget:self.tableView action:@selector(switchMode)];
+//    self.dimBackgroundView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
+//    self.dimBackgroundView.backgroundColor = [UIColor blackColor];
+//    self.dimBackgroundView.layer.opacity = 0.3;
+//    [self.tableView addSubview:self.dimBackgroundView];
+//    
+//    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+//    self.activityView.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.tableView addSubview:self.activityView];
+//    [self.activityView startAnimating];
     
     self.bottomView = [UIView new];
     self.bottomView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -118,14 +119,26 @@ static NSString *CellIdentifier = @"ColorCell";
     
     [self addConstraints];
     
-    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 30, kDeviceWidth, kDeviceHeight - 49)];
-    self.webView.backgroundColor = [UIColor yellowColor];
-    self.webView.delegate = self;
-    [self.view addSubview:self.webView];
+//    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 30, kDeviceWidth, kDeviceHeight - 49)];
+//    self.webView.backgroundColor = [UIColor yellowColor];
+//    self.webView.delegate = self;
+//    [self.view addSubview:self.webView];
+//    
+//    NSURL *url = [[NSURL alloc] initWithString:@"https://color.adobe.com/zh/explore/most-popular/?time=all"];
+//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+//    [self.webView loadRequest:urlRequest];
     
-    NSURL *url = [[NSURL alloc] initWithString:@"https://color.adobe.com/zh/explore/most-popular/?time=all"];
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-    [self.webView loadRequest:urlRequest];
+    _objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString:self.HTML]
+                                                                   andTitleArray:[Parser parsewithTitle:self.HTML]
+                                                                    andLikeArray:[Parser parsewithLikes:self.HTML]]];
+    
+    
+    [self.tableView reloadData];
+
+}
+
+- (void)switchMode
+{
     
 }
 
@@ -140,29 +153,9 @@ static NSString *CellIdentifier = @"ColorCell";
     [self presentViewController:nav animated:YES completion:nil];
 }
 
-- (void)triggerUIPickerView
-{
-    self.pickerArray = @[@"Dansk", @"Deutsch", @"English", @"Español", @"Français", @"Italiano", @"Nederlands", @"Norsk", @"Polski", @"Português", @"Suomi", @"Svenska", @"Türkçe", @"Pусский", @"繁體中文", @"日本語", @"한국어"];
-    
-    [MMPickerView showPickerViewInView:self.view
-                           withStrings:self.pickerArray
-                           withOptions:@{MMbackgroundColor: [UIColor blackColor],
-                                         MMtextColor: [UIColor whiteColor],
-                                         MMtoolbarColor: [UIColor blackColor],
-                                         MMbuttonColor: [UIColor whiteColor],
-                                         MMfont: [UIFont systemFontOfSize:18],
-                                         MMvalueY: @3,
-                                         MMselectedObject:_selectedString}
-                            completion:^(NSString *selectedString) {
-                                
-                                //_label.text = selectedString;
-                                _selectedString = selectedString;
-                            }];
-}
-
 - (void)addConstraints
 {
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_tableView, _bottomView, _settingsButton, _chooseButton, _activityView);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_tableView, _bottomView, _settingsButton, _chooseButton);
     
     NSString *format;
     NSArray *constraintsArray;
@@ -171,7 +164,7 @@ static NSString *CellIdentifier = @"ColorCell";
     constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
     [self.view addConstraints:constraintsArray];
     
-    format = @"H:|[_tableView]|";
+    format = @"H:|[_tableView(_bottomView)]|";
     constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
     [self.view addConstraints:constraintsArray];
     
@@ -179,21 +172,21 @@ static NSString *CellIdentifier = @"ColorCell";
     constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
     [self.view addConstraints:constraintsArray];
     
-    [_tableView addConstraint:[NSLayoutConstraint constraintWithItem:_activityView
-                                                           attribute:NSLayoutAttributeCenterX
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:_tableView
-                                                           attribute:NSLayoutAttributeCenterX
-                                                          multiplier:1.0f
-                                                            constant:0.0f]];
-    
-    [_tableView addConstraint:[NSLayoutConstraint constraintWithItem:_activityView
-                                                           attribute:NSLayoutAttributeCenterY
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:_tableView
-                                                           attribute:NSLayoutAttributeCenterY
-                                                          multiplier:1.0f
-                                                            constant:0.0f]];
+//    [_tableView addConstraint:[NSLayoutConstraint constraintWithItem:_activityView
+//                                                           attribute:NSLayoutAttributeCenterX
+//                                                           relatedBy:NSLayoutRelationEqual
+//                                                              toItem:_tableView
+//                                                           attribute:NSLayoutAttributeCenterX
+//                                                          multiplier:1.0f
+//                                                            constant:0.0f]];
+//    
+//    [_tableView addConstraint:[NSLayoutConstraint constraintWithItem:_activityView
+//                                                           attribute:NSLayoutAttributeCenterY
+//                                                           relatedBy:NSLayoutRelationEqual
+//                                                              toItem:_tableView
+//                                                           attribute:NSLayoutAttributeCenterY
+//                                                          multiplier:1.0f
+//                                                            constant:0.0f]];
 
     
     
@@ -263,19 +256,21 @@ static NSString *CellIdentifier = @"ColorCell";
 }
 
 #pragma mark - UITableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    ColorCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    [cell setNeedsUpdateConstraints];
-    [cell updateConstraintsIfNeeded];
-    [cell.contentView layoutIfNeeded];
-    CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-    return height;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    //ColorCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    //[cell setNeedsUpdateConstraints];
+//    //[cell updateConstraintsIfNeeded];
+//    //[cell.contentView layoutIfNeeded];
+//    //CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+//    ////NSLog(@"%f",height);
+//    //return height;
+//    return 150;
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     DetailViewController *vc = [[DetailViewController alloc] init];
     vc.delegate = self;
     vc.transitioningDelegate = self;
@@ -364,36 +359,36 @@ static NSString *CellIdentifier = @"ColorCell";
     return string;
 }
 
-#pragma mark - UIWebViewDelegate
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
-    JSHandler = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"parser"
-                                                                          withExtension:@"js"]
-                                         encoding:NSUTF8StringEncoding
-                                            error:nil];
-    [self.webView stringByEvaluatingJavaScriptFromString:JSHandler];
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    if ([[[[request URL] scheme] lowercaseString] isEqual:@"mpajaxhandler"]) {
-        NSString *htmlString = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
-        self.HTML = htmlString;
-        //[self saveDataToUserDefault:htmlString];
-        //NSLog(@"self.html : %@",self.HTML);
-
-        _objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString:self.HTML]
-                                                                       andTitleArray:[Parser parsewithTitle:self.HTML]
-                                                                        andLikeArray:[Parser parsewithLikes:self.HTML]]];
-        
-        
-        [self.tableView reloadData];
-        [self.dimBackgroundView removeFromSuperview];
-        [self.activityView stopAnimating];
-        return NO;
-    }
-    return YES;
-}
+//#pragma mark - UIWebViewDelegate
+//- (void)webViewDidStartLoad:(UIWebView *)webView
+//{
+//    JSHandler = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"parser"
+//                                                                          withExtension:@"js"]
+//                                         encoding:NSUTF8StringEncoding
+//                                            error:nil];
+//    [self.webView stringByEvaluatingJavaScriptFromString:JSHandler];
+//}
+//
+//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+//{
+//    if ([[[[request URL] scheme] lowercaseString] isEqual:@"mpajaxhandler"]) {
+//        NSString *htmlString = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
+//        self.HTML = htmlString;
+//        //[self saveDataToUserDefault:htmlString];
+//        //NSLog(@"self.html : %@",self.HTML);
+//
+////        _objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString:self.HTML]
+////                                                                       andTitleArray:[Parser parsewithTitle:self.HTML]
+////                                                                        andLikeArray:[Parser parsewithLikes:self.HTML]]];
+////        
+////        
+////        [self.tableView reloadData];
+////        [self.dimBackgroundView removeFromSuperview];
+////        [self.activityView stopAnimating];
+//        return NO;
+//    }
+//    return YES;
+//}
 
 
 @end

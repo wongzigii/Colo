@@ -7,10 +7,11 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
 #import "Reachability.h"
 #import "CollectionViewController.h"
 #import "BaseNavigationController.h"
+#import "XHTwitterPaggingViewer.h"
+#import "SelectViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,9 +23,20 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     //    ViewController *vc = [[ViewController  alloc] init];
+    
+    //1.
     CollectionViewController *test = [[CollectionViewController alloc] init];
     BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:test];
-    self.window.rootViewController = nav;
+    
+    //2.
+    SelectViewController *select = [[SelectViewController alloc] init];
+    
+    XHTwitterPaggingViewer *pagging = [[XHTwitterPaggingViewer alloc] init];
+    
+    NSArray *array = @[nav, select];
+    pagging.viewControllers = array;
+    
+    self.window.rootViewController = pagging;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
