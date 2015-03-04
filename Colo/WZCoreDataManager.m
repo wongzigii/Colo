@@ -1,88 +1,24 @@
 //
-//  AppDelegate.m
+//  WZCoreData.m
 //  Colo
 //
-//  Created by Wongzigii on 1/29/15.
-//  Copyright (c) 2015 Wongzigii. All rights reserved.
+//  Created by Wongzigii on 15/3/2.
+//  Copyright (c) 2015年 Wongzigii. All rights reserved.
 //
 
-#import "AppDelegate.h"
-#import "Reachability.h"
-#import "CollectionViewController.h"
-#import "BaseNavigationController.h"
-#import "XHTwitterPaggingViewer.h"
 #import "WZCoreDataManager.h"
+#import "AppDelegate.h"
 
-@interface AppDelegate ()
-
-@end
-
-@implementation AppDelegate
-@synthesize managedObjectContext = _managedObjectContext;
-@synthesize managedObjectModel   = _managedObjectModel;
+@implementation WZCoreDataManager
+@synthesize managedObjectContext       = _managedObjectContext;
+@synthesize managedObjectModel         = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    //    ViewController *vc = [[ViewController  alloc] init];
-    
-    //1.
-    CollectionViewController *test = [[CollectionViewController alloc] init];
-    BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:test];
-    
-    //2.
-    //SelectViewController *select = [[SelectViewController alloc] init];
-    
-//    XHTwitterPaggingViewer *pagging = [[XHTwitterPaggingViewer alloc] init];
-//    
-//    NSArray *array = @[nav, select];
-//    pagging.viewControllers = array;
-    
-    self.window.rootViewController = nav;
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
-    return YES;
-}
-
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    [self saveContext];
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-//    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
-//    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
-//    if (networkStatus == NotReachable) {
-//        NSLog(@"没有网络");
-//    } else {
-//        NSLog(@"已连接网络");
-//    }
-    
-    // Saves changes in the application's managed object context before the application terminates.
-    [self saveContext];
-}
-
 
 - (void)saveContext
 {
-    NSError *error = nil;
+    NSError *error;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
+    if (managedObjectContext) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -98,12 +34,12 @@
 // If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
 - (NSManagedObjectContext *)managedObjectContext
 {
-    if (_managedObjectContext != nil) {
+    if (_managedObjectContext) {
         return _managedObjectContext;
     }
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil) {
+    if (coordinator) {
         _managedObjectContext = [[NSManagedObjectContext alloc] init];
         [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
@@ -114,10 +50,10 @@
 // If the model doesn't already exist, it is created from the application's model.
 - (NSManagedObjectModel *)managedObjectModel
 {
-    if (_managedObjectModel != nil) {
+    if (_managedObjectModel) {
         return _managedObjectModel;
     }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Colo" withExtension:@"momd"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Color" withExtension:@"momd"];
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     return _managedObjectModel;
 }
@@ -126,14 +62,14 @@
 // If the coordinator doesn't already exist, it is created and the application's store added to it.
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
-    if (_persistentStoreCoordinator != nil) {
+    if (_persistentStoreCoordinator) {
         return _persistentStoreCoordinator;
     }
     
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Colo.sqlite"];
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Color.sqlite"];
     
-    NSError *error = nil;
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    NSError *error;
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
         /*
          Replace this implementation with code to handle the error appropriately.

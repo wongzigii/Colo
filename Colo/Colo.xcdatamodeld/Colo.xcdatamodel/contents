@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C109" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Color" syncable="YES">
+        <attribute name="colorArray" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hexString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="star" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Color" positionX="-14958" positionY="3159" width="128" height="195"/>
+    </elements>
+</model>

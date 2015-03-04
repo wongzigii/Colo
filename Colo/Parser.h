@@ -12,12 +12,14 @@
 
 @interface Parser : NSObject
 
-+ (NSMutableArray *)parseWithHTMLString:(NSString *)webContent;
++ (NSMutableArray *)parseWithHTMLString;
 
-+ (NSMutableArray *)parsewithTitle:(NSString *)webContent;
++ (NSMutableArray *)parsewithTitle;
 
-+ (NSMutableArray *)parsewithLikes:(NSString *)webContent;
++ (NSMutableArray *)parsewithLikes;
 
-+ (NSMutableArray *)groupedTheArray:(NSMutableArray *)array andTitleArray:(NSMutableArray *)title andLikeArray:(NSMutableArray *)like;
++ (NSMutableArray *)groupedTheArray:(NSMutableArray *)array andTitleArray:(NSMutableArray *)title andStarsArray:(NSMutableArray *)star;
+
++ (UIColor *)translateStringToColor:(NSString *)str;
 
 @end

@@ -11,10 +11,9 @@
 @interface ColorModel : NSObject
 
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *stars;
+@property (nonatomic, copy) NSString *star;
 @property (nonatomic, copy) NSString *favourite;
 @property (nonatomic, copy) NSArray  *colorArray;
 
-- (id)initWithArray:(NSArray *)array andTitle:(NSString *)title andStars:(NSString *)stars andFavoutite:(NSString *)favourite;
-
+- (id)initWithArray:(NSArray *)array andTitle:(NSString *)title andStar:(NSString *)star andFavoutite:(NSString *)favourite;
 @end

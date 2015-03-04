@@ -27,14 +27,14 @@
 }
 
 - (void)setup {
-	[self setBackgroundColor:[UIColor clearColor]];
+	//[self setBackgroundColor:[UIColor clearColor]];
 	
 	_strokeWidth = 2;
 	_gapWidth = 1.5;
 	_diameter = 12;
 	
-	UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapped:)];
-	[self addGestureRecognizer:tapGestureRecognizer];
+	//UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapped:)];
+	//[self addGestureRecognizer:tapGestureRecognizer];
 }
 
 - (void)onTapped:(UITapGestureRecognizer*)gesture {

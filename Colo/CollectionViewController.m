@@ -17,37 +17,36 @@
 #import "SettingsViewController.h"
 #import "BaseNavigationController.h"
 #import "MMPickerView.h"
+#import "XHTwitterPaggingViewer.h"
+#import "WZCoreDataManager.h"
+#import "AppDelegate.h"
+#import <CoreData/CoreData.h>
 
 #define kDeviceWidth  self.view.frame.size.width
 #define kDeviceHeight self.view.frame.size.height
 #define CocoaJSHandler       @"mpAjaxHandler"
+
 static NSString *JSHandler;
 static NSString *CellIdentifier = @"ColorCell";
 
-@interface CollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UIViewControllerTransitioningDelegate, ModalViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIWebViewDelegate>
+@interface CollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UIViewControllerTransitioningDelegate, ModalViewControllerDelegate>
 
-@property (strong, nonatomic)  UITableView    *tableView;
-@property (strong, nonatomic)  UIView         *bottomView;
-@property (strong, nonatomic)  UIButton       *settingsButton;
-@property (strong, nonatomic)  UIButton       *chooseButton;
+@property (strong, nonatomic) UITableView    *tableView;
+@property (strong, nonatomic) UIView         *bottomView;
+@property (strong, nonatomic) UIButton       *settingsButton;
+@property (strong, nonatomic) UIButton       *chooseButton;
 
-@property (copy, nonatomic)    NSMutableArray *objectArray;
-@property (copy, nonatomic)    NSMutableArray *titleArray;
-@property (copy, nonatomic)    NSMutableArray *likesArray;
-@property (copy, nonatomic)    NSArray        *pickerArray;
-@property (copy, nonatomic)    NSString       *selectedString;
+@property (copy,   nonatomic) NSMutableArray *objectArray;
+@property (copy,   nonatomic) NSMutableArray *titleArray;
+@property (copy,   nonatomic) NSMutableArray *likesArray;
+@property (copy,   nonatomic) NSArray        *pickerArray;
+@property (copy,   nonatomic) NSString       *selectedString;
 
 @property (strong, nonatomic) BouncePresentAnimation *presentAnimation;
 @property (strong, nonatomic) NormalDismissAnimation *dismissAnimation;
 @property (strong, nonatomic) SwipeUpInteractionTransition *transitionController;
 
-@property (nonatomic, strong)  UIWebView *webView;
-@property (nonatomic, strong)  NSString *HTML;
-@property (nonatomic, strong)  UIButton *parseButton;
-@property (nonatomic, strong)  UIButton *reloadButton;
-@property (nonatomic, strong)  UIPanGestureRecognizer *pan;
-//@property (nonatomic, strong)  UIActivityIndicatorView *activityView;
-//@property (nonatomic, strong)  UIView *dimBackgroundView;
+@property (strong, nonatomic) NSMutableArray *objects;
 
 @end
 
@@ -74,75 +73,168 @@ static NSString *CellIdentifier = @"ColorCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //inner
-    self.view.backgroundColor = [UIColor redColor];
-    //outer
-    self.tableView = [UITableView new];
-    self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.showsVerticalScrollIndicator = YES;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedRowHeight = 144.0;
-    [self.tableView registerClass:[ColorCell class] forCellReuseIdentifier:CellIdentifier];
-    [self.view addSubview:self.tableView];
-    
-    self.pan = [[UIPanGestureRecognizer alloc] initWithTarget:self.tableView action:@selector(switchMode)];
-//    self.dimBackgroundView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-//    self.dimBackgroundView.backgroundColor = [UIColor blackColor];
-//    self.dimBackgroundView.layer.opacity = 0.3;
-//    [self.tableView addSubview:self.dimBackgroundView];
-//    
-//    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-//    self.activityView.translatesAutoresizingMaskIntoConstraints = NO;
-//    [self.tableView addSubview:self.activityView];
-//    [self.activityView startAnimating];
-    
-    self.bottomView = [UIView new];
-    self.bottomView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.bottomView.backgroundColor = [UIColor blackColor];
-    [self.view addSubview:self.bottomView];
-    
-    self.settingsButton = [UIButton new];
-    [self.settingsButton setImage:[UIImage imageNamed:@"gear.png"] forState:UIControlStateNormal];
-    self.settingsButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.bottomView addSubview:self.settingsButton];
-    [self.settingsButton addTarget:self action:@selector(settings) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.chooseButton = [UIButton new];
-    [self.chooseButton setImage:[UIImage imageNamed:@"star.png"] forState:UIControlStateNormal];
-    self.chooseButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.bottomView addSubview:self.chooseButton];
-    [self.chooseButton addTarget:self action:@selector(triggerUIPickerView) forControlEvents:UIControlEventTouchUpInside];
-    
+    //UI
+    [self initializeUI];
     [self addConstraints];
     
-//    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 30, kDeviceWidth, kDeviceHeight - 49)];
-//    self.webView.backgroundColor = [UIColor yellowColor];
-//    self.webView.delegate = self;
-//    [self.view addSubview:self.webView];
-//    
-//    NSURL *url = [[NSURL alloc] initWithString:@"https://color.adobe.com/zh/explore/most-popular/?time=all"];
-//    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-//    [self.webView loadRequest:urlRequest];
-    
-    _objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString:self.HTML]
-                                                                   andTitleArray:[Parser parsewithTitle:self.HTML]
-                                                                    andLikeArray:[Parser parsewithLikes:self.HTML]]];
-    
-    
+    _objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString]
+                                                                   andTitleArray:[Parser parsewithTitle]
+                                                                   andStarsArray:[Parser parsewithLikes]]];
+    self.objects = [NSMutableArray new];
     [self.tableView reloadData];
-
-}
-
-- (void)switchMode
-{
     
+    [self saveData];
+    /// CoreData
+    [self fetchDataFromCoreData];
 }
 
-- (void)settings
+- (void)initializeUI
+{
+    self.tableView      = [UITableView new];
+    self.bottomView     = [UIView      new];
+    self.settingsButton = [UIButton    new];
+    self.chooseButton   = [UIButton    new];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.estimatedRowHeight = 144.0;
+    self.tableView.showsVerticalScrollIndicator = YES;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView registerClass:[ColorCell class] forCellReuseIdentifier:CellIdentifier];
+    
+    self.bottomView.backgroundColor = [UIColor blackColor];
+    self.bottomView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    self.settingsButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.settingsButton setImage:[UIImage imageNamed:@"gear.png"] forState:UIControlStateNormal];
+    [self.settingsButton addTarget:self action:@selector(clickSettingsButton) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.chooseButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.chooseButton setImage:[UIImage imageNamed:@"star.png"] forState:UIControlStateNormal];
+    [self.chooseButton addTarget:self action:@selector(triggerUIPickerView) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view       addSubview:self.tableView];
+    [self.view       addSubview:self.bottomView];
+    [self.bottomView addSubview:self.settingsButton];
+    [self.bottomView addSubview:self.chooseButton];
+}
+
+- (void)fetchDataFromCoreData
+{
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    NSManagedObjectContext *context = [delegate managedObjectContext];
+    
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Color"
+                                                         inManagedObjectContext:context];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+    
+    NSSortDescriptor *indexSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
+    request.sortDescriptors = @[indexSortDescriptor];
+    
+    NSError *error;
+    NSArray *objects = [context executeFetchRequest:request error:&error];
+
+    if (!objects){
+        NSLog(@"There was an error.");
+    }
+    
+    for (NSManagedObject *oneObject in objects){
+        
+        NSString *title       = [oneObject valueForKey:@"title"];
+        NSString *star        = [oneObject valueForKey:@"star"];
+        NSString *index       = [oneObject valueForKey:@"index"];
+        NSString *firstColor  = [oneObject valueForKey:@"firstColor"];
+        NSString *secondColor = [oneObject valueForKey:@"secondColor"];
+        NSString *thirdColor  = [oneObject valueForKey:@"thirdColor"];
+        NSString *fourthColor = [oneObject valueForKey:@"fourthColor"];
+        NSString *fifthColor  = [oneObject valueForKey:@"fifthColor"];
+        int i = [index intValue];
+        NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
+        //ColorCell *cell = (ColorCell *)[self.tableView cellForRowAtIndexPath:path];
+        
+        UIColor *first  = [Parser translateStringToColor:firstColor];
+        UIColor *second = [Parser translateStringToColor:secondColor];
+        UIColor *third  = [Parser translateStringToColor:thirdColor];
+        UIColor *fourth = [Parser translateStringToColor:fourthColor];
+        UIColor *fifth  = [Parser translateStringToColor:fifthColor];
+        
+//        cell.firstColor.backgroundColor  = first;
+//        cell.secondColor.backgroundColor = second;
+//        cell.thirdColor.backgroundColor  = third;
+//        cell.fourthColor.backgroundColor = fourth;
+//        cell.fifthColor.backgroundColor  = fifth;
+        NSArray *array = @[first, second, third, fourth, fifth];
+        
+        [self.objects addObject:array];
+    }
+}
+
+- (void)saveData
+{
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    NSManagedObjectContext *context = [delegate managedObjectContext];
+    
+    NSError *error;
+    NSUInteger count = [_objectArray count];
+    for (NSUInteger index = 0; index < count; index ++)
+    {
+        //Create fetch request.
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        
+        //Create entity description for context.
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Color"
+                                                             inManagedObjectContext:context];
+        //Set entity for request.
+        [request setEntity:entityDescription];
+        
+        //确定持久库中是否存在与此字段相对应的托管对象，所以创建一个谓词来确定字段的正确对象：
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"index == %d",index];
+        [request setPredicate:pred];
+        
+        //Declare a pointer.(for loading managed object or creating a new managed objcet)
+        NSManagedObject *managedObject;
+        
+        //Execute fetch request.
+        NSArray *objects = [context executeFetchRequest:request error:&error];
+        
+        if (!objects){
+            NSLog(@"There was an error!");
+        }
+        
+        //Check out objects which return from context by request, if so, load it, otherwise, initilize a new one to store.
+        if ([objects count] > 0){
+            managedObject = [objects objectAtIndex:0];
+        }else{
+            managedObject = [NSEntityDescription insertNewObjectForEntityForName:@"Color"
+                                                    inManagedObjectContext:context];
+        }
+        
+        //datasource
+        ColorModel *model = [_objectArray objectAtIndex:index];
+        //Key-Value-Coding
+        NSLog(@"%lu",(unsigned long)index);
+        [managedObject setValue:[NSNumber numberWithUnsignedInteger:index] forKey:@"index"];
+        [managedObject setValue:[model.colorArray objectAtIndex:0] forKey:@"firstColor"];
+        [managedObject setValue:[model.colorArray objectAtIndex:1] forKey:@"secondColor"];
+        [managedObject setValue:[model.colorArray objectAtIndex:2] forKey:@"thirdColor"];
+        [managedObject setValue:[model.colorArray objectAtIndex:3] forKey:@"fourthColor"];
+        [managedObject setValue:[model.colorArray objectAtIndex:4] forKey:@"fifthColor"];
+        [managedObject setValue:model.title      forKey:@"title"];
+        [managedObject setValue:model.star       forKey:@"star"];
+        //[theLine setValue:model            forKey:@"id"];
+        NSLog(@"%@",managedObject);
+    }
+    //error dealing
+    [context save:&error];
+    if (![context save:&error]) {
+        NSLog(@"Can't save : %@", [error localizedDescription]);
+    }
+}
+
+- (void)clickSettingsButton
 {
     SettingsViewController *vc = [[SettingsViewController alloc] init];
     vc.delegate = self;
@@ -155,7 +247,7 @@ static NSString *CellIdentifier = @"ColorCell";
 
 - (void)addConstraints
 {
-    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_tableView, _bottomView, _settingsButton, _chooseButton);
+    NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_tableView, _bottomView, _settingsButton,_chooseButton);
     
     NSString *format;
     NSArray *constraintsArray;
@@ -232,23 +324,32 @@ static NSString *CellIdentifier = @"ColorCell";
 
 - (void)dealloc
 {
-    [self.tableView setDelegate:nil];
-    [self.tableView setDataSource:nil];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView = nil;
+    self.settingsButton = nil;
+    self.chooseButton = nil;
+    self.bottomView = nil;
 }
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_objectArray count];
+    //return [_objectArray count];
+    return [self.objects count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ColorCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
+
     //http://objccn.io/issue-1-2/#separatingconcerns
-    [cell configureForColor:[_objectArray objectAtIndex:indexPath.row]];
-    
+    //[cell configureForColor:[_objectArray objectAtIndex:indexPath.row]];
+    cell.firstColor.backgroundColor  = [[self.objects objectAtIndex:[indexPath row]] objectAtIndex:0];
+    cell.secondColor.backgroundColor = [[self.objects objectAtIndex:[indexPath row]] objectAtIndex:1];
+    cell.thirdColor.backgroundColor  = [[self.objects objectAtIndex:[indexPath row]] objectAtIndex:2];
+    cell.fourthColor.backgroundColor = [[self.objects objectAtIndex:[indexPath row]] objectAtIndex:3];
+    cell.fifthColor.backgroundColor  = [[self.objects objectAtIndex:[indexPath row]] objectAtIndex:4];
     //Auto Layout
     [cell setNeedsUpdateConstraints];
 
@@ -256,22 +357,16 @@ static NSString *CellIdentifier = @"ColorCell";
 }
 
 #pragma mark - UITableViewDelegate
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    //ColorCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-//    //[cell setNeedsUpdateConstraints];
-//    //[cell updateConstraintsIfNeeded];
-//    //[cell.contentView layoutIfNeeded];
-//    //CGFloat height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
-//    ////NSLog(@"%f",height);
-//    //return height;
-//    return 150;
-//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    //XHTwitterPaggingViewer *pagging = [[XHTwitterPaggingViewer alloc] init];
     DetailViewController *vc = [[DetailViewController alloc] init];
+//    SecondDetailViewController *second = [[SecondDetailViewController alloc] init];
+//    NSArray *arrary = @[vc, second];
+//    pagging.viewControllers = arrary;
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     vc.delegate = self;
     vc.transitioningDelegate = self;
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -310,85 +405,53 @@ static NSString *CellIdentifier = @"ColorCell";
     }
 }
 
-#pragma mark - UIPickerViewDelegate
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
-{
-    return 40.f;
-}
-
-#pragma mark - UIPickerViewDataSource
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    return 2;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    int number = 0;
-    switch (component) {
-        case 0:
-            number = 17;
-            break;
-        case 1:
-            number = 3;
-            break;
-    }
-    return number;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    NSString *string;
-    NSArray *titleArray = @[@"Dansk", @"Deutsch", @"English", @"Español", @"Français", @"Italiano", @"Nederlands", @"Norsk", @"Polski", @"Português", @"Suomi", @"Svenska", @"Türkçe", @"Pусский", @"繁體中文", @"日本語", @"한국어"];
-    NSArray *popularityArray = @[@"周", @"月", @"全部"];
-    switch (component) {
-        //Country
-        case 0:
-            string = [titleArray objectAtIndex:row];
-            break;
-        //Popularity
-        case 1:
-            string = [popularityArray objectAtIndex:row];
-            break;
-    }
-    return string;
-}
-
-//#pragma mark - UIWebViewDelegate
-//- (void)webViewDidStartLoad:(UIWebView *)webView
+//#pragma mark - UIPickerViewDelegate
+//- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 //{
-//    JSHandler = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"parser"
-//                                                                          withExtension:@"js"]
-//                                         encoding:NSUTF8StringEncoding
-//                                            error:nil];
-//    [self.webView stringByEvaluatingJavaScriptFromString:JSHandler];
+//    
 //}
 //
-//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+//- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
 //{
-//    if ([[[[request URL] scheme] lowercaseString] isEqual:@"mpajaxhandler"]) {
-//        NSString *htmlString = [webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
-//        self.HTML = htmlString;
-//        //[self saveDataToUserDefault:htmlString];
-//        //NSLog(@"self.html : %@",self.HTML);
+//    return 40.f;
+//}
 //
-////        _objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString:self.HTML]
-////                                                                       andTitleArray:[Parser parsewithTitle:self.HTML]
-////                                                                        andLikeArray:[Parser parsewithLikes:self.HTML]]];
-////        
-////        
-////        [self.tableView reloadData];
-////        [self.dimBackgroundView removeFromSuperview];
-////        [self.activityView stopAnimating];
-//        return NO;
+//#pragma mark - UIPickerViewDataSource
+//- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+//{
+//    return 2;
+//}
+//
+//- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+//{
+//    int number = 0;
+//    switch (component) {
+//        case 0:
+//            number = 17;
+//            break;
+//        case 1:
+//            number = 3;
+//            break;
 //    }
-//    return YES;
+//    return number;
 //}
-
+//
+//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+//{
+//    NSString *string;
+//    NSArray *titleArray = @[@"Dansk", @"Deutsch", @"English", @"Español", @"Français", @"Italiano", @"Nederlands", @"Norsk", @"Polski", @"Português", @"Suomi", @"Svenska", @"Türkçe", @"Pусский", @"繁體中文", @"日本語", @"한국어"];
+//    NSArray *popularityArray = @[@"周", @"月", @"全部"];
+//    switch (component) {
+//        //Country
+//        case 0:
+//            string = [titleArray objectAtIndex:row];
+//            break;
+//        //Popularity
+//        case 1:
+//            string = [popularityArray objectAtIndex:row];
+//            break;
+//    }
+//    return string;
+//}
 
 @end

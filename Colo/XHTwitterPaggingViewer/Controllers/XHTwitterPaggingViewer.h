@@ -9,9 +9,17 @@
 #import <UIKit/UIKit.h>
 
 typedef void(^XHDidChangedPageBlock)(NSInteger currentPage, NSString *title);
+@class ModalViewController;
+
+@protocol ModalViewControllerDelegate <NSObject>
+
+-(void) modalViewControllerDidClickedDismissButton:(ModalViewController *)viewController;
+
+@end
 
 @interface XHTwitterPaggingViewer : UIViewController
 
+@property (nonatomic, weak) id<ModalViewControllerDelegate> delegate;
 /**
  *  改变页码的回调
  */

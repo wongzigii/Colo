@@ -11,11 +11,10 @@
 @implementation Parser
 
 //Color Array
-+ (NSMutableArray *)parseWithHTMLString:(NSString *)webContent
++ (NSMutableArray *)parseWithHTMLString
 {
     NSString *string = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
     NSString *content = [[NSString  alloc] initWithContentsOfFile:string encoding:NSUTF8StringEncoding error:nil];
-
     
     NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
     TFHpple *parser = [TFHpple hppleWithData:data isXML:NO];
@@ -24,7 +23,8 @@
     NSString *XpathQueryColorHexString = @"//div[@class='content']/div/div";
     NSArray *ColorStringNodes = [parser searchWithXPathQuery:XpathQueryColorHexString];
     
-    NSMutableArray *resultArray = [[NSMutableArray alloc] initWithCapacity:0];
+    NSMutableArray *colorArray = [[NSMutableArray alloc] initWithCapacity:0];
+    NSMutableArray *strArray = [[NSMutableArray alloc] initWithCapacity:0];
     for (TFHppleElement *element in ColorStringNodes) {
 
         //background: #D93D59
@@ -37,16 +37,17 @@
         }
         
         //translate into UIColor
-        UIColor *color = [self translateStringToColor:str];
-        [resultArray addObject:color];
+        [strArray addObject:str];
+        //UIColor *color = [self translateStringToColor:str];
+        //[colorArray addObject:color];
     }
     
     //Title
-    return resultArray;
+    return strArray;
 }
 
 //Title
-+ (NSMutableArray *)parsewithTitle:(NSString *)webContent
++ (NSMutableArray *)parsewithTitle
 {
     NSString *string = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
     NSString *content = [[NSString  alloc] initWithContentsOfFile:string encoding:NSUTF8StringEncoding error:nil];
@@ -67,7 +68,7 @@
 }
 
 //Likes
-+ (NSMutableArray *)parsewithLikes:(NSString *)webContent
++ (NSMutableArray *)parsewithLikes
 {
     NSString *string = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
     NSString *content = [[NSString  alloc] initWithContentsOfFile:string encoding:NSUTF8StringEncoding error:nil];
@@ -88,26 +89,26 @@
 }
 
 //grouped
-+ (NSMutableArray *)groupedTheArray:(NSMutableArray *)array andTitleArray:(NSMutableArray *)title andLikeArray:(NSMutableArray *)like
++ (NSMutableArray *)groupedTheArray:(NSMutableArray *)array andTitleArray:(NSMutableArray *)title andStarsArray:(NSMutableArray *)star
 {
     NSMutableArray *outer = [[NSMutableArray alloc] init];
     NSMutableArray *inner = [[NSMutableArray alloc] initWithCapacity:5];
-    int i = 0, j = 0;
+    int index = 0, count = 0;
     for (id object in array)
     {
-        if (inner == nil) {
+        if (!inner) {
             inner = [[NSMutableArray alloc] init];
         }
         [inner addObject:object];
-        i ++;
-        if (i % 5 == 0) {
-            NSString *titles = [title objectAtIndex:j];
-            NSString *stars = [like objectAtIndex:j];
-            ColorModel *model = [[ColorModel alloc] initWithArray:inner andTitle:titles andStars:stars andFavoutite:nil];
+        index ++;
+        if (index % 5 == 0) {
+            NSString *titleStr = [title objectAtIndex:count];
+            NSString *starNum = [star objectAtIndex:count];
+            ColorModel *model = [[ColorModel alloc] initWithArray:inner andTitle:titleStr andStar:starNum andFavoutite:nil];
             [outer addObject:model];
             inner = nil;
-            i = 0;
-            j ++;
+            index = 0;
+            count ++;
         }
     }
     return outer;

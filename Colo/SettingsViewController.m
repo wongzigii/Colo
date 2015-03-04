@@ -23,6 +23,12 @@
     return self;
 }
 
+- (void)dealloc
+{
+    self.tableView.delegate = nil;
+    self.tableView = nil;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -43,14 +49,14 @@
     
     [self addConstraints];
     
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
                                                                    action:@selector(done)];
     [rightButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [UIFont fontWithName:@"Helvetica-Bold" size:14.0], NSFontAttributeName,nil] forState:UIControlStateNormal];
     [self.navigationItem setRightBarButtonItem:rightButton];
     [rightButton setTintColor:[UIColor redColor]];
-    self.navigationItem.title = @"帮助";
+    self.navigationItem.title = @"Help";
 }
 
 - (void)done
@@ -88,15 +94,12 @@
         case 1:
             switch (indexPath.row) {
                 case 0:
-                    //常见问题
-                    break;
-                case 1:
-                    //联系我
+                    //Contact me
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:wongzigii@outlook.com"]];
 
                     break;
-                case 2:
-                    //优酷演示视频
+                case 1:
+                    //Youtube
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.weibo.com/wongzigii"]];
                     break;
                 default:
@@ -118,7 +121,7 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -126,16 +129,13 @@
     NSInteger number = 0;
     switch (section) {
         case 0:
-            number = 1;
-            break;
-        case 1:
-            number = 3;
-            break;
-        case 2:
             number = 2;
             break;
-        case 3:
-            number = 1;
+        case 1:
+            number = 2;
+            break;
+        case 2:
+            number = 0;
             break;
     }
     return number;
@@ -151,37 +151,31 @@
     cell.textLabel.font = [UIFont systemFontOfSize:14.0f];
     switch (indexPath.section) {
         case 0:
-            cell.textLabel.text = @"请前往系统设置";
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = @"Contact me";
+                    break;
+                case 1:
+                    cell.textLabel.text = @"Youtube";
+                    break;
+                default:
+                    break;
+            }
             break;
         case 1:
             switch (indexPath.row) {
                 case 0:
-                    cell.textLabel.text = @"常见问题";
+                    cell.textLabel.text = @"Follow me";
                     break;
                 case 1:
-                    cell.textLabel.text = @"联系我";
-                    break;
-                case 2:
-                    cell.textLabel.text = @"演示视频";
+                    cell.textLabel.text = @"Colo in Apple Store";
                     break;
                 default:
                     break;
             }
             break;
         case 2:
-            switch (indexPath.row) {
-                case 0:
-                    cell.textLabel.text = @"微博关注我";
-                    break;
-                case 1:
-                    cell.textLabel.text = @"在App Store给Colo评分";
-                    break;
-                default:
-                    break;
-            }
-            break;
-        case 3:
-            cell.textLabel.text = @"献给曾经帮助我和支持我的人";
+            cell.textLabel.text = @"To designers who change the world";
             break;
         default:
             break;
@@ -194,16 +188,13 @@
     NSString *titleString;
     switch (section) {
         case 0:
-            titleString = @"设置";
+            titleString = @"Support";
             break;
         case 1:
-            titleString = @"支持";
+            titleString = @"About";
             break;
         case 2:
-            titleString = @"关于";
-            break;
-        case 3:
-            titleString = @"特别鸣谢";
+            titleString = @"To designers who change the world";
             break;
         default:
             break;

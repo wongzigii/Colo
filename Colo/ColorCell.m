@@ -66,7 +66,7 @@
         //self.title.textColor = [UIColor whiteColor];
         [self.title setFont:[UIFont boldSystemFontOfSize:15.0f]];
         //self.stars.image = [UIImage imageNamed:@"star"];
-        self.top.backgroundColor        = [UIColor purpleColor];
+        self.top.backgroundColor        = [UIColor clearColor];
         self.bottom.backgroundColor     = [UIColor blackColor];
         self.title.backgroundColor      = [UIColor clearColor];
         //self.favourites.backgroundColor = [UIColor whiteColor];
@@ -83,7 +83,7 @@
         
         NSString *format;
         NSArray *constraintsArray;
-        NSDictionary *metrics = @{@"topHeight":@100.0, @"bottomHeight":@25};
+        NSDictionary *metrics = @{@"topHeight":@100.0, @"bottomHeight":@50};
         
         format = @"V:|[_background]|";
         constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:NSLayoutFormatAlignAllCenterX metrics:nil views:viewsDictionary];
@@ -132,31 +132,31 @@
         constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
         [_top addConstraints:constraintsArray];
 
-        //Bottom
-        format = @"V:|-[_title]-|";
-        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
-        [_bottom addConstraints:constraintsArray];
-        
-        [_bottom addConstraint:[NSLayoutConstraint constraintWithItem:_stars
-                                                            attribute:NSLayoutAttributeCenterY
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:_bottom
-                                                            attribute:NSLayoutAttributeCenterY
-                                                           multiplier:1.0f
-                                                             constant:0.0f]];
-        
-        format = @"V:[_stars(17)]";
-        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:NSLayoutFormatAlignAllCenterY metrics:nil views:viewsDictionary];
-        [_bottom addConstraints:constraintsArray];
-    
-        
-        format = @"V:|-12-[_favourites]-12-|";
-        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
-        [_bottom addConstraints:constraintsArray];
-        
-        format = @"H:|-[_title]-[_stars(17)]-[_favourites(35)]-|";
-        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
-        [_bottom addConstraints:constraintsArray];
+//        //Bottom
+//        format = @"V:|-[_title]-|";
+//        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
+//        [_bottom addConstraints:constraintsArray];
+//        
+//        [_bottom addConstraint:[NSLayoutConstraint constraintWithItem:_stars
+//                                                            attribute:NSLayoutAttributeCenterY
+//                                                            relatedBy:NSLayoutRelationEqual
+//                                                               toItem:_bottom
+//                                                            attribute:NSLayoutAttributeCenterY
+//                                                           multiplier:1.0f
+//                                                             constant:0.0f]];
+//        
+//        format = @"V:[_stars(17)]";
+//        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:NSLayoutFormatAlignAllCenterY metrics:nil views:viewsDictionary];
+//        [_bottom addConstraints:constraintsArray];
+//    
+//        
+//        format = @"V:|-12-[_favourites]-12-|";
+//        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
+//        [_bottom addConstraints:constraintsArray];
+//        
+//        format = @"H:|-[_title]-[_stars(17)]-[_favourites(35)]-|";
+//        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
+//        [_bottom addConstraints:constraintsArray];
 //
         self.didSetupConstraints = YES;
     }
@@ -172,7 +172,7 @@
 - (void)configureForColor:(ColorModel *)model
 {
 //    self.title.text = model.title;
-//    self.favourites.text = model.stars;
+    //self.favourites.text = model.stars;
     self.firstColor.backgroundColor  = [model.colorArray objectAtIndex:0];
     self.secondColor.backgroundColor = [model.colorArray objectAtIndex:1];
     self.thirdColor.backgroundColor  = [model.colorArray objectAtIndex:2];
