@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		E00A43F71A7A79F0006E51D2 /* MMPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E00A43F61A7A79F0006E51D2 /* MMPickerView.m */; };
 		E0B2C5CE1AA719CA009D1B97 /* ColorManagerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B2C5CD1AA719CA009D1B97 /* ColorManagerObject.m */; };
-		E0B2C5D41AA772A6009D1B97 /* Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B2C5D31AA772A6009D1B97 /* Tool.m */; };
 		E0B2C5DE1AA7FE0C009D1B97 /* PagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B2C5DD1AA7FE0C009D1B97 /* PagerViewController.m */; };
 		E0B2C5E11AA805D5009D1B97 /* SwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B2C5E01AA805D5009D1B97 /* SwitchViewController.m */; };
 		E0E039C81A7A5F2700609DEB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E039C71A7A5F2700609DEB /* main.m */; };
@@ -62,12 +61,11 @@
 		E00A43F61A7A79F0006E51D2 /* MMPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPickerView.m; sourceTree = "<group>"; };
 		E0B2C5CC1AA719CA009D1B97 /* ColorManagerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorManagerObject.h; sourceTree = "<group>"; };
 		E0B2C5CD1AA719CA009D1B97 /* ColorManagerObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorManagerObject.m; sourceTree = "<group>"; };
-		E0B2C5D21AA772A6009D1B97 /* Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tool.h; sourceTree = "<group>"; };
-		E0B2C5D31AA772A6009D1B97 /* Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tool.m; sourceTree = "<group>"; };
 		E0B2C5DC1AA7FE0C009D1B97 /* PagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagerViewController.h; sourceTree = "<group>"; };
 		E0B2C5DD1AA7FE0C009D1B97 /* PagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PagerViewController.m; sourceTree = "<group>"; };
 		E0B2C5DF1AA805D5009D1B97 /* SwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchViewController.h; sourceTree = "<group>"; };
 		E0B2C5E01AA805D5009D1B97 /* SwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchViewController.m; sourceTree = "<group>"; };
+		E0B2C5E21AA839EB009D1B97 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		E0E039C21A7A5F2700609DEB /* Colo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Colo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0E039C61A7A5F2700609DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E0E039C71A7A5F2700609DEB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -197,6 +195,7 @@
 				E0E03A2F1A7A633B00609DEB /* parser.js */,
 				E0E039C61A7A5F2700609DEB /* Info.plist */,
 				E0E039C71A7A5F2700609DEB /* main.m */,
+				E0B2C5E21AA839EB009D1B97 /* Constant.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -236,8 +235,6 @@
 		E0E03A121A7A600400609DEB /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E0B2C5D21AA772A6009D1B97 /* Tool.h */,
-				E0B2C5D31AA772A6009D1B97 /* Tool.m */,
 				E0B2C5CC1AA719CA009D1B97 /* ColorManagerObject.h */,
 				E0B2C5CD1AA719CA009D1B97 /* ColorManagerObject.m */,
 				E0E446831AA31F3700DA13FC /* Colo.xcdatamodeld */,
@@ -456,7 +453,6 @@
 				E0E039C81A7A5F2700609DEB /* main.m in Sources */,
 				E0E039FB1A7A5F7300609DEB /* BaseNavigationController.m in Sources */,
 				E0E446761AA2B1E700DA13FC /* PNBar.m in Sources */,
-				E0B2C5D41AA772A6009D1B97 /* Tool.m in Sources */,
 				E0E039FF1A7A5F7300609DEB /* DetailViewController.m in Sources */,
 				E0E4467E1AA2B24200DA13FC /* PNChartLabel.m in Sources */,
 				E0E03A331A7A634800609DEB /* Parser.m in Sources */,

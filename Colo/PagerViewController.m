@@ -35,6 +35,7 @@
 	[self.scrollView setDelegate:self];
     
     self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 49)];
+    [self.pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.pageControl];
 }
 
@@ -202,7 +203,7 @@
 }
 
 - (IBAction)changePage:(id)sender {
-    int page = ((UIPageControl *)sender).currentPage;
+    int page = (int)((UIPageControl *)sender).currentPage;
 	
 	// update the scroll view to the appropriate page
     CGRect frame = self.scrollView.frame;

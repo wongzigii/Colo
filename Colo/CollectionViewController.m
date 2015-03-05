@@ -78,9 +78,9 @@ static NSString *CellIdentifier = @"ColorCell";
     [self initializeUI];
     [self addConstraints];
     
-    //_objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString]
-//                                                                   andTitleArray:[Parser parsewithTitle]
-//                                                                   andStarsArray:[Parser parsewithLikes]]];
+    _objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString]
+                                                                   andTitleArray:[Parser parsewithTitle]
+                                                                   andStarsArray:[Parser parsewithLikes]]];
     self.objects = [NSMutableArray new];
     [self.tableView reloadData];
     
@@ -342,7 +342,6 @@ static NSString *CellIdentifier = @"ColorCell";
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //return [_objectArray count];
     return [self.objects count];
 }
 
@@ -351,13 +350,8 @@ static NSString *CellIdentifier = @"ColorCell";
     ColorCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     //http://objccn.io/issue-1-2/#separatingconcerns
-    //[cell configureForColor:[_objectArray objectAtIndex:indexPath.row]];
-    NSUInteger index = indexPath.row;
-    cell.firstColor.backgroundColor  = [[self.objects objectAtIndex:index] objectAtIndex:0];
-    cell.secondColor.backgroundColor = [[self.objects objectAtIndex:index] objectAtIndex:1];
-    cell.thirdColor.backgroundColor  = [[self.objects objectAtIndex:index] objectAtIndex:2];
-    cell.fourthColor.backgroundColor = [[self.objects objectAtIndex:index] objectAtIndex:3];
-    cell.fifthColor.backgroundColor  = [[self.objects objectAtIndex:index] objectAtIndex:4];
+    [cell configureForColor:[self.objects objectAtIndex:indexPath.row]];
+
     //Auto Layout
     [cell setNeedsUpdateConstraints];
 
