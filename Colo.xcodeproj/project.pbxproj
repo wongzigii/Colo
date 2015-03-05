@@ -37,7 +37,6 @@
 		E0E03A2E1A7A619700609DEB /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E0E03A2D1A7A619700609DEB /* libxml2.dylib */; };
 		E0E03A301A7A633B00609DEB /* parser.js in Resources */ = {isa = PBXBuildFile; fileRef = E0E03A2F1A7A633B00609DEB /* parser.js */; };
 		E0E03A331A7A634800609DEB /* Parser.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E03A321A7A634800609DEB /* Parser.m */; };
-		E0E03A351A7A63FA00609DEB /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = E0E03A341A7A63FA00609DEB /* index.html */; };
 		E0E03A371A7A641000609DEB /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = E0E03A361A7A641000609DEB /* gear.png */; };
 		E0E446761AA2B1E700DA13FC /* PNBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E446731AA2B1E700DA13FC /* PNBar.m */; };
 		E0E446771AA2B1E700DA13FC /* PNBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E446751AA2B1E700DA13FC /* PNBarChart.m */; };
@@ -113,7 +112,6 @@
 		E0E03A2F1A7A633B00609DEB /* parser.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = parser.js; sourceTree = "<group>"; };
 		E0E03A311A7A634800609DEB /* Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
 		E0E03A321A7A634800609DEB /* Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Parser.m; sourceTree = "<group>"; };
-		E0E03A341A7A63FA00609DEB /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		E0E03A361A7A641000609DEB /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
 		E0E446721AA2B1E700DA13FC /* PNBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBar.h; sourceTree = "<group>"; };
 		E0E446731AA2B1E700DA13FC /* PNBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBar.m; sourceTree = "<group>"; };
@@ -196,7 +194,6 @@
 				E0E03A0B1A7A5FA000609DEB /* star.png */,
 				E0E039D41A7A5F2800609DEB /* LaunchScreen.xib */,
 				E0E03A361A7A641000609DEB /* gear.png */,
-				E0E03A341A7A63FA00609DEB /* index.html */,
 				E0E03A2F1A7A633B00609DEB /* parser.js */,
 				E0E039C61A7A5F2700609DEB /* Info.plist */,
 				E0E039C71A7A5F2700609DEB /* main.m */,
@@ -417,7 +414,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0E03A371A7A641000609DEB /* gear.png in Resources */,
-				E0E03A351A7A63FA00609DEB /* index.html in Resources */,
 				E0E039D61A7A5F2800609DEB /* LaunchScreen.xib in Resources */,
 				E0E03A301A7A633B00609DEB /* parser.js in Resources */,
 				E0E03A0F1A7A5FA000609DEB /* star.png in Resources */,

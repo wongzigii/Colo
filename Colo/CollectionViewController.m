@@ -78,9 +78,9 @@ static NSString *CellIdentifier = @"ColorCell";
     [self initializeUI];
     [self addConstraints];
     
-    _objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString]
-                                                                   andTitleArray:[Parser parsewithTitle]
-                                                                   andStarsArray:[Parser parsewithLikes]]];
+    //_objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString]
+//                                                                   andTitleArray:[Parser parsewithTitle]
+//                                                                   andStarsArray:[Parser parsewithLikes]]];
     self.objects = [NSMutableArray new];
     [self.tableView reloadData];
     
