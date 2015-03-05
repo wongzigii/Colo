@@ -6,24 +6,25 @@
 //  Copyright (c) 2014 Wongzigii. All rights reserved.
 //
 
-#import "CollectionViewController.h"
-#import "ColorCell.h"
-#import "Parser.h"
+#import <CoreData/CoreData.h>
 #import <QuartzCore/QuartzCore.h>
+#import "Parser.h"
+#import "ColorCell.h"
+#import "AppDelegate.h"
+#import "MMPickerView.h"
+#import "WZCoreDataManager.h"
+#import "ColorManagerObject.h"
+#import "DetailViewController.h"
 #import "BouncePresentAnimation.h"
 #import "NormalDismissAnimation.h"
-#import "SwipeUpInteractionTransition.h"
-#import "DetailViewController.h"
 #import "SettingsViewController.h"
+#import "CollectionViewController.h"
 #import "BaseNavigationController.h"
-#import "MMPickerView.h"
-#import "XHTwitterPaggingViewer.h"
-#import "WZCoreDataManager.h"
-#import "AppDelegate.h"
-#import <CoreData/CoreData.h>
+#import "SwipeUpInteractionTransition.h"
+#import "SwitchViewController.h"
 
 #define kDeviceWidth  self.view.frame.size.width
-#define kDeviceHeight self.view.frame.size.height
+#define kDeviceHeight        self.view.frame.size.height
 #define CocoaJSHandler       @"mpAjaxHandler"
 
 static NSString *JSHandler;
@@ -121,6 +122,11 @@ static NSString *CellIdentifier = @"ColorCell";
     [self.bottomView addSubview:self.chooseButton];
 }
 
+- (void)triggerUIPickerView
+{
+    
+}
+
 - (void)fetchDataFromCoreData
 {
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
@@ -129,31 +135,35 @@ static NSString *CellIdentifier = @"ColorCell";
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Color"
                                                          inManagedObjectContext:context];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:entityDescription];
+    request.entity = entityDescription;
     
     NSSortDescriptor *indexSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
     request.sortDescriptors = @[indexSortDescriptor];
     
     NSError *error;
     NSArray *objects = [context executeFetchRequest:request error:&error];
-
+    
     if (!objects){
         NSLog(@"There was an error.");
     }
     
-    for (NSManagedObject *oneObject in objects){
+    for (ColorManagerObject *oneObject in objects){
+//        NSString *title       = [oneObject valueForKey:@"title"];
+//        NSString *star        = [oneObject valueForKey:@"star"];
+//        NSString *index       = [oneObject valueForKey:@"index"];
         
-        NSString *title       = [oneObject valueForKey:@"title"];
-        NSString *star        = [oneObject valueForKey:@"star"];
-        NSString *index       = [oneObject valueForKey:@"index"];
         NSString *firstColor  = [oneObject valueForKey:@"firstColor"];
         NSString *secondColor = [oneObject valueForKey:@"secondColor"];
         NSString *thirdColor  = [oneObject valueForKey:@"thirdColor"];
         NSString *fourthColor = [oneObject valueForKey:@"fourthColor"];
         NSString *fifthColor  = [oneObject valueForKey:@"fifthColor"];
-        int i = [index intValue];
-        NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
-        //ColorCell *cell = (ColorCell *)[self.tableView cellForRowAtIndexPath:path];
+        
+//        UIColor *first  = oneObject.firstColor;
+//        UIColor *second = oneObject.secondColor;
+//        UIColor *third  = oneObject.thirdColor;
+//        UIColor *fourth = oneObject.fourthColor;
+//        UIColor *fifth  = oneObject.fifthColor;
+        
         
         UIColor *first  = [Parser translateStringToColor:firstColor];
         UIColor *second = [Parser translateStringToColor:secondColor];
@@ -161,13 +171,8 @@ static NSString *CellIdentifier = @"ColorCell";
         UIColor *fourth = [Parser translateStringToColor:fourthColor];
         UIColor *fifth  = [Parser translateStringToColor:fifthColor];
         
-//        cell.firstColor.backgroundColor  = first;
-//        cell.secondColor.backgroundColor = second;
-//        cell.thirdColor.backgroundColor  = third;
-//        cell.fourthColor.backgroundColor = fourth;
-//        cell.fifthColor.backgroundColor  = fifth;
         NSArray *array = @[first, second, third, fourth, fifth];
-        
+        NSLog(@"%@",array);
         [self.objects addObject:array];
     }
 }
@@ -195,7 +200,7 @@ static NSString *CellIdentifier = @"ColorCell";
         [request setPredicate:pred];
         
         //Declare a pointer.(for loading managed object or creating a new managed objcet)
-        NSManagedObject *managedObject;
+        ColorManagerObject *managedObject;
         
         //Execute fetch request.
         NSArray *objects = [context executeFetchRequest:request error:&error];
@@ -215,17 +220,20 @@ static NSString *CellIdentifier = @"ColorCell";
         //datasource
         ColorModel *model = [_objectArray objectAtIndex:index];
         //Key-Value-Coding
-        NSLog(@"%lu",(unsigned long)index);
+        managedObject.firstColor  = [model.colorArray objectAtIndex:0];
+        managedObject.secondColor = [model.colorArray objectAtIndex:1];
+        managedObject.thirdColor  = [model.colorArray objectAtIndex:2];
+        managedObject.fourthColor = [model.colorArray objectAtIndex:3];
+        managedObject.fifthColor  = [model.colorArray objectAtIndex:4];
+        
         [managedObject setValue:[NSNumber numberWithUnsignedInteger:index] forKey:@"index"];
-        [managedObject setValue:[model.colorArray objectAtIndex:0] forKey:@"firstColor"];
-        [managedObject setValue:[model.colorArray objectAtIndex:1] forKey:@"secondColor"];
-        [managedObject setValue:[model.colorArray objectAtIndex:2] forKey:@"thirdColor"];
-        [managedObject setValue:[model.colorArray objectAtIndex:3] forKey:@"fourthColor"];
-        [managedObject setValue:[model.colorArray objectAtIndex:4] forKey:@"fifthColor"];
+//        [managedObject setValue:[model.colorArray objectAtIndex:0] forKey:@"firstColor"];
+//        [managedObject setValue:[model.colorArray objectAtIndex:1] forKey:@"secondColor"];
+//        [managedObject setValue:[model.colorArray objectAtIndex:2] forKey:@"thirdColor"];
+//        [managedObject setValue:[model.colorArray objectAtIndex:3] forKey:@"fourthColor"];
+//        [managedObject setValue:[model.colorArray objectAtIndex:4] forKey:@"fifthColor"];
         [managedObject setValue:model.title      forKey:@"title"];
         [managedObject setValue:model.star       forKey:@"star"];
-        //[theLine setValue:model            forKey:@"id"];
-        NSLog(@"%@",managedObject);
     }
     //error dealing
     [context save:&error];
@@ -237,7 +245,6 @@ static NSString *CellIdentifier = @"ColorCell";
 - (void)clickSettingsButton
 {
     SettingsViewController *vc = [[SettingsViewController alloc] init];
-    vc.delegate = self;
     vc.transitioningDelegate = self;
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [self.transitionController wireToViewController:vc];
@@ -345,11 +352,12 @@ static NSString *CellIdentifier = @"ColorCell";
 
     //http://objccn.io/issue-1-2/#separatingconcerns
     //[cell configureForColor:[_objectArray objectAtIndex:indexPath.row]];
-    cell.firstColor.backgroundColor  = [[self.objects objectAtIndex:[indexPath row]] objectAtIndex:0];
-    cell.secondColor.backgroundColor = [[self.objects objectAtIndex:[indexPath row]] objectAtIndex:1];
-    cell.thirdColor.backgroundColor  = [[self.objects objectAtIndex:[indexPath row]] objectAtIndex:2];
-    cell.fourthColor.backgroundColor = [[self.objects objectAtIndex:[indexPath row]] objectAtIndex:3];
-    cell.fifthColor.backgroundColor  = [[self.objects objectAtIndex:[indexPath row]] objectAtIndex:4];
+    NSUInteger index = indexPath.row;
+    cell.firstColor.backgroundColor  = [[self.objects objectAtIndex:index] objectAtIndex:0];
+    cell.secondColor.backgroundColor = [[self.objects objectAtIndex:index] objectAtIndex:1];
+    cell.thirdColor.backgroundColor  = [[self.objects objectAtIndex:index] objectAtIndex:2];
+    cell.fourthColor.backgroundColor = [[self.objects objectAtIndex:index] objectAtIndex:3];
+    cell.fifthColor.backgroundColor  = [[self.objects objectAtIndex:index] objectAtIndex:4];
     //Auto Layout
     [cell setNeedsUpdateConstraints];
 
@@ -361,17 +369,24 @@ static NSString *CellIdentifier = @"ColorCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //XHTwitterPaggingViewer *pagging = [[XHTwitterPaggingViewer alloc] init];
-    DetailViewController *vc = [[DetailViewController alloc] init];
+    //DetailViewController *vc = [[DetailViewController alloc] init];
 //    SecondDetailViewController *second = [[SecondDetailViewController alloc] init];
 //    NSArray *arrary = @[vc, second];
 //    pagging.viewControllers = arrary;
+    SwitchViewController *switchVC = [[SwitchViewController alloc] init];
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    vc.delegate = self;
-    vc.transitioningDelegate = self;
-    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self.transitionController wireToViewController:vc];
-    [self presentViewController:vc animated:YES completion:nil];
+//    vc.delegate = self;
+//    vc.transitioningDelegate = self;
+//    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+//    [self.transitionController wireToViewController:vc];
+//    [self presentViewController:vc animated:YES completion:nil];
+    
+    switchVC.delegate = self;
+    switchVC.transitioningDelegate = self;
+    switchVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [self.transitionController wireToViewController:switchVC];
+    [self presentViewController:switchVC animated:YES completion:nil];
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate

@@ -10,7 +10,6 @@
 #import "Reachability.h"
 #import "CollectionViewController.h"
 #import "BaseNavigationController.h"
-#import "XHTwitterPaggingViewer.h"
 #import "WZCoreDataManager.h"
 
 @interface AppDelegate ()
@@ -32,11 +31,6 @@
     
     //2.
     //SelectViewController *select = [[SelectViewController alloc] init];
-    
-//    XHTwitterPaggingViewer *pagging = [[XHTwitterPaggingViewer alloc] init];
-//    
-//    NSArray *array = @[nav, select];
-//    pagging.viewControllers = array;
     
     self.window.rootViewController = nav;
     self.window.backgroundColor = [UIColor whiteColor];

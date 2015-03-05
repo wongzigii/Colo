@@ -55,7 +55,7 @@
                                                                    action:@selector(done)];
     [rightButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [UIFont fontWithName:@"Helvetica-Bold" size:14.0], NSFontAttributeName,nil] forState:UIControlStateNormal];
     [self.navigationItem setRightBarButtonItem:rightButton];
-    [rightButton setTintColor:[UIColor redColor]];
+    rightButton.tintColor = [UIColor redColor];
     self.navigationItem.title = @"Help";
 }
 
@@ -147,7 +147,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.font = [UIFont systemFontOfSize:14.0f];
     switch (indexPath.section) {
         case 0:

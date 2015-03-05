@@ -23,7 +23,7 @@
     NSString *XpathQueryColorHexString = @"//div[@class='content']/div/div";
     NSArray *ColorStringNodes = [parser searchWithXPathQuery:XpathQueryColorHexString];
     
-    NSMutableArray *colorArray = [[NSMutableArray alloc] initWithCapacity:0];
+    //NSMutableArray *colorArray = [[NSMutableArray alloc] initWithCapacity:0];
     NSMutableArray *strArray = [[NSMutableArray alloc] initWithCapacity:0];
     for (TFHppleElement *element in ColorStringNodes) {
 

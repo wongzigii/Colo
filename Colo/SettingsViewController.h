@@ -11,6 +11,4 @@
 
 @interface SettingsViewController : UIViewController
 
-@property (nonatomic, weak) id<ModalViewControllerDelegate> delegate;
-
 @end

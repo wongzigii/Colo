@@ -13,7 +13,7 @@
 
 @interface DetailViewController ()<PNChartDelegate>
 @property (nonatomic, strong) UIVisualEffectView *effectView;
-@property (nonatomic)         PNBarChart *barChart;
+@property (nonatomic) PNBarChart *barChart;
 @end
 
 @implementation DetailViewController
@@ -36,7 +36,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor clearColor];
     [self initializeBlurBackground];
 }
 
@@ -44,13 +43,6 @@
 {
     [super viewWillAppear:animated];
     [self initializeBarChart];
-    [self performSelector:@selector(updateValue) withObject:nil afterDelay:5.0];
-}
-
-- (void)updateValue
-{
-    //[self.barChart updateChartData:@[@(arc4random() % 30),@(arc4random() % 30),@(arc4random() % 30)]];
-    [self.barChart updateChartData:@[@250,@250,@250]];
 }
 
 - (void)initializeBarChart
@@ -66,26 +58,13 @@
     self.barChart.labelFont = [UIFont systemFontOfSize:15];
     self.barChart.labelMarginTop = 5.0;
     [self.barChart setXLabels:@[@"Red",@"Green",@"Blue"]];
-    
+    self.barChart.barRadius = 5.0;
     self.barChart.rotateForXAxisText = true ;
     [self.barChart setYValues:@[@255,@51,@102]];
     [self.barChart setStrokeColors:@[WZRedEndColor, WZGreenEndColor, WZBlueEndColor]];
-    // Adding gradient
-//    self.barChart.barColorGradientStart = [UIColor orangeColor];
-    
-//    PNBar *bar1 = [self.barChart.bars objectAtIndex:0];
-//    bar1.barColorGradientStart = [UIColor redColor];
-//    PNBar *bar2 = [self.barChart.bars objectAtIndex:1];
-//    bar2.barColorGradientStart = [UIColor greenColor];
-//    PNBar *bar3 = [self.barChart.bars objectAtIndex:2];
-//    bar3.barColorGradientStart = [UIColor blueColor];
-    
-//    PNBar *bar = [self.barChart.bars objectAtIndex:0];
-//    bar.barColor = [UIColor redColor];
+
     [self.barChart strokeChart];
-    
     self.barChart.delegate = self;
-    
     [self.effectView addSubview:self.barChart];
 }
 
@@ -131,11 +110,6 @@
     }else{
         [self.view setBackgroundColor:[UIColor blackColor]];
     }
-}
-
-- (void)done
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
