@@ -35,6 +35,16 @@
     self.window.rootViewController = nav;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    
+        Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+        NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+        if (networkStatus == NotReachable) {
+            NSLog(@"没有网络");
+        } else {
+            NSLog(@"已连接网络");
+        }
+    
     return YES;
 }
 
@@ -59,14 +69,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-//    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
-//    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
-//    if (networkStatus == NotReachable) {
-//        NSLog(@"没有网络");
-//    } else {
-//        NSLog(@"已连接网络");
-//    }
-    
+
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }

@@ -8,15 +8,59 @@
 #import "TFHpple.h"
 #import "Parser.h"
 
+@interface Parser()
+@property (atomic) NSString *filePath;
+@property (atomic) NSURL *url;
+@property (nonatomic, readwrite) BOOL isExecuting;
+@property (nonatomic, readwrite) BOOL isFinished;
+@property (nonatomic, copy) NSMutableArray *objectsArray;
+
+@end
+
 @implementation Parser
 
-//Color Array
-+ (NSMutableArray *)parseWithHTMLString
+- (instancetype)initWithPath:(NSString *)path
 {
-    NSString *string = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-    NSString *content = [[NSString  alloc] initWithContentsOfFile:string encoding:NSUTF8StringEncoding error:nil];
+    self = [self init];
+    if (self) {
+        if (path) {
+            self.filePath = path;
+            self.url = [NSURL fileURLWithPath:self.filePath];
+        }
+    }
+    return self;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        assert(@"Parser should init With Path, use `-(instancetype)initWithPath` ");
+    }
+    return self;
+}
+
+- (void)startParse
+{
+    self.objectsArray = [self groupedTheArray:[self parseWithHTMLString] andTitleArray:[self parsewithTitle] andStarsArray:[self parsewithLikes]];
+    NSLog(@"%@",self.objectsArray);
+}
+
+- (NSMutableArray *)returnArray
+{
+    return self.objectsArray;
+}
+
+//Color Array
+- (NSMutableArray *)parseWithHTMLString
+{
+    NSError *error;
+    NSString *fetchData = [NSString stringWithContentsOfURL:self.url usedEncoding:nil error:&error];
+    if (error) {
+        NSLog(@"Can not load datas from local file while parsing color arrays");
+    }
     
-    NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [fetchData dataUsingEncoding:NSUTF8StringEncoding];
     TFHpple *parser = [TFHpple hppleWithData:data isXML:NO];
     
     //Color Array
@@ -47,12 +91,15 @@
 }
 
 //Title
-+ (NSMutableArray *)parsewithTitle
+- (NSMutableArray *)parsewithTitle
 {
-    NSString *string = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-    NSString *content = [[NSString  alloc] initWithContentsOfFile:string encoding:NSUTF8StringEncoding error:nil];
+    NSError *error;
+    NSString *fetchData = [NSString stringWithContentsOfURL:self.url usedEncoding:nil error:&error];
+    if (error) {
+        NSLog(@"Can not load datas from local file while parsing like numbers while parsing titles");
+    }
 
-    NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [fetchData dataUsingEncoding:NSUTF8StringEncoding];
     TFHpple *parser = [TFHpple hppleWithData:data isXML:NO];
     
     NSString *XpathQueryColorTitle = @"//a[@class='ctooltip']";
@@ -68,12 +115,15 @@
 }
 
 //Likes
-+ (NSMutableArray *)parsewithLikes
+- (NSMutableArray *)parsewithLikes
 {
-    NSString *string = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
-    NSString *content = [[NSString  alloc] initWithContentsOfFile:string encoding:NSUTF8StringEncoding error:nil];
+    NSError *error;
+    NSString *fetchData = [NSString stringWithContentsOfURL:self.url usedEncoding:nil error:&error];
+    if (error) {
+        NSLog(@"Can not load datas from local file while parsing like numbers");
+    }
 
-    NSData *data = [content dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [fetchData dataUsingEncoding:NSUTF8StringEncoding];
     TFHpple *parser = [TFHpple hppleWithData:data isXML:NO];
     
     NSString *XpathQueryColorLikes = @"//li[@class='likes-count']";
@@ -89,7 +139,7 @@
 }
 
 //grouped
-+ (NSMutableArray *)groupedTheArray:(NSMutableArray *)array andTitleArray:(NSMutableArray *)title andStarsArray:(NSMutableArray *)star
+- (NSMutableArray *)groupedTheArray:(NSMutableArray *)array andTitleArray:(NSMutableArray *)title andStarsArray:(NSMutableArray *)star
 {
     NSMutableArray *outer = [[NSMutableArray alloc] init];
     NSMutableArray *inner = [[NSMutableArray alloc] initWithCapacity:5];
@@ -132,5 +182,24 @@
     return color;
 }
 
+@end
+
+@implementation UIColor (Hex)
+
++ (UIColor *)translateWithHexString:(NSString *)str
+{
+    if (!str || [str isEqualToString:@""]) {
+        return nil;
+    }
+    unsigned red, green, blue;
+    NSRange range = NSMakeRange(1, 2);
+    [[NSScanner scannerWithString:[str substringWithRange:range]] scanHexInt:&red];
+    range.location += 2;
+    [[NSScanner scannerWithString:[str substringWithRange:range]] scanHexInt:&green];
+    range.location += 2;
+    [[NSScanner scannerWithString:[str substringWithRange:range]] scanHexInt:&blue];
+    UIColor *color = [UIColor colorWithRed:red / 255.0f green:green / 255.0f blue:blue / 255.0f alpha:1];
+    return color;
+}
 
 @end

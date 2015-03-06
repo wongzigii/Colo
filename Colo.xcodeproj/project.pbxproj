@@ -11,6 +11,7 @@
 		E0B2C5CE1AA719CA009D1B97 /* ColorManagerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B2C5CD1AA719CA009D1B97 /* ColorManagerObject.m */; };
 		E0B2C5DE1AA7FE0C009D1B97 /* PagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B2C5DD1AA7FE0C009D1B97 /* PagerViewController.m */; };
 		E0B2C5E11AA805D5009D1B97 /* SwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B2C5E01AA805D5009D1B97 /* SwitchViewController.m */; };
+		E0B2C5EA1AA94BE9009D1B97 /* SimpleGetHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B2C5E91AA94BE9009D1B97 /* SimpleGetHTTPRequest.m */; };
 		E0E039C81A7A5F2700609DEB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E039C71A7A5F2700609DEB /* main.m */; };
 		E0E039CB1A7A5F2700609DEB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E039CA1A7A5F2700609DEB /* AppDelegate.m */; };
 		E0E039D31A7A5F2700609DEB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0E039D21A7A5F2700609DEB /* Images.xcassets */; };
@@ -66,6 +67,8 @@
 		E0B2C5DF1AA805D5009D1B97 /* SwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchViewController.h; sourceTree = "<group>"; };
 		E0B2C5E01AA805D5009D1B97 /* SwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchViewController.m; sourceTree = "<group>"; };
 		E0B2C5E21AA839EB009D1B97 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
+		E0B2C5E81AA94BE9009D1B97 /* SimpleGetHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleGetHTTPRequest.h; sourceTree = "<group>"; };
+		E0B2C5E91AA94BE9009D1B97 /* SimpleGetHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleGetHTTPRequest.m; sourceTree = "<group>"; };
 		E0E039C21A7A5F2700609DEB /* Colo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Colo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0E039C61A7A5F2700609DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E0E039C71A7A5F2700609DEB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -235,6 +238,8 @@
 		E0E03A121A7A600400609DEB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E0B2C5E81AA94BE9009D1B97 /* SimpleGetHTTPRequest.h */,
+				E0B2C5E91AA94BE9009D1B97 /* SimpleGetHTTPRequest.m */,
 				E0B2C5CC1AA719CA009D1B97 /* ColorManagerObject.h */,
 				E0B2C5CD1AA719CA009D1B97 /* ColorManagerObject.m */,
 				E0E446831AA31F3700DA13FC /* Colo.xcdatamodeld */,
@@ -455,6 +460,7 @@
 				E0E446761AA2B1E700DA13FC /* PNBar.m in Sources */,
 				E0E039FF1A7A5F7300609DEB /* DetailViewController.m in Sources */,
 				E0E4467E1AA2B24200DA13FC /* PNChartLabel.m in Sources */,
+				E0B2C5EA1AA94BE9009D1B97 /* SimpleGetHTTPRequest.m in Sources */,
 				E0E03A331A7A634800609DEB /* Parser.m in Sources */,
 				E0B2C5E11AA805D5009D1B97 /* SwitchViewController.m in Sources */,
 				E0E03A2B1A7A60A300609DEB /* XPathQuery.m in Sources */,

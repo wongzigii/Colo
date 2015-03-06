@@ -22,6 +22,8 @@
 #import "BaseNavigationController.h"
 #import "SwipeUpInteractionTransition.h"
 #import "SwitchViewController.h"
+#import "Constant.h"
+#import "SimpleGetHTTPRequest.h"
 
 #define kDeviceWidth  self.view.frame.size.width
 #define kDeviceHeight        self.view.frame.size.height
@@ -48,7 +50,8 @@ static NSString *CellIdentifier = @"ColorCell";
 @property (strong, nonatomic) SwipeUpInteractionTransition *transitionController;
 
 @property (strong, nonatomic) NSMutableArray *objects;
-
+@property (nonatomic) SimpleGetHTTPRequest *request;
+@property (weak, atomic) NSString *filePath;
 @end
 
 @implementation CollectionViewController
@@ -74,19 +77,53 @@ static NSString *CellIdentifier = @"ColorCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.objects = [NSMutableArray new];
+    
+    [self fetchDataFromServer];
+    
     //UI
     [self initializeUI];
     [self addConstraints];
     
-    _objectArray = [[NSMutableArray alloc] initWithArray:[Parser groupedTheArray:[Parser parseWithHTMLString]
-                                                                   andTitleArray:[Parser parsewithTitle]
-                                                                   andStarsArray:[Parser parsewithLikes]]];
-    self.objects = [NSMutableArray new];
-    [self.tableView reloadData];
-    
-    [self saveData];
-    /// CoreData
-    [self fetchDataFromCoreData];
+}
+
+- (void)fetchDataFromServer
+{
+    self.request = [[SimpleGetHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.wongzigii.com/Colo/China.html"]];
+    __unsafe_unretained typeof(self) weakSelf = self;
+    self.request.completionHandler = ^(id result){
+        if ([result isKindOfClass:[NSError class]]) {
+            NSLog(@"Error : %@", result);
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (result) {
+                    NSString *string = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
+                    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                    weakSelf.filePath = [NSString stringWithFormat:@"%@/%@", [paths objectAtIndex:0],@"index.html"];
+                    NSError *error;
+                    [string writeToFile:weakSelf.filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+                    if (error) {
+                        NSLog(@"Data can not save to loacl");
+                    }
+                    Parser *parser = [[Parser alloc] initWithPath:weakSelf.filePath];
+                    [parser startParse];
+                    
+                    if (parser.returnArray) {
+                        weakSelf.objects = parser.returnArray;
+                        NSLog(@"WeakSelf.object : %@", weakSelf.objects);
+                        /// CoreData
+                        //[weakSelf saveData];
+                        
+                        //[weakSelf fetchDataFromCoreData];
+                        
+                        [weakSelf.tableView reloadData];
+                    }
+                }
+            });
+        }
+    };
+    [self.request start];
 }
 
 - (void)initializeUI
@@ -158,13 +195,6 @@ static NSString *CellIdentifier = @"ColorCell";
         NSString *fourthColor = [oneObject valueForKey:@"fourthColor"];
         NSString *fifthColor  = [oneObject valueForKey:@"fifthColor"];
         
-//        UIColor *first  = oneObject.firstColor;
-//        UIColor *second = oneObject.secondColor;
-//        UIColor *third  = oneObject.thirdColor;
-//        UIColor *fourth = oneObject.fourthColor;
-//        UIColor *fifth  = oneObject.fifthColor;
-        
-        
         UIColor *first  = [Parser translateStringToColor:firstColor];
         UIColor *second = [Parser translateStringToColor:secondColor];
         UIColor *third  = [Parser translateStringToColor:thirdColor];
@@ -172,7 +202,6 @@ static NSString *CellIdentifier = @"ColorCell";
         UIColor *fifth  = [Parser translateStringToColor:fifthColor];
         
         NSArray *array = @[first, second, third, fourth, fifth];
-        NSLog(@"%@",array);
         [self.objects addObject:array];
     }
 }
@@ -195,7 +224,7 @@ static NSString *CellIdentifier = @"ColorCell";
         //Set entity for request.
         [request setEntity:entityDescription];
         
-        //确定持久库中是否存在与此字段相对应的托管对象，所以创建一个谓词来确定字段的正确对象：
+        //
         NSPredicate *pred = [NSPredicate predicateWithFormat:@"index == %d",index];
         [request setPredicate:pred];
         
@@ -362,20 +391,8 @@ static NSString *CellIdentifier = @"ColorCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //XHTwitterPaggingViewer *pagging = [[XHTwitterPaggingViewer alloc] init];
-    //DetailViewController *vc = [[DetailViewController alloc] init];
-//    SecondDetailViewController *second = [[SecondDetailViewController alloc] init];
-//    NSArray *arrary = @[vc, second];
-//    pagging.viewControllers = arrary;
-    SwitchViewController *switchVC = [[SwitchViewController alloc] init];
-    
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-//    vc.delegate = self;
-//    vc.transitioningDelegate = self;
-//    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-//    [self.transitionController wireToViewController:vc];
-//    [self presentViewController:vc animated:YES completion:nil];
-    
+    SwitchViewController *switchVC = [[SwitchViewController alloc] init];
     switchVC.delegate = self;
     switchVC.transitioningDelegate = self;
     switchVC.modalPresentationStyle = UIModalPresentationOverFullScreen;

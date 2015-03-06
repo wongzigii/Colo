@@ -16,3 +16,11 @@
 #else
 #define DebugLog( s, ... )
 #endif
+
+#define kWZServer_China www.wongzigii.com/Colo/China.html
+#define kWZServer_English www.wongzigii.com/Colo/English.html
+#define kWZServer_Chinaa www.wongzigii.com/Colo/China.html
+
+#define IS_IOS8 [[UIDevice currentDevice].systemVersion hasPrefix:@"8"]
+
+#define IS_IPHONE5 (([[UIScreen mainScreen] bounds].size.height = 568) ? NO : YES)

@@ -9,6 +9,8 @@
 
 #import "ColorCell.h"
 #import "ColorManagerObject.h"
+#import "ColorModel.h"
+#import "Parser.h"
 
 @interface ColorCell()
 
@@ -170,12 +172,22 @@
     [super setSelected:selected animated:NO];
 }
 
-- (void)configureForColor:(NSArray *)array
+//For Now
+- (void)configureForColor:(ColorModel *)model
 {
 //    self.title.text = model.title;
     //self.favourites.text = model.stars;
+    
+    self.firstColor.backgroundColor  = [UIColor translateWithHexString:[model.colorArray objectAtIndex:0]];
+    self.secondColor.backgroundColor = [UIColor translateWithHexString:[model.colorArray objectAtIndex:1]];
+    self.thirdColor.backgroundColor  = [UIColor translateWithHexString:[model.colorArray objectAtIndex:2]];
+    self.fourthColor.backgroundColor = [UIColor translateWithHexString:[model.colorArray objectAtIndex:3]];
+    self.fifthColor.backgroundColor  = [UIColor translateWithHexString:[model.colorArray objectAtIndex:4]];
+}
 
-    self.firstColor.backgroundColor  = [array objectAtIndex:0];
+//For CoreData
+- (void)configureForColorObject:(NSArray *)array
+{
     self.secondColor.backgroundColor = [array objectAtIndex:1];
     self.thirdColor.backgroundColor  = [array objectAtIndex:2];
     self.fourthColor.backgroundColor = [array objectAtIndex:3];
