@@ -38,7 +38,7 @@
 
 - (void)setGrade:(float)grade
 {
-    NSLog(@"New garde %f",grade);
+    //NSLog(@"New garde %f",grade);
 
     UIBezierPath *progressline = [UIBezierPath bezierPath];
 

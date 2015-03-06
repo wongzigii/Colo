@@ -13,7 +13,7 @@
 
 @interface DetailViewController ()<PNChartDelegate>
 @property (nonatomic, strong) UIVisualEffectView *effectView;
-@property (nonatomic) PNBarChart *barChart;
+@property (nonatomic)         PNBarChart *barChart;
 @end
 
 @implementation DetailViewController
@@ -37,12 +37,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initializeBlurBackground];
+    [self initializeHexStringLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self initializeBarChart];
+}
+
+- (void)initializeHexStringLabel
+{
+    
 }
 
 - (void)initializeBarChart

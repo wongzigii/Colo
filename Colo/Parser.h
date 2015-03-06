@@ -12,14 +12,25 @@
 
 @interface Parser : NSObject
 
-+ (NSMutableArray *)parseWithHTMLString;
-
-+ (NSMutableArray *)parsewithTitle;
-
-+ (NSMutableArray *)parsewithLikes;
-
-+ (NSMutableArray *)groupedTheArray:(NSMutableArray *)array andTitleArray:(NSMutableArray *)title andStarsArray:(NSMutableArray *)star;
+typedef void (^completionHandler_t) (id result);
 
 + (UIColor *)translateStringToColor:(NSString *)str;
+
+- (instancetype)initWithPath:(NSString *)path;
+
+- (void)startParse;
+
+- (NSMutableArray *)returnArray;
+
+@property (nonatomic, copy) completionHandler_t completionHandler;
+
+@property (nonatomic, readonly) BOOL isExecuting;
+@property (nonatomic, readonly) BOOL isFinished;
+
+@end
+
+@interface UIColor (Hex)
+
++ (UIColor *)translateWithHexString:(NSString *)string;
 
 @end
