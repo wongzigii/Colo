@@ -37,7 +37,7 @@
 
 - (void)dealloc
 {
-    self.delegate = nil;
+    _delegate = nil;
     self.transitioningDelegate = nil;
 //    self.first = nil;
 //    self.second = nil;

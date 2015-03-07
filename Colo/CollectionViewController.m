@@ -12,7 +12,6 @@
 #import "ColorCell.h"
 #import "AppDelegate.h"
 #import "MMPickerView.h"
-#import "WZCoreDataManager.h"
 #import "ColorManagerObject.h"
 #import "DetailViewController.h"
 #import "BouncePresentAnimation.h"
@@ -42,9 +41,9 @@ static NSString *CellIdentifier = @"ColorCell";
 @property (strong, nonatomic) NormalDismissAnimation *dismissAnimation;
 @property (strong, nonatomic) SwipeUpInteractionTransition *transitionController;
 
-@property (strong, nonatomic) NSMutableArray *objects;
-@property (nonatomic) SimpleGetHTTPRequest *request;
-@property (weak, atomic) NSString *filePath;
+@property (copy,   nonatomic) NSMutableArray *objects;
+@property (strong, nonatomic) SimpleGetHTTPRequest *request;
+@property (weak,   nonatomic) NSString       *filePath;
 @end
 
 @implementation CollectionViewController
@@ -57,8 +56,10 @@ static NSString *CellIdentifier = @"ColorCell";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     if (![self isViewLoaded]) {
-        self.objectArray = nil;
-        self.objects = nil;
+        [_objectArray removeAllObjects];
+        [_objects removeAllObjects];
+        _selectedString = nil;
+        _filePath = nil;
     }
     // Dispose of any resources that can be recreated.
 }
@@ -102,24 +103,19 @@ static NSString *CellIdentifier = @"ColorCell";
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     _filePath = [NSString stringWithFormat:@"%@/%@", [paths objectAtIndex:0], @"index.html"];
     BOOL isExisted = [manager fileExistsAtPath:self.filePath];
-    
     if (isExisted) {
         NSLog(@"IS EXISTED");
         Parser *parser = [[Parser alloc] initWithPath:self.filePath];
-    
         [parser startParse];
-            
         if (parser.returnArray) {
             self.objects = parser.returnArray;
             NSLog(@"self.objcet : %@", self.objects);
                 /// CoreData
                 //[weakSelf saveData];
-                
                 //[weakSelf fetchDataFromCoreData];
             [self.tableView reloadData];
         }
-
-
+        
     }else{
         NSLog(@"NO EXISTED");
         self.request = [[SimpleGetHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.wongzigii.com/Colo/China.html"]];
@@ -154,8 +150,8 @@ static NSString *CellIdentifier = @"ColorCell";
                 });
             }
         };
+        [self.request start];
     }
-    [self.request start];
 }
 
 - (void)initializeUI

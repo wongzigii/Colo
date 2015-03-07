@@ -13,7 +13,7 @@
 @property (atomic) NSURL *url;
 @property (nonatomic, readwrite) BOOL isExecuting;
 @property (nonatomic, readwrite) BOOL isFinished;
-@property (nonatomic, copy) NSMutableArray *objectsArray;
+@property (nonatomic, weak)      NSMutableArray *objectsArray;
 
 @end
 
@@ -35,7 +35,7 @@
 {
     self = [super init];
     if (self) {
-        assert(@"Parser should init With Path, use `-(instancetype)initWithPath` ");
+
     }
     return self;
 }
