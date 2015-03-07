@@ -106,15 +106,17 @@ static NSString *CellIdentifier = @"ColorCell";
     if (isExisted) {
         NSLog(@"IS EXISTED");
         Parser *parser = [[Parser alloc] initWithPath:self.filePath];
-        [parser startParse];
-        if (parser.returnArray) {
-            self.objects = parser.returnArray;
-            NSLog(@"self.objcet : %@", self.objects);
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [parser startParse];
+            if (parser.returnArray) {
+                self.objects = parser.returnArray;
+                NSLog(@"self.objcet : %@", self.objects);
                 /// CoreData
                 //[weakSelf saveData];
                 //[weakSelf fetchDataFromCoreData];
-            [self.tableView reloadData];
-        }
+                [self.tableView reloadData];
+            }
+        });
         
     }else{
         NSLog(@"NO EXISTED");
