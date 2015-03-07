@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C109" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="China" syncable="YES">
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Color" syncable="YES">
         <attribute name="colorArray" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
@@ -12,7 +19,129 @@
         <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Czech" syncable="YES">
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Danmark" syncable="YES">
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="English" syncable="YES">
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Finland" syncable="YES">
+        <attribute name="attribute" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="France" syncable="YES">
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="German" syncable="YES">
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Holland" syncable="YES">
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Italy" syncable="YES">
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Japan" syncable="YES">
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Korea" syncable="YES">
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Norway" syncable="YES">
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Poland" syncable="YES">
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Portugal" syncable="YES">
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Spain" syncable="YES">
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Sweden" syncable="YES">
+        <attribute name="fifthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fourthColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="secondColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thirdColor" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Color" positionX="-14958" positionY="3159" width="128" height="195"/>
+        <element name="China" positionX="-14958" positionY="3231" width="128" height="118"/>
+        <element name="English" positionX="-14949" positionY="3240" width="128" height="118"/>
+        <element name="Czech" positionX="-14931" positionY="3258" width="128" height="120"/>
+        <element name="Danmark" positionX="-14913" positionY="3267" width="128" height="120"/>
+        <element name="Finland" positionX="-14895" positionY="3276" width="128" height="135"/>
+        <element name="France" positionX="-14877" positionY="3285" width="128" height="120"/>
+        <element name="German" positionX="-14859" positionY="3294" width="128" height="118"/>
+        <element name="Holland" positionX="-14904" positionY="3240" width="128" height="118"/>
+        <element name="Italy" positionX="-14895" positionY="3249" width="128" height="118"/>
+        <element name="Japan" positionX="-14886" positionY="3258" width="128" height="118"/>
+        <element name="Korea" positionX="-14877" positionY="3267" width="128" height="118"/>
+        <element name="Norway" positionX="-14868" positionY="3276" width="128" height="118"/>
+        <element name="Poland" positionX="-14859" positionY="3285" width="128" height="118"/>
+        <element name="Portugal" positionX="-14850" positionY="3294" width="128" height="118"/>
+        <element name="Spain" positionX="-14904" positionY="3240" width="128" height="118"/>
+        <element name="Sweden" positionX="-14895" positionY="3249" width="128" height="118"/>
     </elements>
 </model>

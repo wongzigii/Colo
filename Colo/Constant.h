@@ -24,3 +24,7 @@
 #define IS_IOS8 [[UIDevice currentDevice].systemVersion hasPrefix:@"8"]
 
 #define IS_IPHONE5 (([[UIScreen mainScreen] bounds].size.height = 568) ? NO : YES)
+
+#define kDeviceWidth  self.view.frame.size.width
+#define kDeviceHeight self.view.frame.size.height
+#define CocoaJSHandler   @"mpAjaxHandler"

@@ -41,10 +41,7 @@
 
 - (void)dealloc
 {
-    self.view = nil;
     self.scrollView.delegate = nil;
-    self.pageControl = nil;
-    self.scrollView = nil;
 }
 
 - (BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers {

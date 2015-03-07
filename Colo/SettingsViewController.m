@@ -25,8 +25,8 @@
 
 - (void)dealloc
 {
-    self.tableView.delegate = nil;
-    self.tableView = nil;
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -39,7 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

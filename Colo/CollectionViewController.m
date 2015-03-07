@@ -25,10 +25,6 @@
 #import "Constant.h"
 #import "SimpleGetHTTPRequest.h"
 
-#define kDeviceWidth  self.view.frame.size.width
-#define kDeviceHeight        self.view.frame.size.height
-#define CocoaJSHandler       @"mpAjaxHandler"
-
 static NSString *JSHandler;
 static NSString *CellIdentifier = @"ColorCell";
 
@@ -40,9 +36,6 @@ static NSString *CellIdentifier = @"ColorCell";
 @property (strong, nonatomic) UIButton       *chooseButton;
 
 @property (copy,   nonatomic) NSMutableArray *objectArray;
-@property (copy,   nonatomic) NSMutableArray *titleArray;
-@property (copy,   nonatomic) NSMutableArray *likesArray;
-@property (copy,   nonatomic) NSArray        *pickerArray;
 @property (copy,   nonatomic) NSString       *selectedString;
 
 @property (strong, nonatomic) BouncePresentAnimation *presentAnimation;
@@ -55,6 +48,21 @@ static NSString *CellIdentifier = @"ColorCell";
 @end
 
 @implementation CollectionViewController
+- (void)dealloc
+{
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    if (![self isViewLoaded]) {
+        self.objectArray = nil;
+        self.objects = nil;
+    }
+    // Dispose of any resources that can be recreated.
+}
+
 #pragma mark - LifeCycle
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -78,7 +86,7 @@ static NSString *CellIdentifier = @"ColorCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.objects = [NSMutableArray new];
+    _objects = [NSMutableArray new];
     
     [self fetchDataFromServer];
     
@@ -90,48 +98,72 @@ static NSString *CellIdentifier = @"ColorCell";
 
 - (void)fetchDataFromServer
 {
-    self.request = [[SimpleGetHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.wongzigii.com/Colo/China.html"]];
-    __unsafe_unretained typeof(self) weakSelf = self;
-    self.request.completionHandler = ^(id result){
-        if ([result isKindOfClass:[NSError class]]) {
-            NSLog(@"Error : %@", result);
-        }else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (result) {
-                    NSString *string = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
-                    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-                    weakSelf.filePath = [NSString stringWithFormat:@"%@/%@", [paths objectAtIndex:0],@"index.html"];
-                    NSError *error;
-                    [string writeToFile:weakSelf.filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
-                    if (error) {
-                        NSLog(@"Data can not save to loacl");
-                    }
-                    Parser *parser = [[Parser alloc] initWithPath:weakSelf.filePath];
-                    [parser startParse];
-                    
-                    if (parser.returnArray) {
-                        weakSelf.objects = parser.returnArray;
-                        NSLog(@"WeakSelf.object : %@", weakSelf.objects);
-                        /// CoreData
-                        //[weakSelf saveData];
-                        
-                        //[weakSelf fetchDataFromCoreData];
-                        
-                        [weakSelf.tableView reloadData];
-                    }
-                }
-            });
+    NSFileManager *manager = [[NSFileManager alloc] init];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    _filePath = [NSString stringWithFormat:@"%@/%@", [paths objectAtIndex:0], @"index.html"];
+    BOOL isExisted = [manager fileExistsAtPath:self.filePath];
+    
+    if (isExisted) {
+        NSLog(@"IS EXISTED");
+        Parser *parser = [[Parser alloc] initWithPath:self.filePath];
+    
+        [parser startParse];
+            
+        if (parser.returnArray) {
+            self.objects = parser.returnArray;
+            NSLog(@"self.objcet : %@", self.objects);
+                /// CoreData
+                //[weakSelf saveData];
+                
+                //[weakSelf fetchDataFromCoreData];
+            [self.tableView reloadData];
         }
-    };
+
+
+    }else{
+        NSLog(@"NO EXISTED");
+        self.request = [[SimpleGetHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.wongzigii.com/Colo/China.html"]];
+        __unsafe_unretained typeof(self) weakSelf = self;
+        self.request.completionHandler = ^(id result){
+            if ([result isKindOfClass:[NSError class]]) {
+                NSLog(@"Error : %@", result);
+            }else{
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                    if (result) {
+                        NSString *string = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
+                        weakSelf.filePath = [NSString stringWithFormat:@"%@/%@", [paths objectAtIndex:0],@"index.html"];
+                        NSError *error;
+                        [string writeToFile:weakSelf.filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+                        if (error) {
+                            NSLog(@"Data can not save to loacl");
+                        }
+                        Parser *parser = [[Parser alloc] initWithPath:weakSelf.filePath];
+                        [parser startParse];
+                        
+                        if (parser.returnArray) {
+                            weakSelf.objects = parser.returnArray;
+                            //NSLog(@"WeakSelf.object : %@", weakSelf.objects);
+                            /// CoreData
+                            //[weakSelf saveData];
+                            
+                            //[weakSelf fetchDataFromCoreData];
+                            
+                            [weakSelf.tableView reloadData];
+                        }
+                    }
+                });
+            }
+        };
+    }
     [self.request start];
 }
 
 - (void)initializeUI
 {
-    self.tableView      = [UITableView new];
-    self.bottomView     = [UIView      new];
-    self.settingsButton = [UIButton    new];
-    self.chooseButton   = [UIButton    new];
+    _tableView      = [UITableView new];
+    _bottomView     = [UIView      new];
+    _settingsButton = [UIButton    new];
+    _chooseButton   = [UIButton    new];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -144,6 +176,9 @@ static NSString *CellIdentifier = @"ColorCell";
     
     self.bottomView.backgroundColor = [UIColor blackColor];
     self.bottomView.translatesAutoresizingMaskIntoConstraints = NO;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(switchCountry)];
+    [self.view addGestureRecognizer:tap];
+    tap.numberOfTapsRequired = 2;
     
     self.settingsButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.settingsButton setImage:[UIImage imageNamed:@"gear.png"] forState:UIControlStateNormal];
@@ -151,7 +186,7 @@ static NSString *CellIdentifier = @"ColorCell";
     
     self.chooseButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.chooseButton setImage:[UIImage imageNamed:@"star.png"] forState:UIControlStateNormal];
-    [self.chooseButton addTarget:self action:@selector(triggerUIPickerView) forControlEvents:UIControlEventTouchUpInside];
+    [self.chooseButton addTarget:self action:@selector(showFavouriteTable) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view       addSubview:self.tableView];
     [self.view       addSubview:self.bottomView];
@@ -159,7 +194,12 @@ static NSString *CellIdentifier = @"ColorCell";
     [self.bottomView addSubview:self.chooseButton];
 }
 
-- (void)triggerUIPickerView
+- (void)switchCountry
+{
+    NSLog(@"Double Tab");
+}
+
+- (void)showFavouriteTable
 {
     
 }
@@ -195,11 +235,11 @@ static NSString *CellIdentifier = @"ColorCell";
         NSString *fourthColor = [oneObject valueForKey:@"fourthColor"];
         NSString *fifthColor  = [oneObject valueForKey:@"fifthColor"];
         
-        UIColor *first  = [Parser translateStringToColor:firstColor];
-        UIColor *second = [Parser translateStringToColor:secondColor];
-        UIColor *third  = [Parser translateStringToColor:thirdColor];
-        UIColor *fourth = [Parser translateStringToColor:fourthColor];
-        UIColor *fifth  = [Parser translateStringToColor:fifthColor];
+        UIColor *first  = [UIColor translateWithHexString:firstColor];
+        UIColor *second = [UIColor translateWithHexString:secondColor];
+        UIColor *third  = [UIColor translateWithHexString:thirdColor];
+        UIColor *fourth = [UIColor translateWithHexString:fourthColor];
+        UIColor *fifth  = [UIColor translateWithHexString:fifthColor];
         
         NSArray *array = @[first, second, third, fourth, fifth];
         [self.objects addObject:array];
@@ -264,8 +304,7 @@ static NSString *CellIdentifier = @"ColorCell";
         [managedObject setValue:model.title      forKey:@"title"];
         [managedObject setValue:model.star       forKey:@"star"];
     }
-    //error dealing
-    [context save:&error];
+    //error
     if (![context save:&error]) {
         NSLog(@"Can't save : %@", [error localizedDescription]);
     }
@@ -351,21 +390,6 @@ static NSString *CellIdentifier = @"ColorCell";
     format = @"H:[_settingsButton(20)]-|";
     constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
     [_bottomView addConstraints:constraintsArray];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)dealloc
-{
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    self.tableView = nil;
-    self.settingsButton = nil;
-    self.chooseButton = nil;
-    self.bottomView = nil;
 }
 
 #pragma mark - UITableViewDataSource

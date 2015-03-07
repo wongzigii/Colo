@@ -27,17 +27,16 @@
     _fourth = [[DetailViewController alloc] init];
     _fifth  = [[DetailViewController alloc] init];
     
-    [self addChildViewController:_first];
-    [self addChildViewController:_second];
-    [self addChildViewController:_third];
-    [self addChildViewController:_fourth];
-    [self addChildViewController:_fifth];
+    [self addChildViewController:self.first];
+    [self addChildViewController:self.second];
+    [self addChildViewController:self.third];
+    [self addChildViewController:self.fourth];
+    [self addChildViewController:self.fifth];
     // Do any additional setup after loading the view.
 }
 
 - (void)dealloc
-{   
-    self.view = nil;
+{
     self.delegate = nil;
     self.transitioningDelegate = nil;
 //    self.first = nil;

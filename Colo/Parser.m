@@ -43,7 +43,7 @@
 - (void)startParse
 {
     self.objectsArray = [self groupedTheArray:[self parseWithHTMLString] andTitleArray:[self parsewithTitle] andStarsArray:[self parsewithLikes]];
-    NSLog(@"%@",self.objectsArray);
+    //NSLog(@"%@",self.objectsArray);
 }
 
 - (NSMutableArray *)returnArray

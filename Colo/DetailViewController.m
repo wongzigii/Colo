@@ -17,6 +17,15 @@
 @end
 
 @implementation DetailViewController
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    _barChart.delegate = nil;
+}
 
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -25,13 +34,6 @@
         
     }
     return self;
-}
-
-- (void)dealloc
-{
-    self.barChart.delegate = nil;
-    self.barChart = nil;
-    self.effectView = nil;
 }
 
 - (void)viewDidLoad {
@@ -53,7 +55,7 @@
 
 - (void)initializeBarChart
 {
-    self.barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, 135.0, self.view.bounds.size.width, 300.0)];
+    _barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, 135.0, self.view.bounds.size.width, 300.0)];
     self.barChart.backgroundColor = [UIColor clearColor];
     self.barChart.yMaxValue = 255.0;
     self.barChart.yLabelFormatter = ^(CGFloat yValue){
@@ -79,7 +81,7 @@
     //blur view background
     if (!UIAccessibilityIsReduceTransparencyEnabled()) {
         UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-        self.effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+        _effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
         self.effectView.frame = self.view.bounds;
         self.effectView.backgroundColor = [UIColor clearColor];
         [self.view addSubview:self.effectView];
@@ -118,9 +120,6 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 @end
