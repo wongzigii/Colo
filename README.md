@@ -2,7 +2,7 @@
 #Colo
 ![](./Assets/colo-github-header.png)
 
-Colo is an app help you to discover color themes from [Adobe Color CC](https://color.adobe.com/explore/newest/?time=all). Colo's data source is based on `libxml2` library to parse content from website.
+Colo is an app help you to discover color themes from [Adobe Color CC](https://color.adobe.com/explore/newest/?time=all). Colo's data source is based on `libxml2` library to parse content from website. 
 
 #Disclaimer
 Adobe is a trademark of Adobe. Inc. This app is not created nor endorsed by Adobe Inc. All the infomation and content accessible through Colo are subject to Adobe's copyright and terms of use. This is a free app and does not charge for anything. All content are available for free from Adobe Color CC.
@@ -46,11 +46,11 @@ Refer to this issue : [https://github.com/AFNetworking/AFNetworking/issues/2314]
 - Clean up code
 - Fix Warnings
 
-#Contact
+#Design+Code
 wongzigii@outlook.com
 
-#Contribute
-Issues or Pull requests are welcomed.
+#Contributing
+Please feel free to help out with this project! If you see something that could be made better or want a new feature, open up an issue or send a Pull Request! I don't really plan on putting this out on the App Store, but I think it's a great learning resource for those interested in iOS development.
 
 #License
 Colo is under Apache License 2.0, see the [LICENCE](./LICENSE) file for more info.
