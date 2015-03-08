@@ -7,7 +7,6 @@
 //
 
 #import <CoreData/CoreData.h>
-#import <QuartzCore/QuartzCore.h>
 #import "Parser.h"
 #import "ColorCell.h"
 #import "AppDelegate.h"

@@ -41,7 +41,7 @@ Refer to this issue : [https://github.com/AFNetworking/AFNetworking/issues/2314]
 #Todo
 - More Features
 - Cocoaspod Support
-- CoreDat Support
+- CoreData Support
 - Favourite Collection
 - Clean up code
 - Fix Warnings
