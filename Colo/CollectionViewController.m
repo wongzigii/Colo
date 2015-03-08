@@ -11,7 +11,6 @@
 #import "Parser.h"
 #import "ColorCell.h"
 #import "AppDelegate.h"
-#import "MMPickerView.h"
 #import "ColorManagerObject.h"
 #import "DetailViewController.h"
 #import "BouncePresentAnimation.h"
@@ -23,44 +22,43 @@
 #import "SwitchViewController.h"
 #import "Constant.h"
 #import "SimpleGetHTTPRequest.h"
+#import "MenuView.h"
 
 static NSString *JSHandler;
 static NSString *CellIdentifier = @"ColorCell";
 
-@interface CollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UIViewControllerTransitioningDelegate, ModalViewControllerDelegate>
+@interface CollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UIViewControllerTransitioningDelegate, ModalViewControllerDelegate, MenuViewControllerDelegate>
 
 @property (strong, nonatomic) UITableView    *tableView;
 @property (strong, nonatomic) UIView         *bottomView;
 @property (strong, nonatomic) UIButton       *settingsButton;
 @property (strong, nonatomic) UIButton       *chooseButton;
-
+@property (strong, nonatomic) MenuView         *menuView;
 @property (copy,   nonatomic) NSMutableArray *objectArray;
 @property (copy,   nonatomic) NSString       *selectedString;
-
+@property (        nonatomic) BOOL           didOpenMenu;
 @property (strong, nonatomic) BouncePresentAnimation *presentAnimation;
 @property (strong, nonatomic) NormalDismissAnimation *dismissAnimation;
 @property (strong, nonatomic) SwipeUpInteractionTransition *transitionController;
-
 @property (copy,   nonatomic) NSMutableArray *objects;
 @property (strong, nonatomic) SimpleGetHTTPRequest *request;
 @property (weak,   nonatomic) NSString       *filePath;
+@property (weak,   nonatomic) NSString       *countryChoosed;
+@property (strong, nonatomic) NSArray        *webSiteArray;
 @end
 
 @implementation CollectionViewController
-- (void)dealloc
-{
-    _tableView.delegate = nil;
-    _tableView.dataSource = nil;
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    if (![self isViewLoaded]) {
+    if ([self isViewLoaded] && (self.view.window == nil)) {
         [_objectArray removeAllObjects];
         [_objects removeAllObjects];
         _selectedString = nil;
         _filePath = nil;
+        _menuView = nil;
     }
+   
     // Dispose of any resources that can be recreated.
 }
 
@@ -88,20 +86,20 @@ static NSString *CellIdentifier = @"ColorCell";
     [super viewDidLoad];
     
     _objects = [NSMutableArray new];
-    
+    _countryChoosed = COLO_German;
+    _webSiteArray = @[COLO_China, COLO_Crezh, COLO_Danmark];
     [self fetchDataFromServer];
     
     //UI
     [self initializeUI];
     [self addConstraints];
-    
 }
 
 - (void)fetchDataFromServer
 {
     NSFileManager *manager = [[NSFileManager alloc] init];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    _filePath = [NSString stringWithFormat:@"%@/%@", [paths objectAtIndex:0], @"index.html"];
+    _filePath = [NSString stringWithFormat:@"%@/%@", [paths objectAtIndex:0], _countryChoosed];
     BOOL isExisted = [manager fileExistsAtPath:self.filePath];
     if (isExisted) {
         NSLog(@"IS EXISTED");
@@ -110,17 +108,20 @@ static NSString *CellIdentifier = @"ColorCell";
             [parser startParse];
             if (parser.returnArray) {
                 self.objects = parser.returnArray;
-                NSLog(@"self.objcet : %@", self.objects);
+                //NSLog(@"self.objcet : %@", self.objects);
                 /// CoreData
                 //[weakSelf saveData];
                 //[weakSelf fetchDataFromCoreData];
-                [self.tableView reloadData];
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                });
             }
         });
         
     }else{
-        NSLog(@"NO EXISTED");
-        self.request = [[SimpleGetHTTPRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.wongzigii.com/Colo/China.html"]];
+        NSLog(@"NOT EXISTED");
+        NSURL *baseUrl = [NSURL URLWithString:@"http://www.wongzigii.com/Colo/"];
+        self.request = [[SimpleGetHTTPRequest alloc] initWithURL:[NSURL URLWithString:_countryChoosed relativeToURL:baseUrl]];
         __unsafe_unretained typeof(self) weakSelf = self;
         self.request.completionHandler = ^(id result){
             if ([result isKindOfClass:[NSError class]]) {
@@ -129,11 +130,11 @@ static NSString *CellIdentifier = @"ColorCell";
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     if (result) {
                         NSString *string = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
-                        weakSelf.filePath = [NSString stringWithFormat:@"%@/%@", [paths objectAtIndex:0],@"index.html"];
+                        weakSelf.filePath = [NSString stringWithFormat:@"%@/%@", [paths objectAtIndex:0],weakSelf.countryChoosed];
                         NSError *error;
                         [string writeToFile:weakSelf.filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
                         if (error) {
-                            NSLog(@"Data can not save to loacl");
+                            NSLog(@"Data can not save to local");
                         }
                         Parser *parser = [[Parser alloc] initWithPath:weakSelf.filePath];
                         [parser startParse];
@@ -145,8 +146,9 @@ static NSString *CellIdentifier = @"ColorCell";
                             //[weakSelf saveData];
                             
                             //[weakSelf fetchDataFromCoreData];
-                            
-                            [weakSelf.tableView reloadData];
+                            dispatch_sync(dispatch_get_main_queue(), ^{
+                                [weakSelf.tableView reloadData];
+                            });
                         }
                     }
                 });
@@ -171,6 +173,11 @@ static NSString *CellIdentifier = @"ColorCell";
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[ColorCell class] forCellReuseIdentifier:CellIdentifier];
+    [self.view       addSubview:self.tableView];
+    
+    _menuView = [[MenuView alloc] initWithFrame:CGRectMake(0, kDeviceHeight - 49, kDeviceWidth, kDeviceHeight / 2)];
+    self.menuView.delegate = self;
+    [self.view addSubview:self.menuView];
     
     self.bottomView.backgroundColor = [UIColor blackColor];
     self.bottomView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -180,21 +187,22 @@ static NSString *CellIdentifier = @"ColorCell";
     
     self.settingsButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.settingsButton setImage:[UIImage imageNamed:@"gear.png"] forState:UIControlStateNormal];
-    [self.settingsButton addTarget:self action:@selector(clickSettingsButton) forControlEvents:UIControlEventTouchUpInside];
+    [self.settingsButton addTarget:self action:@selector(clickSettingsButton)
+                  forControlEvents:UIControlEventTouchUpInside];
     
     self.chooseButton.translatesAutoresizingMaskIntoConstraints = NO;
     [self.chooseButton setImage:[UIImage imageNamed:@"star.png"] forState:UIControlStateNormal];
-    [self.chooseButton addTarget:self action:@selector(showFavouriteTable) forControlEvents:UIControlEventTouchUpInside];
+    [self.chooseButton addTarget:self action:@selector(showFavouriteTable)
+                forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view       addSubview:self.tableView];
-    [self.view       addSubview:self.bottomView];
     [self.bottomView addSubview:self.settingsButton];
     [self.bottomView addSubview:self.chooseButton];
+    [self.view       addSubview:self.bottomView];
 }
 
 - (void)switchCountry
 {
-    NSLog(@"Double Tab");
+    [self.menuView handleHideOrShow];
 }
 
 - (void)showFavouriteTable
@@ -390,6 +398,15 @@ static NSString *CellIdentifier = @"ColorCell";
     [_bottomView addConstraints:constraintsArray];
 }
 
+#pragma mark - MenuViewControllerdelegate
+- (NSString *)passValueFromMenuToCollectionViewController:(CGFloat)value
+{
+//    NSString *string = [self.webSiteArray objectAtIndex:value];
+//    return string;
+    NSLog(@"%f",value);
+    return nil;
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -399,10 +416,9 @@ static NSString *CellIdentifier = @"ColorCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ColorCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
+    
     //http://objccn.io/issue-1-2/#separatingconcerns
     [cell configureForColor:[self.objects objectAtIndex:indexPath.row]];
-
     //Auto Layout
     [cell setNeedsUpdateConstraints];
 
@@ -452,54 +468,5 @@ static NSString *CellIdentifier = @"ColorCell";
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }
 }
-
-//#pragma mark - UIPickerViewDelegate
-//- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-//{
-//    
-//}
-//
-//- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
-//{
-//    return 40.f;
-//}
-//
-//#pragma mark - UIPickerViewDataSource
-//- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-//{
-//    return 2;
-//}
-//
-//- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-//{
-//    int number = 0;
-//    switch (component) {
-//        case 0:
-//            number = 17;
-//            break;
-//        case 1:
-//            number = 3;
-//            break;
-//    }
-//    return number;
-//}
-//
-//- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-//{
-//    NSString *string;
-//    NSArray *titleArray = @[@"Dansk", @"Deutsch", @"English", @"Español", @"Français", @"Italiano", @"Nederlands", @"Norsk", @"Polski", @"Português", @"Suomi", @"Svenska", @"Türkçe", @"Pусский", @"繁體中文", @"日本語", @"한국어"];
-//    NSArray *popularityArray = @[@"周", @"月", @"全部"];
-//    switch (component) {
-//        //Country
-//        case 0:
-//            string = [titleArray objectAtIndex:row];
-//            break;
-//        //Popularity
-//        case 1:
-//            string = [popularityArray objectAtIndex:row];
-//            break;
-//    }
-//    return string;
-//}
 
 @end

@@ -9,7 +9,7 @@
 #import "PNBarChart.h"
 #import "PNColor.h"
 #import "PNChartLabel.h"
-
+#import "Constant.h"
 
 @interface PNBarChart () {
     NSMutableArray *_xChartLabels;

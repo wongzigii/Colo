@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E00A43F71A7A79F0006E51D2 /* MMPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E00A43F61A7A79F0006E51D2 /* MMPickerView.m */; };
+		E09D84321AAAF8580053EB97 /* TESTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E09D84311AAAF8580053EB97 /* TESTViewController.m */; };
+		E09D843A1AAB25400053EB97 /* MinColorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E09D84391AAB25400053EB97 /* MinColorsCell.m */; };
+		E09D843D1AAB3CF10053EB97 /* MenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = E09D843C1AAB3CF10053EB97 /* MenuView.m */; };
+		E09D84431AAC50F10053EB97 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = E09D84411AAC50F10053EB97 /* star.png */; };
+		E09D84441AAC50F10053EB97 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = E09D84421AAC50F10053EB97 /* gear.png */; };
 		E0B2C5CE1AA719CA009D1B97 /* ColorManagerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B2C5CD1AA719CA009D1B97 /* ColorManagerObject.m */; };
 		E0B2C5DE1AA7FE0C009D1B97 /* PagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B2C5DD1AA7FE0C009D1B97 /* PagerViewController.m */; };
 		E0B2C5E11AA805D5009D1B97 /* SwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B2C5E01AA805D5009D1B97 /* SwitchViewController.m */; };
@@ -56,8 +60,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E00A43F51A7A79F0006E51D2 /* MMPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPickerView.h; sourceTree = "<group>"; };
-		E00A43F61A7A79F0006E51D2 /* MMPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPickerView.m; sourceTree = "<group>"; };
+		E09D84301AAAF8580053EB97 /* TESTViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TESTViewController.h; sourceTree = "<group>"; };
+		E09D84311AAAF8580053EB97 /* TESTViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TESTViewController.m; sourceTree = "<group>"; };
+		E09D84381AAB25400053EB97 /* MinColorsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinColorsCell.h; sourceTree = "<group>"; };
+		E09D84391AAB25400053EB97 /* MinColorsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MinColorsCell.m; sourceTree = "<group>"; };
+		E09D843B1AAB3CF10053EB97 /* MenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuView.h; sourceTree = "<group>"; };
+		E09D843C1AAB3CF10053EB97 /* MenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuView.m; sourceTree = "<group>"; };
+		E09D84411AAC50F10053EB97 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		E09D84421AAC50F10053EB97 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
 		E0B2C5CC1AA719CA009D1B97 /* ColorManagerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorManagerObject.h; sourceTree = "<group>"; };
 		E0B2C5CD1AA719CA009D1B97 /* ColorManagerObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorManagerObject.m; sourceTree = "<group>"; };
 		E0B2C5DC1AA7FE0C009D1B97 /* PagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagerViewController.h; sourceTree = "<group>"; };
@@ -187,8 +197,9 @@
 				E0E4467F1AA2B28C00DA13FC /* PNBarChart */,
 				E0E03A221A7A60A300609DEB /* TFHpple */,
 				E0E03A2C1A7A60BF00609DEB /* Reachability */,
-				E0E9D81C1A80C02F00A5FED8 /* MMPickerView */,
 				E0E039D41A7A5F2800609DEB /* LaunchScreen.xib */,
+				E09D84411AAC50F10053EB97 /* star.png */,
+				E09D84421AAC50F10053EB97 /* gear.png */,
 				E0E03A2F1A7A633B00609DEB /* parser.js */,
 				E0E039C61A7A5F2700609DEB /* Info.plist */,
 				E0E039C71A7A5F2700609DEB /* main.m */,
@@ -217,14 +228,18 @@
 		E0E03A111A7A5FF700609DEB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E09D843B1AAB3CF10053EB97 /* MenuView.h */,
+				E09D843C1AAB3CF10053EB97 /* MenuView.m */,
+				E09D84381AAB25400053EB97 /* MinColorsCell.h */,
+				E09D84391AAB25400053EB97 /* MinColorsCell.m */,
+				E0E03A051A7A5F8C00609DEB /* ColorCell.h */,
+				E0E03A061A7A5F8C00609DEB /* ColorCell.m */,
 				E0E039F51A7A5F7300609DEB /* SwipeUpInteractionTransition.h */,
 				E0E039F61A7A5F7300609DEB /* SwipeUpInteractionTransition.m */,
 				E0E039F71A7A5F7300609DEB /* NormalDismissAnimation.h */,
 				E0E039F81A7A5F7300609DEB /* NormalDismissAnimation.m */,
 				E0E039F91A7A5F7300609DEB /* BouncePresentAnimation.h */,
 				E0E039FA1A7A5F7300609DEB /* BouncePresentAnimation.m */,
-				E0E03A051A7A5F8C00609DEB /* ColorCell.h */,
-				E0E03A061A7A5F8C00609DEB /* ColorCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -278,6 +293,8 @@
 				E0E039EC1A7A5F7300609DEB /* BaseNavigationController.m */,
 				E0E039ED1A7A5F7300609DEB /* CollectionViewController.h */,
 				E0E039EE1A7A5F7300609DEB /* CollectionViewController.m */,
+				E09D84301AAAF8580053EB97 /* TESTViewController.h */,
+				E09D84311AAAF8580053EB97 /* TESTViewController.m */,
 				E0E039EF1A7A5F7300609DEB /* SettingsViewController.h */,
 				E0E039F01A7A5F7300609DEB /* SettingsViewController.m */,
 				E0E039F31A7A5F7300609DEB /* DetailViewController.h */,
@@ -317,16 +334,6 @@
 			);
 			name = Frameworks;
 			path = ..;
-			sourceTree = "<group>";
-		};
-		E0E9D81C1A80C02F00A5FED8 /* MMPickerView */ = {
-			isa = PBXGroup;
-			children = (
-				E00A43F51A7A79F0006E51D2 /* MMPickerView.h */,
-				E00A43F61A7A79F0006E51D2 /* MMPickerView.m */,
-			);
-			name = MMPickerView;
-			path = ../3rd/MMPickerView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -410,6 +417,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0E039D61A7A5F2800609DEB /* LaunchScreen.xib in Resources */,
+				E09D84441AAC50F10053EB97 /* gear.png in Resources */,
+				E09D84431AAC50F10053EB97 /* star.png in Resources */,
 				E0E03A301A7A633B00609DEB /* parser.js in Resources */,
 				E0E039D31A7A5F2700609DEB /* Images.xcassets in Resources */,
 			);
@@ -432,17 +441,19 @@
 				E0E03A021A7A5F7300609DEB /* BouncePresentAnimation.m in Sources */,
 				E0E03A001A7A5F7300609DEB /* SwipeUpInteractionTransition.m in Sources */,
 				E0E4468E1AA4567B00DA13FC /* WZCoreDataManager.m in Sources */,
-				E00A43F71A7A79F0006E51D2 /* MMPickerView.m in Sources */,
+				E09D843A1AAB25400053EB97 /* MinColorsCell.m in Sources */,
 				E0E446771AA2B1E700DA13FC /* PNBarChart.m in Sources */,
 				E0E446851AA31F3800DA13FC /* Colo.xcdatamodeld in Sources */,
 				E0E039FC1A7A5F7300609DEB /* CollectionViewController.m in Sources */,
 				E0B2C5DE1AA7FE0C009D1B97 /* PagerViewController.m in Sources */,
 				E0E03A101A7A5FA000609DEB /* ColorModel.m in Sources */,
 				E0B2C5CE1AA719CA009D1B97 /* ColorManagerObject.m in Sources */,
+				E09D84321AAAF8580053EB97 /* TESTViewController.m in Sources */,
 				E0E03A011A7A5F7300609DEB /* NormalDismissAnimation.m in Sources */,
 				E0E03A081A7A5F8C00609DEB /* ColorCell.m in Sources */,
 				E0E4467B1AA2B22800DA13FC /* PNColor.m in Sources */,
 				E0E03A2A1A7A60A300609DEB /* TFHppleElement.m in Sources */,
+				E09D843D1AAB3CF10053EB97 /* MenuView.m in Sources */,
 				E0E039CB1A7A5F2700609DEB /* AppDelegate.m in Sources */,
 				E0E039FD1A7A5F7300609DEB /* SettingsViewController.m in Sources */,
 				E0E03A291A7A60A300609DEB /* TFHpple.m in Sources */,

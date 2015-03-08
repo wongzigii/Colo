@@ -39,11 +39,6 @@
     [self.view addSubview:self.pageControl];
 }
 
-- (void)dealloc
-{
-    self.scrollView.delegate = nil;
-}
-
 - (BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers {
 	return NO;
 }

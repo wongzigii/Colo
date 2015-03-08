@@ -44,13 +44,6 @@
 #define PNWeiboColor    [UIColor colorWithRed:250.0 / 255.0 green:0.0 / 255.0 blue:33.0 / 255.0 alpha:1.0]
 #define PNiOSGreenColor [UIColor colorWithRed:98.0 / 255.0 green:247.0 / 255.0 blue:77.0 / 255.0 alpha:1.0]
 
-#define WZRedBeginColor    [UIColor colorWithRed:255.0 / 255.0 green:107.0 / 255.0 blue:51.0 / 255.0 alpha:1.0]
-#define WZGreenBeginColor  [UIColor colorWithRed:46.0 / 255.0f green:190.0 / 255.0 blue:140.0 / 255.0 alpha:1.0]
-#define WZBlueBeginColor   [UIColor colorWithRed:132.0 / 255.0 green:179.0 / 255.0 blue:230.0 / 255.0 alpha:1.0]
-
-#define WZRedEndColor      [UIColor colorWithRed:255.0 / 255.0 green:70.0 / 255.0 blue:0.0 / 255.0 alpha:1.0]
-#define WZGreenEndColor    [UIColor colorWithRed:18.0 / 255.0f green:181.0 / 255.0 blue:53.0 / 255.0 alpha:1.0]
-#define WZBlueEndColor     [UIColor colorWithRed:37.0 / 255.0 green:146.0 / 255.0 blue:224.0 / 255.0 alpha:1.0]
 
 @interface PNColor : NSObject
 

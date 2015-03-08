@@ -35,17 +35,6 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)dealloc
-{
-    _delegate = nil;
-    self.transitioningDelegate = nil;
-//    self.first = nil;
-//    self.second = nil;
-//    self.third = nil;
-//    self.fourth = nil;
-//    self.fifth = nil;
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

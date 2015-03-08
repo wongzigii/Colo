@@ -17,20 +17,16 @@
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext
 {
-    // 1. Get controllers from transition context
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
    
-    // 2. Set init frame for toVC
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     CGRect finalFrame = [transitionContext finalFrameForViewController:toVC];
     toVC.view.frame = CGRectOffset(finalFrame, 0, screenBounds.size.height);
     
-    // 3. Add toVC's view to containerView
     UIView *containerView = [transitionContext containerView];
     containerView.backgroundColor = [UIColor clearColor];
     [containerView addSubview:toVC.view];
     
-    // 4. Do animate now
     NSTimeInterval duration = [self transitionDuration:transitionContext];
     [UIView animateWithDuration:duration
                           delay:0.0

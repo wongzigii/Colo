@@ -9,7 +9,7 @@
 #import "DetailViewController.h"
 #import "PNBarChart.h"
 #import "PNChartDelegate.h"
-#import "PNColor.h"
+#import "Constant.h"
 
 @interface DetailViewController ()<PNChartDelegate>
 @property (nonatomic, strong) UIVisualEffectView *effectView;
@@ -20,11 +20,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)dealloc
-{
-    _barChart.delegate = nil;
 }
 
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -50,7 +45,7 @@
 
 - (void)initializeHexStringLabel
 {
-    
+    //TODO
 }
 
 - (void)initializeBarChart

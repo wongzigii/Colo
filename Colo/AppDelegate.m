@@ -11,9 +11,9 @@
 #import "CollectionViewController.h"
 #import "BaseNavigationController.h"
 #import "Constant.h"
+#import "TESTViewController.h"
 
 @interface AppDelegate ()
-
 @end
 
 @implementation AppDelegate
@@ -23,27 +23,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    //    ViewController *vc = [[ViewController  alloc] init];
     
-    //1.
     CollectionViewController *test = [[CollectionViewController alloc] init];
     BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:test];
-    
-    //2.
-    //SelectViewController *select = [[SelectViewController alloc] init];
-    
+    //TESTViewController *testv = [[TESTViewController alloc] init];
     self.window.rootViewController = nav;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    
-        Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
-        NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
-        if (networkStatus == NotReachable) {
-            NSLog(@"没有网络");
-        } else {
-            NSLog(@"已连接网络");
-        }
+    Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+    if (networkStatus == NotReachable) {
+        NSLog(@"没有网络");
+    } else {
+        NSLog(@"已连接网络");
+    }
     
     return YES;
 }
@@ -56,7 +50,6 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    [self saveContext];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
