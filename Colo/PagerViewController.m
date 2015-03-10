@@ -85,7 +85,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
-	for (NSUInteger i =0; i < [self.childViewControllers count]; i++) {
+	for (int i =0; i < [self.childViewControllers count]; i++) {
 		[self loadScrollViewWithPage:i];
 	}
 	
