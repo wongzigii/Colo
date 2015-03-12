@@ -13,8 +13,8 @@
 @end
 
 @interface MenuView : UIView
-@property (nonatomic        ) NSString    *selectedCountry;
-@property (nonatomic        ) BOOL        didOpenMenu;
+@property (nonatomic          ) NSString    *selectedCountry;
+@property (nonatomic, readonly) BOOL        didOpenMenu;
 
 - (void)handleHideOrShow;
 

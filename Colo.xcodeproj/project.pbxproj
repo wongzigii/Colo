@@ -321,6 +321,7 @@
 				E0E446751AA2B1E700DA13FC /* PNBarChart.m */,
 			);
 			name = PNBarChart;
+			path = ../3rd/PNChart;
 			sourceTree = "<group>";
 		};
 		E0E4468F1AA45A3600DA13FC /* Frameworks */ = {

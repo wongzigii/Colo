@@ -13,6 +13,7 @@
 @interface MenuView()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray     *titleArray;
+@property (nonatomic, readwrite) BOOL     didOpenMenu;
 
 @end
 
