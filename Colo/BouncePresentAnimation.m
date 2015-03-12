@@ -36,7 +36,6 @@
                      animations:^{
                          toVC.view.frame = finalFrame;
                      } completion:^(BOOL finished) {
-                         // 5. Tell context that we completed.
                          [transitionContext completeTransition:YES];
                      }];
 }
