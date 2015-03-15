@@ -86,7 +86,7 @@ static NSString *CellIdentifier = @"ColorCell";
     
     _objects = [NSMutableArray new];
     _countryChoosed = COLO_German;
-    _webSiteArray = @[COLO_China, COLO_Crezh, COLO_Danmark];
+    _webSiteArray = @[COLO_Danmark, COLO_German, COLO_English, COLO_Spain, COLO_France, COLO_Italy, COLO_Holland, COLO_Norway, COLO_Poland, COLO_Portugal, COLO_Finland, COLO_Sweden, COLO_Turkey, COLO_Russia, COLO_China, COLO_Japan, COLO_Korea];
     [self fetchDataFromServer];
     
     //UI
@@ -398,12 +398,11 @@ static NSString *CellIdentifier = @"ColorCell";
 }
 
 #pragma mark - MenuViewControllerdelegate
-- (NSString *)passValueFromMenuToCollectionViewController:(CGFloat)value
+- (void)passValueFromMenuToCollectionViewController:(CGFloat)value
 {
-//    NSString *string = [self.webSiteArray objectAtIndex:value];
-//    return string;
-    NSLog(@"%f",value);
-    return nil;
+    NSString *string = [self.webSiteArray objectAtIndex:value];
+    self.countryChoosed = string;
+    [self fetchDataFromServer];
 }
 
 #pragma mark - UITableViewDataSource
