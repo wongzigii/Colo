@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol MenuViewControllerDelegate<NSObject>
-- (NSString *)passValueFromMenuToCollectionViewController:(CGFloat)value;
+- (void)passValueFromMenuToCollectionViewController:(CGFloat)value;
 @end
 
 @interface MenuView : UIView
