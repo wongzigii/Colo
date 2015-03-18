@@ -22,6 +22,7 @@
 #import "Constant.h"
 #import "SimpleGetHTTPRequest.h"
 #import "MenuView.h"
+#import "MBProgressHUD.h"
 
 static NSString *JSHandler;
 static NSString *CellIdentifier = @"ColorCell";
@@ -87,11 +88,16 @@ static NSString *CellIdentifier = @"ColorCell";
     _objects = [NSMutableArray new];
     _countryChoosed = COLO_German;
     _webSiteArray = @[COLO_Danmark, COLO_German, COLO_English, COLO_Spain, COLO_France, COLO_Italy, COLO_Holland, COLO_Norway, COLO_Poland, COLO_Portugal, COLO_Finland, COLO_Sweden, COLO_Turkey, COLO_Russia, COLO_China, COLO_Japan, COLO_Korea];
-    [self fetchDataFromServer];
     
     //UI
     [self initializeUI];
     [self addConstraints];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self fetchDataFromServer];
+
 }
 
 - (void)fetchDataFromServer
@@ -104,6 +110,7 @@ static NSString *CellIdentifier = @"ColorCell";
         NSLog(@"IS EXISTED");
         Parser *parser = [[Parser alloc] initWithPath:self.filePath];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
             [parser startParse];
             if (parser.returnArray) {
                 self.objects = parser.returnArray;
@@ -111,7 +118,7 @@ static NSString *CellIdentifier = @"ColorCell";
                 /// CoreData
                 //[weakSelf saveData];
                 //[weakSelf fetchDataFromCoreData];
-                dispatch_sync(dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tableView reloadData];
                 });
             }
@@ -119,6 +126,7 @@ static NSString *CellIdentifier = @"ColorCell";
         
     }else{
         NSLog(@"NOT EXISTED");
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         NSURL *baseUrl = [NSURL URLWithString:@"http://www.wongzigii.com/Colo/"];
         self.request = [[SimpleGetHTTPRequest alloc] initWithURL:[NSURL URLWithString:_countryChoosed relativeToURL:baseUrl]];
         __unsafe_unretained typeof(self) weakSelf = self;
@@ -143,9 +151,9 @@ static NSString *CellIdentifier = @"ColorCell";
                             //NSLog(@"WeakSelf.object : %@", weakSelf.objects);
                             /// CoreData
                             //[weakSelf saveData];
-                            
                             //[weakSelf fetchDataFromCoreData];
-                            dispatch_sync(dispatch_get_main_queue(), ^{
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
                                 [weakSelf.tableView reloadData];
                             });
                         }
