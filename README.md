@@ -1,6 +1,6 @@
 
 # Colo
-![](./Assets/colo-github-header.png)
+
 [![Build Status](http://img.shields.io/travis/Colocc/Colo.svg?style=flat)](https://travis-ci.org/Colocc/Colo) 
 
 Colo is an app help you to discover color themes from [Adobe Color CC](https://color.adobe.com/explore/newest/?time=all). Colo's data source is based on `libxml2` library to parse content from website. 
