@@ -21,7 +21,7 @@
 
 - (instancetype)initWithPath:(NSString *)path
 {
-    self = [self init];
+    self = [super init];
     if (self) {
         if (path) {
             self.filePath = path;
@@ -35,14 +35,16 @@
 {
     self = [super init];
     if (self) {
-
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                       reason:@"Must use initWithPath: instead."
+                                     userInfo:nil];
     }
     return self;
 }
 
 - (void)startParse
 {
-    self.objectsArray = [self groupedTheArray:[self parseWithHTMLString] andTitleArray:[self parsewithTitle] andStarsArray:[self parsewithLikes]];
+    self.objectsArray = [self groupedTheArray:[self parseWithHTMLString] andTitleArray:nil andStarsArray:nil];
     //NSLog(@"%@",self.objectsArray);
 }
 
@@ -90,53 +92,63 @@
     return strArray;
 }
 
-//Title
 - (NSMutableArray *)parsewithTitle
 {
-    NSError *error;
-    NSString *fetchData = [NSString stringWithContentsOfURL:self.url usedEncoding:nil error:&error];
-    if (error) {
-        NSLog(@"Can not load datas from local file while parsing like numbers while parsing titles");
-    }
-
-    NSData *data = [fetchData dataUsingEncoding:NSUTF8StringEncoding];
-    TFHpple *parser = [TFHpple hppleWithData:data isXML:NO];
-    
-    NSString *XpathQueryColorTitle = @"//a[@class='ctooltip']";
-    NSArray *colorTitleNodes = [parser searchWithXPathQuery:XpathQueryColorTitle];
-    
-    NSMutableArray *resultArray = [[NSMutableArray alloc] initWithCapacity:0];
-    for (TFHppleElement *element in colorTitleNodes) {
-        
-        NSString *string = [element content];
-        [resultArray addObject:string];
-    }
-    return resultArray;
+    return nil;
 }
 
-//Likes
 - (NSMutableArray *)parsewithLikes
 {
-    NSError *error;
-    NSString *fetchData = [NSString stringWithContentsOfURL:self.url usedEncoding:nil error:&error];
-    if (error) {
-        NSLog(@"Can not load datas from local file while parsing like numbers");
-    }
-
-    NSData *data = [fetchData dataUsingEncoding:NSUTF8StringEncoding];
-    TFHpple *parser = [TFHpple hppleWithData:data isXML:NO];
-    
-    NSString *XpathQueryColorLikes = @"//li[@class='likes-count']";
-    NSArray *colorLikesNodes = [parser searchWithXPathQuery:XpathQueryColorLikes];
-    
-    NSMutableArray *resultArray = [[NSMutableArray alloc] initWithCapacity:0];
-    for (TFHppleElement *element in colorLikesNodes) {
-        
-        NSString *string = [element content];
-        [resultArray addObject:string];
-    }
-    return resultArray;
+    return nil;
 }
+
+//Title
+//- (NSMutableArray *)parsewithTitle
+//{
+//    NSError *error;
+//    NSString *fetchData = [NSString stringWithContentsOfURL:self.url usedEncoding:nil error:&error];
+//    if (error) {
+//        NSLog(@"Can not load datas from local file while parsing like numbers while parsing titles");
+//    }
+//
+//    NSData *data = [fetchData dataUsingEncoding:NSUTF8StringEncoding];
+//    TFHpple *parser = [TFHpple hppleWithData:data isXML:NO];
+//    
+//    NSString *XpathQueryColorTitle = @"//a[@class='ctooltip']";
+//    NSArray *colorTitleNodes = [parser searchWithXPathQuery:XpathQueryColorTitle];
+//    
+//    NSMutableArray *resultArray = [[NSMutableArray alloc] initWithCapacity:0];
+//    for (TFHppleElement *element in colorTitleNodes) {
+//        
+//        NSString *string = [element content];
+//        [resultArray addObject:string];
+//    }
+//    return resultArray;
+//}
+
+//Likes
+//- (NSMutableArray *)parsewithLikes
+//{
+//    NSError *error;
+//    NSString *fetchData = [NSString stringWithContentsOfURL:self.url usedEncoding:nil error:&error];
+//    if (error) {
+//        NSLog(@"Can not load datas from local file while parsing like numbers");
+//    }
+//
+//    NSData *data = [fetchData dataUsingEncoding:NSUTF8StringEncoding];
+//    TFHpple *parser = [TFHpple hppleWithData:data isXML:NO];
+//    
+//    NSString *XpathQueryColorLikes = @"//li[@class='likes-count']";
+//    NSArray *colorLikesNodes = [parser searchWithXPathQuery:XpathQueryColorLikes];
+//    
+//    NSMutableArray *resultArray = [[NSMutableArray alloc] initWithCapacity:0];
+//    for (TFHppleElement *element in colorLikesNodes) {
+//        
+//        NSString *string = [element content];
+//        [resultArray addObject:string];
+//    }
+//    return resultArray;
+//}
 
 //grouped
 - (NSMutableArray *)groupedTheArray:(NSMutableArray *)array andTitleArray:(NSMutableArray *)title andStarsArray:(NSMutableArray *)star
