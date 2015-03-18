@@ -11,11 +11,6 @@ Adobe is a trademark of Adobe. Inc. This app is not created nor endorsed by Adob
 ## Screenshoots
 ![](./Assets/screenshoot1.png)   ![](./Assets/screenshoot2.png) 
 
-## Requirements
-- Xcode 6
-- iOS 8
-- ARC
-
 ## Frameworks
 - libxml2.dylib
 - UIKit.framework
@@ -41,7 +36,7 @@ Refer to this issue : [https://github.com/AFNetworking/AFNetworking/issues/2314]
 
 ## Todos
 - More Features
-- Cocoaspod Support
+- Cocoapods Support
 - CoreData Support
 - Favourite Collection
 - Clean up code
@@ -51,7 +46,7 @@ Refer to this issue : [https://github.com/AFNetworking/AFNetworking/issues/2314]
 wongzigii@outlook.com
 
 ## Contributing
-Please feel free to help out with this project! If you see something that could be made better or want a new feature, open up an issue or send a Pull Request! I don't really plan on putting this out on the App Store, but I think it's a great learning resource for those interested in iOS development.
+Please feel free to help out with this project! If you see something that could be made better or want a new feature, open up an issue or send a Pull Request!
 
 ## License
 Colo is under Apache License 2.0, see the [LICENCE](./LICENSE) file for more info.
