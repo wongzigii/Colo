@@ -36,11 +36,11 @@ Refer to this issue : [https://github.com/AFNetworking/AFNetworking/issues/2314]
 
 ## Todos
 - More Features
-- Cocoapods Support
 - CoreData Support
 - Favourite Collection
-- Clean up code
-- Fix Warnings
+
+## Gesture Guide
+- Double tap bottom to choose a specific collection according a country.
 
 ## Design+Code
 wongzigii@outlook.com
