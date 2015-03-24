@@ -40,7 +40,7 @@ Refer to this issue : [https://github.com/AFNetworking/AFNetworking/issues/2314]
 - Favourite Collection
 
 ## Gesture Guide
-- Double tap bottom to choose a specific collection according a country.
+- Double tapping the bottom bar to choose a specific collection according a country.
 
 ## Design+Code
 wongzigii@outlook.com
