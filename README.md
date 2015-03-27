@@ -1,9 +1,9 @@
 
 # Colo
 
-[![Build Status](http://img.shields.io/travis/Colocc/Colo.svg?style=flat)](https://travis-ci.org/Colocc/Colo) 
+[![Build Status](http://img.shields.io/travis/wongzigii/Colo.svg?style=flat)](https://travis-ci.org/wongzigii/Colo) 
 
-Colo is an app help you to discover color themes from [Adobe Color CC](https://color.adobe.com/explore/newest/?time=all). Colo's data source is based on `libxml2` library to parse content from website. 
+Colo is an app helps you to discover color themes from [Adobe Color CC](https://color.adobe.com/explore/newest/?time=all). Colo's data source is based on `libxml2` library to parse content from website. 
 
 ## Disclaimer
 Adobe is a trademark of Adobe. Inc. This app is not created nor endorsed by Adobe Inc. All the infomation and content accessible through Colo are subject to Adobe's copyright and terms of use. This is a free app and does not charge for anything. All content are available for free from Adobe Color CC.
