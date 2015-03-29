@@ -4,6 +4,7 @@ PODS:
   - PNChart (0.8):
     - UICountingLabel (~> 1.0.0)
   - Reachability (3.2)
+  - SWTableViewCell (0.3.7)
   - UICountingLabel (1.0.0)
 
 DEPENDENCIES:
@@ -11,6 +12,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.8)
   - PNChart (from `https://github.com/wongzigii/PNChart.git`, tag `0.8.2`)
   - Reachability
+  - SWTableViewCell (~> 0.3.7)
 
 EXTERNAL SOURCES:
   PNChart:
@@ -22,6 +24,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: f3747dcbd45a9e855a6b0674550651e0b7ed250c
   PNChart: 80dd1da7bf14e6f66e134938f0cbe76646198b02
   Reachability: 1ef8adf5c4e3d362f96515d4278f68dad3c26930
+  SWTableViewCell: 25de71898e3fcd11cf75707ef90245acf990ec03
   UICountingLabel: 0a0e9e34bf4690dbd127aaec552d19ed938087a9
 
 COCOAPODS: 0.34.1
