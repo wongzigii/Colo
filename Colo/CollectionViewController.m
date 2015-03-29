@@ -23,11 +23,12 @@
 #import "SimpleGetHTTPRequest.h"
 #import "MenuView.h"
 #import "MBProgressHUD.h"
+#import "FavouriteViewController.h"
 
 static NSString *JSHandler;
 static NSString *CellIdentifier = @"ColorCell";
 
-@interface CollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UIViewControllerTransitioningDelegate, ModalViewControllerDelegate, MenuViewControllerDelegate>
+@interface CollectionViewController ()<UITableViewDelegate, UITableViewDataSource, UIViewControllerTransitioningDelegate, ModalViewControllerDelegate, MenuViewControllerDelegate, SWTableViewCellDelegate>
 
 @property (strong, nonatomic) UITableView    *tableView;
 @property (strong, nonatomic) UIView         *bottomView;
@@ -84,7 +85,6 @@ static NSString *CellIdentifier = @"ColorCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     _objects = [NSMutableArray new];
     _countryChoosed = COLO_German;
     _webSiteArray = @[COLO_Danmark, COLO_German, COLO_English, COLO_Spain, COLO_France, COLO_Italy, COLO_Holland, COLO_Norway, COLO_Poland, COLO_Portugal, COLO_Finland, COLO_Sweden, COLO_Turkey, COLO_Russia, COLO_China, COLO_Japan, COLO_Korea];
@@ -214,7 +214,8 @@ static NSString *CellIdentifier = @"ColorCell";
 
 - (void)showFavouriteTable
 {
-    //TODO
+    FavouriteViewController *vc = [[FavouriteViewController alloc] init];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)fetchDataFromCoreData
@@ -421,27 +422,48 @@ static NSString *CellIdentifier = @"ColorCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ColorCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    //http://objccn.io/issue-1-2/#separatingconcerns
-    [cell configureForColor:[self.objects objectAtIndex:indexPath.row]];
-    //Auto Layout
-    [cell setNeedsUpdateConstraints];
+    if (indexPath.row % 2 == 0) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlainCell"];
+        }
+        cell.frame = CGRectMake(0, 0, kDeviceWidth, 50);
+        cell.backgroundColor = [UIColor blackColor];
+        return cell;
+    }else{
+        ColorCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        //http://objccn.io/issue-1-2/#separatingconcerns
+        [cell configureForColor:[self.objects objectAtIndex:indexPath.row]];
+        //Auto Layout
+        [cell setNeedsUpdateConstraints];
+        [cell setRightUtilityButtons:self.rightButtons WithButtonWidth:58.0f];
+        cell.delegate = self;
+        return cell;
+    }
+}
 
-    return cell;
+- (NSArray *)rightButtons
+{
+    NSMutableArray *rightUtilityButtons = [NSMutableArray new];
+    
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:0.78f green:0.78f blue:0.8f alpha:1.0] icon:[UIImage imageNamed:@"heart"]];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f] icon:[UIImage imageNamed:@"trash"]];
+    return rightUtilityButtons;
 }
 
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    SwitchViewController *switchVC = [[SwitchViewController alloc] init];
-    switchVC.delegate = self;
-    switchVC.transitioningDelegate = self;
-    switchVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self.transitionController wireToViewController:switchVC];
-    [self presentViewController:switchVC animated:YES completion:nil];
+    if (!tableView.isEditing) {
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        SwitchViewController *switchVC = [[SwitchViewController alloc] init];
+        switchVC.delegate = self;
+        switchVC.transitioningDelegate = self;
+        switchVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        [self.transitionController wireToViewController:switchVC];
+        [self presentViewController:switchVC animated:YES completion:nil];
+    }
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate
@@ -473,6 +495,39 @@ static NSString *CellIdentifier = @"ColorCell";
     }else{
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }
+}
+
+#pragma mark - 
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
+{
+    switch (index) {
+        case 0:
+        {
+            NSLog(@"More button was pressed");
+            UIAlertView *alertTest = [[UIAlertView alloc] initWithTitle:@"Hello" message:@"More more more" delegate:nil cancelButtonTitle:@"cancel" otherButtonTitles: nil];
+            [alertTest show];
+            
+            [cell hideUtilityButtonsAnimated:YES];
+            break;
+        }
+        case 1:
+        {
+            // Delete button was pressed
+            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+            
+            //[_testArray[cellIndexPath.section] removeObjectAtIndex:cellIndexPath.row];
+            [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+- (BOOL)swipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(SWTableViewCell *)cell
+{
+    // allow just one cell's utility button to be open at once
+    return YES;
 }
 
 @end
