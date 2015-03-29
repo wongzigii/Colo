@@ -11,7 +11,7 @@
 #import "CollectionViewController.h"
 #import "BaseNavigationController.h"
 #import "Constant.h"
-#import "TESTViewController.h"
+#import "FavouriteViewController.h"
 
 @interface AppDelegate ()
 @end
@@ -26,7 +26,6 @@
     
     CollectionViewController *test = [[CollectionViewController alloc] init];
     BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:test];
-    //TESTViewController *testv = [[TESTViewController alloc] init];
     self.window.rootViewController = nav;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

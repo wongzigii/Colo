@@ -1,21 +1,21 @@
 //
-//  MinColorsCell.m
+//  MiniColorCell.m
 //  Colo
 //
 //  Created by Wongzigii on 15/3/7.
 //  Copyright (c) 2015年 Wongzigii. All rights reserved.
 //
 
-#import "MinColorsCell.h"
+#import "MiniColorCell.h"
 #import "ColorManagerObject.h"
 #import "ColorModel.h"
 #import "Parser.h"
 
-@interface MinColorsCell ()
+@interface MiniColorCell ()
 @property (nonatomic, assign) BOOL didSetupConstraints;
 @end
 
-@implementation MinColorsCell
+@implementation MiniColorCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

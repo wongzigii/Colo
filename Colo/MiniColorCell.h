@@ -1,5 +1,5 @@
 //
-//  MinColorsCell.h
+//  MiniColorCell.h
 //  Colo
 //
 //  Created by Wongzigii on 15/3/7.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ColorModel.h"
-@interface MinColorsCell : UITableViewCell
+@interface MiniColorCell : UITableViewCell
 @property (strong, nonatomic)   UIView *firstColor;
 @property (strong, nonatomic)   UIView *secondColor;
 @property (strong, nonatomic)   UIView *thirdColor;
