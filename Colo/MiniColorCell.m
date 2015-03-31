@@ -59,14 +59,14 @@
         
         NSString *format;
         NSArray *constraintsArray;
-        //NSDictionary *metrics = @{@"topHeight":@100.0, @"bottomHeight":@50};
+        NSDictionary *metrics = @{@"cellHeight":@20.0, @"cellWidth":@200};
         
-        format = @"V:[_background(25)]";
-        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:NSLayoutFormatAlignAllCenterY metrics:nil views:viewsDictionary];
+        format = @"V:[_background(cellHeight)]";
+        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:NSLayoutFormatAlignAllCenterY metrics:metrics views:viewsDictionary];
         [self.contentView addConstraints:constraintsArray];
         
-        format = @"H:[_background(200)]";
-        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:NSLayoutFormatAlignAllCenterY metrics:nil views:viewsDictionary];
+        format = @"H:[_background(cellWidth)]";
+        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:NSLayoutFormatAlignAllCenterY metrics:metrics views:viewsDictionary];
         [self.contentView addConstraints:constraintsArray];
         
         [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.background
@@ -123,10 +123,7 @@
 
 //For Now
 - (void)configureForColor:(ColorModel *)model
-{
-    //    self.title.text = model.title;
-    //self.favourites.text = model.stars;
-    
+{    
     self.firstColor.backgroundColor  = [UIColor translateWithHexString:[model.colorArray objectAtIndex:0]];
     self.secondColor.backgroundColor = [UIColor translateWithHexString:[model.colorArray objectAtIndex:1]];
     self.thirdColor.backgroundColor  = [UIColor translateWithHexString:[model.colorArray objectAtIndex:2]];

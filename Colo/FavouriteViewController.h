@@ -10,5 +10,6 @@
 
 @interface FavouriteViewController : UIViewController
 @property (nonatomic, readonly) NSMutableArray *favouriteArray;
+- (void)passFavouriteArray:(NSMutableArray *)array;
 @end
 

@@ -37,7 +37,7 @@ static NSString *CellIdentifier = @"ColorCell";
 @property (strong, nonatomic) MenuView         *menuView;
 @property (copy,   nonatomic) NSMutableArray *objectArray;
 @property (copy,   nonatomic) NSString       *selectedString;
-@property (        nonatomic) BOOL           didOpenMenu;
+@property (assign, nonatomic) BOOL           didOpenMenu;
 @property (strong, nonatomic) BouncePresentAnimation *presentAnimation;
 @property (strong, nonatomic) NormalDismissAnimation *dismissAnimation;
 @property (strong, nonatomic) SwipeUpInteractionTransition *transitionController;
@@ -46,6 +46,8 @@ static NSString *CellIdentifier = @"ColorCell";
 @property (weak,   nonatomic) NSString       *filePath;
 @property (weak,   nonatomic) NSString       *countryChoosed;
 @property (strong, nonatomic) NSArray        *webSiteArray;
+@property (strong, nonatomic) FavouriteViewController *favouriteVC;
+@property (strong, nonatomic) NSMutableArray *favouriteArray;
 @end
 
 @implementation CollectionViewController
@@ -85,9 +87,10 @@ static NSString *CellIdentifier = @"ColorCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _objects = [NSMutableArray new];
-    _countryChoosed = COLO_German;
-    _webSiteArray = @[COLO_Danmark, COLO_German, COLO_English, COLO_Spain, COLO_France, COLO_Italy, COLO_Holland, COLO_Norway, COLO_Poland, COLO_Portugal, COLO_Finland, COLO_Sweden, COLO_Turkey, COLO_Russia, COLO_China, COLO_Japan, COLO_Korea];
+    _objects        = [NSMutableArray new];
+    _favouriteArray = [NSMutableArray new];
+    _countryChoosed = COLO_DefaultCountryChoosed;
+    _webSiteArray   = COLO_CountriesArray;
     
     //UI
     [self initializeUI];
@@ -97,9 +100,9 @@ static NSString *CellIdentifier = @"ColorCell";
 - (void)viewDidAppear:(BOOL)animated
 {
     [self fetchDataFromServer];
-
 }
 
+#pragma mark - Private Methods
 - (void)fetchDataFromServer
 {
     NSFileManager *manager = [[NSFileManager alloc] init];
@@ -107,10 +110,9 @@ static NSString *CellIdentifier = @"ColorCell";
     _filePath = [NSString stringWithFormat:@"%@/%@", [paths objectAtIndex:0], _countryChoosed];
     BOOL isExisted = [manager fileExistsAtPath:self.filePath];
     if (isExisted) {
-        NSLog(@"IS EXISTED");
+        //NSLog(@"IS EXISTED");
         Parser *parser = [[Parser alloc] initWithPath:self.filePath];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
             [parser startParse];
             if (parser.returnArray) {
                 self.objects = parser.returnArray;
@@ -125,7 +127,7 @@ static NSString *CellIdentifier = @"ColorCell";
         });
         
     }else{
-        NSLog(@"NOT EXISTED");
+        //NSLog(@"NOT EXISTED");
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         NSURL *baseUrl = [NSURL URLWithString:@"http://www.wongzigii.com/Colo/"];
         self.request = [[SimpleGetHTTPRequest alloc] initWithURL:[NSURL URLWithString:_countryChoosed relativeToURL:baseUrl]];
@@ -212,10 +214,18 @@ static NSString *CellIdentifier = @"ColorCell";
     [self.menuView handleHideOrShow];
 }
 
+- (FavouriteViewController *)favouriteVC
+{
+    if (!_favouriteVC) {
+        _favouriteVC = [[FavouriteViewController alloc] init];
+    }
+    return _favouriteVC;
+}
+
 - (void)showFavouriteTable
 {
-    FavouriteViewController *vc = [[FavouriteViewController alloc] init];
-    [self presentViewController:vc animated:YES completion:nil];
+    [self.favouriteVC passFavouriteArray:self.favouriteArray];
+    [self presentViewController:self.favouriteVC animated:YES completion:nil];
 }
 
 - (void)fetchDataFromCoreData
@@ -497,30 +507,24 @@ static NSString *CellIdentifier = @"ColorCell";
     }
 }
 
-#pragma mark - 
+#pragma mark - SWTableViewCellDelegate
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
 {
+    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
     switch (index) {
         case 0:
         {
-            NSLog(@"More button was pressed");
-            UIAlertView *alertTest = [[UIAlertView alloc] initWithTitle:@"Hello" message:@"More more more" delegate:nil cancelButtonTitle:@"cancel" otherButtonTitles: nil];
-            [alertTest show];
-            
+            [self.favouriteArray addObject:[self.objects objectAtIndex:(cellIndexPath.row - 1) / 2]];
             [cell hideUtilityButtonsAnimated:YES];
             break;
         }
         case 1:
         {
             // Delete button was pressed
-            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-            
-            //[_testArray[cellIndexPath.section] removeObjectAtIndex:cellIndexPath.row];
+            [self.objects removeObjectAtIndex:cellIndexPath.row];
             [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
             break;
         }
-        default:
-            break;
     }
 }
 

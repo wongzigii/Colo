@@ -17,9 +17,6 @@
 #define DebugLog( s, ... )
 #endif
 
-#define kWZServer_China www.wongzigii.com/Colo/China.html
-#define kWZServer_English www.wongzigii.com/Colo/English.html
-#define kWZServer_Chinaa www.wongzigii.com/Colo/China.html
 
 #define IS_IOS8 [[UIDevice currentDevice].systemVersion hasPrefix:@"8"]
 
@@ -29,24 +26,28 @@
 #define kDeviceHeight [UIScreen mainScreen].bounds.size.height
 #define CocoaJSHandler   @"mpAjaxHandler"
 
-#define DefaultCountryChoose @"English.html"
-#define COLO_Danmark       @"Danmark.html"
-#define COLO_German        @"German.html"
-#define COLO_English       @"English.html"
-#define COLO_Spain         @"Spain.html"
-#define COLO_France        @"France.html"
-#define COLO_Italy         @"Italy.html"
-#define COLO_Holland       @"Holland.html"
-#define COLO_Norway        @"Norway.html"
-#define COLO_Poland        @"Poland.html"
-#define COLO_Portugal      @"Portugal.html"
-#define COLO_Finland       @"Finland.html"
-#define COLO_Sweden        @"Sweden.html"
-#define COLO_Turkey        @"Turkey.html"
-#define COLO_Russia        @"Russia.html"
-#define COLO_China         @"China.html"
-#define COLO_Japan         @"Japan.html"
-#define COLO_Korea         @"Korea.html"
+#define COLO_DefaultCountryChoosed @"English.html"
+
+#define COLO_Danmark         @"Danmark.html"
+#define COLO_German          @"German.html"
+#define COLO_English         @"English.html"
+#define COLO_Spain           @"Spain.html"
+#define COLO_France          @"France.html"
+#define COLO_Italy           @"Italy.html"
+#define COLO_Holland         @"Holland.html"
+#define COLO_Norway          @"Norway.html"
+#define COLO_Poland          @"Poland.html"
+#define COLO_Portugal        @"Portugal.html"
+#define COLO_Finland         @"Finland.html"
+#define COLO_Sweden          @"Sweden.html"
+#define COLO_Turkey          @"Turkey.html"
+#define COLO_Russia          @"Russia.html"
+#define COLO_China           @"China.html"
+#define COLO_Japan           @"Japan.html"
+#define COLO_Korea           @"Korea.html"
+
+#define COLO_CountriesArray  @[COLO_Danmark, COLO_German, COLO_English, COLO_Spain, COLO_France, COLO_Italy, COLO_Holland, COLO_Norway, COLO_Poland, COLO_Portugal, COLO_Finland, COLO_Sweden, COLO_Turkey, COLO_Russia, COLO_China, COLO_Japan, COLO_Korea]
+#define COLO_DefaultCountryChoosed @"English.html"
 
 #define WZRedBeginColor    [UIColor colorWithRed:255.0 / 255.0 green:107.0 / 255.0 blue:51.0 / 255.0 alpha:1.0]
 #define WZGreenBeginColor  [UIColor colorWithRed:46.0 / 255.0f green:190.0 / 255.0 blue:140.0 / 255.0 alpha:1.0]
