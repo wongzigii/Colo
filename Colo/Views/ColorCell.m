@@ -86,14 +86,13 @@
         
         NSString *format;
         NSArray *constraintsArray;
-        NSDictionary *metrics = @{@"topHeight":@100.0, @"bottomHeight":@50};
         
-        format = @"V:|[_background(topHeight)]|";
-        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:NSLayoutFormatAlignAllCenterX metrics:metrics views:viewsDictionary];
+        format = @"V:|[_background]|";
+        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
         [self.contentView addConstraints:constraintsArray];
         
         format = @"H:|[_background]|";
-        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:NSLayoutFormatAlignAllCenterX metrics:metrics views:viewsDictionary];
+        constraintsArray = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:viewsDictionary];
         [self.contentView addConstraints:constraintsArray];
         
 //        format = @"V:|[_top(topHeight)][_bottom(bottomHeight)]|";
