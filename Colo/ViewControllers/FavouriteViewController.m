@@ -25,7 +25,7 @@ static NSString *MiniCellIdentifier = @"MiniColorCell";
     self.tableView = [[UITableView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.backgroundColor = [UIColor colorWithRed:39.0 / 255.0 green:39.0 / 255.0 blue:39.0 / 255.0 alpha:1.0];
+    self.tableView.backgroundColor = [UIColor colorWithRed:255.0 / 255.0 green:255.0 / 255.0 blue:255.0 / 255.0 alpha:1.0];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[MiniColorCell class] forCellReuseIdentifier:MiniCellIdentifier];
     self.closeButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 25, 25)];

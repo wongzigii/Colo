@@ -8,8 +8,8 @@ Colo is an app helps you to discover color themes from [Adobe Color CC](https://
 ## Disclaimer
 Adobe is a trademark of Adobe. Inc. This app is not created nor endorsed by Adobe Inc. All the infomation and content accessible through Colo are subject to Adobe's copyright and terms of use. This is a free app and does not charge for anything. All content are available for free from Adobe Color CC.
 
-## Screenshoots
-![](./Assets/screenshoot1.png)   ![](./Assets/screenshoot2.png) 
+## Screenshots
+![](./Assets/screenshoot1.png)   ![](./Assets/screenshoot4.png) 
 
 ## Frameworks
 - libxml2.dylib
@@ -22,6 +22,8 @@ Adobe is a trademark of Adobe. Inc. This app is not created nor endorsed by Adob
 - [Hpple](https://github.com/topfunky/hpple)
 - [Reachability](https://github.com/tonymillion/Reachability)
 - [PNChart](https://github.com/kevinzhow/PNChart)
+- [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
+- [SWTableViewCell](https://github.com/CEWendel/SWTableViewCell)
 
 ## Trouble Shooting
 
@@ -37,10 +39,10 @@ Refer to this issue : [https://github.com/AFNetworking/AFNetworking/issues/2314]
 ## Todos
 - More Features
 - CoreData Support
-- Favourite Collection
 
 ## Gesture Guide
 - Double tapping the bottom bar to choose a specific collection according a country.
+- Show Cell's UtilityButtons on swipe.
 
 ## Design+Code
 wongzigii@outlook.com

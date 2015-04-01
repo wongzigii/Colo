@@ -38,7 +38,7 @@
         
         self.background.layer.cornerRadius = 5.0;
         self.background.clipsToBounds = YES;
-        self.contentView.backgroundColor = [UIColor colorWithRed:39.0 / 255.0 green:39.0 / 255.0 blue:39.0 / 255.0 alpha:1.0];
+        self.contentView.backgroundColor = [UIColor colorWithRed:39.0 / 255.0 green:94.0 / 255.0 blue:130.0 / 255.0 alpha:1.0];
         [self.contentView addSubview:self.background];
         [self.background        addSubview:self.firstColor];
         [self.background        addSubview:self.secondColor];

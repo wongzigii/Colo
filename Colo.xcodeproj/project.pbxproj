@@ -59,10 +59,10 @@
 		E09D84391AAB25400053EB97 /* MiniColorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiniColorCell.m; sourceTree = "<group>"; };
 		E09D843B1AAB3CF10053EB97 /* MenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuView.h; sourceTree = "<group>"; };
 		E09D843C1AAB3CF10053EB97 /* MenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuView.m; sourceTree = "<group>"; };
-		E09D84411AAC50F10053EB97 /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@2x.png"; sourceTree = "<group>"; };
-		E09D84421AAC50F10053EB97 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear@2x.png"; sourceTree = "<group>"; };
-		E0B195C91ACAF4A1006C3A4F /* x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "x@2x.png"; sourceTree = "<group>"; };
-		E0B195CB1ACAFE34006C3A4F /* heart-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart-selected@2x.png"; sourceTree = "<group>"; };
+		E09D84411AAC50F10053EB97 /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star@2x.png"; path = "resources/star@2x.png"; sourceTree = "<group>"; };
+		E09D84421AAC50F10053EB97 /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "gear@2x.png"; path = "resources/gear@2x.png"; sourceTree = "<group>"; };
+		E0B195C91ACAF4A1006C3A4F /* x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "x@2x.png"; path = "resources/x@2x.png"; sourceTree = "<group>"; };
+		E0B195CB1ACAFE34006C3A4F /* heart-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart-selected@2x.png"; path = "resources/heart-selected@2x.png"; sourceTree = "<group>"; };
 		E0B2C5CC1AA719CA009D1B97 /* ColorManagerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorManagerObject.h; sourceTree = "<group>"; };
 		E0B2C5CD1AA719CA009D1B97 /* ColorManagerObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorManagerObject.m; sourceTree = "<group>"; };
 		E0B2C5DC1AA7FE0C009D1B97 /* PagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagerViewController.h; sourceTree = "<group>"; };
@@ -72,8 +72,8 @@
 		E0B2C5E21AA839EB009D1B97 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		E0B2C5E81AA94BE9009D1B97 /* SimpleGetHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleGetHTTPRequest.h; sourceTree = "<group>"; };
 		E0B2C5E91AA94BE9009D1B97 /* SimpleGetHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleGetHTTPRequest.m; sourceTree = "<group>"; };
-		E0C42CAE1AC84DFD00750AF2 /* trash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trash@2x.png"; sourceTree = "<group>"; };
-		E0C42CAF1AC84DFD00750AF2 /* heart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "heart@2x.png"; sourceTree = "<group>"; };
+		E0C42CAE1AC84DFD00750AF2 /* trash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "trash@2x.png"; path = "resources/trash@2x.png"; sourceTree = "<group>"; };
+		E0C42CAF1AC84DFD00750AF2 /* heart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "heart@2x.png"; path = "resources/heart@2x.png"; sourceTree = "<group>"; };
 		E0E039C21A7A5F2700609DEB /* Colo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Colo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0E039C61A7A5F2700609DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E0E039C71A7A5F2700609DEB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 		E0E03A061A7A5F8C00609DEB /* ColorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorCell.m; sourceTree = "<group>"; };
 		E0E03A0C1A7A5FA000609DEB /* ColorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorModel.h; sourceTree = "<group>"; };
 		E0E03A0D1A7A5FA000609DEB /* ColorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorModel.m; sourceTree = "<group>"; };
-		E0E03A2F1A7A633B00609DEB /* parser.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = parser.js; sourceTree = "<group>"; };
+		E0E03A2F1A7A633B00609DEB /* parser.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = parser.js; path = Models/parser.js; sourceTree = "<group>"; };
 		E0E03A311A7A634800609DEB /* Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
 		E0E03A321A7A634800609DEB /* Parser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Parser.m; sourceTree = "<group>"; };
 		E0E446841AA31F3800DA13FC /* Colo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Colo.xcdatamodel; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 				E0E039F91A7A5F7300609DEB /* BouncePresentAnimation.h */,
 				E0E039FA1A7A5F7300609DEB /* BouncePresentAnimation.m */,
 			);
-			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		E0E03A121A7A600400609DEB /* Models */ = {
@@ -242,7 +242,7 @@
 				E0E03A0C1A7A5FA000609DEB /* ColorModel.h */,
 				E0E03A0D1A7A5FA000609DEB /* ColorModel.m */,
 			);
-			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		E0E4466B1AA2A1B100DA13FC /* ViewControllers */ = {
@@ -263,7 +263,7 @@
 				E0B2C5DC1AA7FE0C009D1B97 /* PagerViewController.h */,
 				E0B2C5DD1AA7FE0C009D1B97 /* PagerViewController.m */,
 			);
-			name = ViewControllers;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		F5B9F7CF85D1DFBEB68D002F /* Pods */ = {

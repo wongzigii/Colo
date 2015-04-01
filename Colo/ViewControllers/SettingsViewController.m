@@ -83,30 +83,17 @@
 {
     switch (indexPath.section) {
         case 0:
-            
-            break;
-        case 1:
             switch (indexPath.row) {
                 case 0:
                     //Contact me
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:wongzigii@outlook.com"]];
-
                     break;
                 case 1:
                     //Youtube
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.weibo.com/wongzigii"]];
                     break;
-                default:
-                    break;
+
             }
-            break;
-        case 2:
-            
-            break;
-        case 3:
-            break;
-            
-        default:
             break;
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -124,12 +111,6 @@
     switch (section) {
         case 0:
             number = 2;
-            break;
-        case 1:
-            number = 2;
-            break;
-        case 2:
-            number = 0;
             break;
     }
     return number;
@@ -156,23 +137,6 @@
                     break;
             }
             break;
-        case 1:
-            switch (indexPath.row) {
-                case 0:
-                    cell.textLabel.text = @"Follow me";
-                    break;
-                case 1:
-                    cell.textLabel.text = @"Colo in Apple Store";
-                    break;
-                default:
-                    break;
-            }
-            break;
-        case 2:
-            cell.textLabel.text = @"To designers who change the world";
-            break;
-        default:
-            break;
     }
     return cell;
 }
@@ -182,15 +146,7 @@
     NSString *titleString;
     switch (section) {
         case 0:
-            titleString = @"Support";
-            break;
-        case 1:
             titleString = @"About";
-            break;
-        case 2:
-            titleString = @"To designers who change the world";
-            break;
-        default:
             break;
     }
     return titleString;
