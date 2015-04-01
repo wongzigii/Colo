@@ -22,6 +22,14 @@ Colo is an app helps you to discover color themes from [Adobe Color CC](https://
 - [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
 - [SWTableViewCell](https://github.com/CEWendel/SWTableViewCell)
 
+## Getting Start
+``` sh
+git clone https://github.com/wongzigii/Colo.git
+cd Colo
+pod install
+open -a xcode Colo.xcworkspace
+```
+
 ## Trouble Shooting
 
     Unresolved error Error Domain=NSCocoaErrorDomain Code=134100 "The operation couldn’t be completed. (Cocoa error 134100.)" 
