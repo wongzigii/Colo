@@ -45,7 +45,6 @@
 - (void)startParse
 {
     self.objectsArray = [self groupedTheArray:[self parseWithHTMLString] andTitleArray:nil andStarsArray:nil];
-    //NSLog(@"%@",self.objectsArray);
 }
 
 - (NSMutableArray *)returnArray

@@ -51,6 +51,14 @@ static NSString *MiniCellIdentifier = @"MiniColorCell";
     self.favouriteArray = array;
 }
 
+- (NSMutableArray *)favouriteArray
+{
+    if (!_favouriteArray) {
+        _favouriteArray = [NSMutableArray new];
+    }
+    return _favouriteArray;
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

@@ -41,7 +41,7 @@ static NSString *CellIdentifier = @"ColorCell";
 @property (strong, nonatomic) BouncePresentAnimation *presentAnimation;
 @property (strong, nonatomic) NormalDismissAnimation *dismissAnimation;
 @property (strong, nonatomic) SwipeUpInteractionTransition *transitionController;
-@property (copy,   nonatomic) NSMutableArray *objects;
+@property (strong, nonatomic) NSMutableArray *objects;
 @property (strong, nonatomic) SimpleGetHTTPRequest *request;
 @property (weak,   nonatomic) NSString       *filePath;
 @property (weak,   nonatomic) NSString       *countryChoosed;
@@ -61,8 +61,6 @@ static NSString *CellIdentifier = @"ColorCell";
         _filePath = nil;
         _menuView = nil;
     }
-   
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - LifeCycle
@@ -110,13 +108,12 @@ static NSString *CellIdentifier = @"ColorCell";
     _filePath = [NSString stringWithFormat:@"%@/%@", [paths objectAtIndex:0], _countryChoosed];
     BOOL isExisted = [manager fileExistsAtPath:self.filePath];
     if (isExisted) {
-        //NSLog(@"IS EXISTED");
         Parser *parser = [[Parser alloc] initWithPath:self.filePath];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [parser startParse];
             if (parser.returnArray) {
+                self.objects = nil;
                 self.objects = parser.returnArray;
-                //NSLog(@"self.objcet : %@", self.objects);
                 /// CoreData
                 //[weakSelf saveData];
                 //[weakSelf fetchDataFromCoreData];
@@ -127,8 +124,7 @@ static NSString *CellIdentifier = @"ColorCell";
         });
         
     }else{
-        //NSLog(@"NOT EXISTED");
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
         NSURL *baseUrl = [NSURL URLWithString:@"http://www.wongzigii.com/Colo/"];
         self.request = [[SimpleGetHTTPRequest alloc] initWithURL:[NSURL URLWithString:_countryChoosed relativeToURL:baseUrl]];
         __unsafe_unretained typeof(self) weakSelf = self;
@@ -147,15 +143,13 @@ static NSString *CellIdentifier = @"ColorCell";
                         }
                         Parser *parser = [[Parser alloc] initWithPath:weakSelf.filePath];
                         [parser startParse];
-                        
                         if (parser.returnArray) {
                             weakSelf.objects = parser.returnArray;
-                            //NSLog(@"WeakSelf.object : %@", weakSelf.objects);
                             /// CoreData
                             //[weakSelf saveData];
                             //[weakSelf fetchDataFromCoreData];
                             dispatch_async(dispatch_get_main_queue(), ^{
-                                [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
+                                [MBProgressHUD hideHUDForView:weakSelf.tableView animated:YES];
                                 [weakSelf.tableView reloadData];
                             });
                         }
@@ -191,7 +185,7 @@ static NSString *CellIdentifier = @"ColorCell";
     self.bottomView.backgroundColor = [UIColor blackColor];
     self.bottomView.translatesAutoresizingMaskIntoConstraints = NO;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(switchCountry)];
-    [self.view addGestureRecognizer:tap];
+    [self.bottomView addGestureRecognizer:tap];
     tap.numberOfTapsRequired = 2;
     
     self.settingsButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -337,11 +331,8 @@ static NSString *CellIdentifier = @"ColorCell";
 - (void)clickSettingsButton
 {
     SettingsViewController *vc = [[SettingsViewController alloc] init];
-    vc.transitioningDelegate = self;
-    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self.transitionController wireToViewController:vc];
     BaseNavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nav animated:YES completion:nil];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)addConstraints
@@ -427,23 +418,24 @@ static NSString *CellIdentifier = @"ColorCell";
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.objects count];
+    return [self.objects count] * 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row % 2 == 0) {
+    if (indexPath.row % 2 == 1) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell"];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlainCell"];
         }
         cell.frame = CGRectMake(0, 0, kDeviceWidth, 50);
         cell.backgroundColor = [UIColor blackColor];
+        cell.userInteractionEnabled = NO;
         return cell;
     }else{
         ColorCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         //http://objccn.io/issue-1-2/#separatingconcerns
-        [cell configureForColor:[self.objects objectAtIndex:indexPath.row]];
+        [cell configureForColor:[self.objects objectAtIndex:indexPath.row / 2]];
         //Auto Layout
         [cell setNeedsUpdateConstraints];
         [cell setRightUtilityButtons:self.rightButtons WithButtonWidth:58.0f];
@@ -455,7 +447,6 @@ static NSString *CellIdentifier = @"ColorCell";
 - (NSArray *)rightButtons
 {
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-    
     [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:0.78f green:0.78f blue:0.8f alpha:1.0] icon:[UIImage imageNamed:@"heart"]];
     [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f] icon:[UIImage imageNamed:@"trash"]];
     return rightUtilityButtons;
@@ -511,19 +502,27 @@ static NSString *CellIdentifier = @"ColorCell";
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index
 {
     NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-    switch (index) {
-        case 0:
-        {
-            [self.favouriteArray addObject:[self.objects objectAtIndex:(cellIndexPath.row - 1) / 2]];
-            [cell hideUtilityButtonsAnimated:YES];
-            break;
-        }
-        case 1:
-        {
-            // Delete button was pressed
-            [self.objects removeObjectAtIndex:cellIndexPath.row];
-            [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
-            break;
+    ColorModel *model = [self.objects objectAtIndex:cellIndexPath.row / 2];
+    if (cellIndexPath.row % 2 == 0) {
+        switch (index) {
+            case 0:
+            {
+                if ([self.favouriteArray containsObject:model]) {
+                    [self.favouriteArray removeObject:model];
+                    [cell.rightUtilityButtons.firstObject setImage:[UIImage imageNamed:@"heart"] forState:UIControlStateNormal];
+                }else{
+                    [self.favouriteArray addObject:model];
+                    [cell.rightUtilityButtons.firstObject setImage:[UIImage imageNamed:@"heart-selected"] forState:UIControlStateNormal];
+                }
+                [cell hideUtilityButtonsAnimated:YES];
+                break;
+            }
+            case 1:
+            {
+                [self.objects removeObjectAtIndex:cellIndexPath.row];
+                [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
+                break;
+            }
         }
     }
 }
