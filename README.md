@@ -9,7 +9,7 @@ Colo is an app helps you to discover color themes from [Adobe Color CC](https://
 Adobe is a trademark of Adobe. Inc. This app is not created nor endorsed by Adobe Inc. All the infomation and content accessible through Colo are subject to Adobe's copyright and terms of use. This is a free app and does not charge for anything. All content are available for free from Adobe Color CC.
 
 ## Screenshots
-![](./Assets/screenshoot1.png)   ![](./Assets/screenshoot4.png) 
+![](./Assets/screenshot1.png)   ![](./Assets/screenshot4.png) 
 
 ## Frameworks
 - libxml2.dylib
