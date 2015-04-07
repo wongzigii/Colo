@@ -124,7 +124,7 @@ static NSString *CellIdentifier = @"ColorCell";
         });
         
     }else{
-        [MBProgressHUD showHUDAddedTo:self.tableView animated:YES];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         NSURL *baseUrl = [NSURL URLWithString:@"http://www.wongzigii.com/Colo/"];
         self.request = [[SimpleGetHTTPRequest alloc] initWithURL:[NSURL URLWithString:_countryChoosed relativeToURL:baseUrl]];
         __unsafe_unretained typeof(self) weakSelf = self;
@@ -149,7 +149,7 @@ static NSString *CellIdentifier = @"ColorCell";
                             //[weakSelf saveData];
                             //[weakSelf fetchDataFromCoreData];
                             dispatch_async(dispatch_get_main_queue(), ^{
-                                [MBProgressHUD hideHUDForView:weakSelf.tableView animated:YES];
+                                [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
                                 [weakSelf.tableView reloadData];
                             });
                         }
