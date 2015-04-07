@@ -530,8 +530,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
             }
             case 1:
             {
-                [self.objects removeObjectAtIndex:cellIndexPath.row];
-                [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
+                [self.objects removeObjectAtIndex:cellIndexPath.row / 2];
+                [self.tableView reloadData];
                 break;
             }
         }
