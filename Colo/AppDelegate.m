@@ -11,7 +11,6 @@
 #import "CollectionViewController.h"
 #import "BaseNavigationController.h"
 #import "Constant.h"
-#import "FavouriteViewController.h"
 
 @interface AppDelegate ()
 @end
@@ -33,9 +32,9 @@
     Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
     if (networkStatus == NotReachable) {
-        NSLog(@"没有网络");
+        NSLog(@"Disconnected to Network.");
     } else {
-        NSLog(@"已连接网络");
+        NSLog(@"Connected to Newwork.");
     }
     
     return YES;
