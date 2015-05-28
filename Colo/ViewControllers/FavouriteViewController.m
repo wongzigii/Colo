@@ -28,12 +28,21 @@ static NSString *MiniCellIdentifier = @"MiniColorCell";
     self.tableView.backgroundColor = [UIColor colorWithRed:255.0 / 255.0 green:255.0 / 255.0 blue:255.0 / 255.0 alpha:1.0];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[MiniColorCell class] forCellReuseIdentifier:MiniCellIdentifier];
+    
     self.closeButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 20, 25, 25)];
-    [self.closeButton setImage:[UIImage imageNamed:@"x"] forState:UIControlStateNormal];
     self.closeButton.imageEdgeInsets = UIEdgeInsetsMake(2, 2, 2, 2);
     [self.closeButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.tableView];
     [self.tableView addSubview:self.closeButton];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (self.favouriteArray.count){
+        [self.closeButton setImage:[UIImage imageNamed:@"close-white"] forState:UIControlStateNormal];
+    }else{
+        [self.closeButton setImage:[UIImage imageNamed:@"close-black"] forState:UIControlStateNormal];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
