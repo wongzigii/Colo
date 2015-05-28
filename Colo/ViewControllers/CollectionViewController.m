@@ -34,7 +34,7 @@ static NSString *CellIdentifier = @"ColorCell";
 @property (strong, nonatomic) UIView         *bottomView;
 @property (strong, nonatomic) UIButton       *settingsButton;
 @property (strong, nonatomic) UIButton       *chooseButton;
-@property (strong, nonatomic) MenuView         *menuView;
+@property (strong, nonatomic) MenuView       *menuView;
 @property (copy,   nonatomic) NSMutableArray *objectArray;
 @property (copy,   nonatomic) NSString       *selectedString;
 @property (assign, nonatomic) BOOL           didOpenMenu;
@@ -48,6 +48,7 @@ static NSString *CellIdentifier = @"ColorCell";
 @property (strong, nonatomic) NSArray        *webSiteArray;
 @property (strong, nonatomic) FavouriteViewController *favouriteVC;
 @property (strong, nonatomic) NSMutableArray *favouriteArray;
+
 @end
 
 @implementation CollectionViewController
@@ -89,14 +90,10 @@ static NSString *CellIdentifier = @"ColorCell";
     _favouriteArray = [NSMutableArray new];
     _countryChoosed = COLO_DefaultCountryChoosed;
     _webSiteArray   = COLO_CountriesArray;
-    
+
     //UI
     [self initializeUI];
     [self addConstraints];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
     [self fetchDataFromServer];
 }
 
@@ -436,21 +433,19 @@ static NSString *CellIdentifier = @"ColorCell";
         [cell configureForColor:[self.objects objectAtIndex:indexPath.row / 2]];
         //Auto Layout
         [cell setNeedsUpdateConstraints];
-        [cell setRightUtilityButtons:self.rightButtons WithButtonWidth:58.0f];
+        [cell setRightUtilityButtons:[self rightButtonsForIndexPath:indexPath] WithButtonWidth:58.0f];
         cell.delegate = self;
         return cell;
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView
-estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row % 2 == 0) {
         return 100;
     }else return 50;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row % 2 == 0) {
         return 100;
     }else return 50;
@@ -502,10 +497,15 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 #pragma mark - SWTableViewCellDelegate
-- (NSArray *)rightButtons
+- (NSArray *)rightButtonsForIndexPath:(NSIndexPath *)indexpath
 {
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:0.78f green:0.78f blue:0.8f alpha:1.0] icon:[UIImage imageNamed:@"heart"]];
+    ColorModel *model = [self.objects objectAtIndex:indexpath.row / 2];
+    if ([self.favouriteArray containsObject:model]) {
+        [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:0.78f green:0.78f blue:0.8f alpha:1.0] icon:[UIImage imageNamed:@"heart-selected"]];
+    }else{
+        [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:0.78f green:0.78f blue:0.8f alpha:1.0] icon:[UIImage imageNamed:@"heart"]];
+    }
     [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f] icon:[UIImage imageNamed:@"trash"]];
     return rightUtilityButtons;
 }
