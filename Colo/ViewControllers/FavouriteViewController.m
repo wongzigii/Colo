@@ -36,6 +36,12 @@ static NSString *MiniCellIdentifier = @"MiniColorCell";
     [self.tableView addSubview:self.closeButton];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    //Refresh tableView for new incoming data.
+    [self.tableView reloadData];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     self.tableView.delegate = nil;
