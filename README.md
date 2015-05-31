@@ -24,10 +24,10 @@ Colo is an app helps you to discover color themes from [Adobe Color CC](https://
 
 ## Getting Start
 ``` sh
-git clone https://github.com/wongzigii/Colo.git
-cd Colo
-pod install
-open -a xcode Colo.xcworkspace
+$ git clone https://github.com/wongzigii/Colo.git
+$ cd Colo
+$ pod install
+$ open -a xcode Colo.xcworkspace
 ```
 
 ## Trouble Shooting
